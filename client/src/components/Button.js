@@ -12,6 +12,7 @@ const Button = ({ text, textColor, bgColor, IcAfter, onClick, fullWidth, px }) =
 
         </button>
     )
-}
 
+
+}
 export default memo(Button)
