@@ -1,7 +1,5 @@
 import React, { memo } from 'react'
 
-
-
 const Button = ({ text, textColor, bgColor, IcAfter, onClick, fullWidth, px }) => {
     return (
         <button
@@ -14,6 +12,7 @@ const Button = ({ text, textColor, bgColor, IcAfter, onClick, fullWidth, px }) =
 
         </button>
     )
-}
 
+
+}
 export default memo(Button)
