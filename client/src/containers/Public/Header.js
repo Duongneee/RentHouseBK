@@ -14,7 +14,7 @@ const Header = () => {
     navigate(path.LOGIN)
   },[])
   return (
-    <div className = 'w-1100 flex items-center justify-between'>
+    <div className = 'w-full px-5 flex items-center justify-between'>
       <img src={logo}
       alt="logo"
       className = 'w-[270px] h-[100px] object-constant'
