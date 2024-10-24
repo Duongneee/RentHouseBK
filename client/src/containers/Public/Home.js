@@ -5,11 +5,11 @@ import { Navigation, Search } from './index'
 
 const Home = () => {
   return (
-    <div className = 'w-full m-auto h-full'>
-      <Header/>
-      <Navigation/>
-      <div className='w-1100 flex flex-col items-center justify-start mt-3'>
-       <Outlet/>
+    <div className='w-full flex flex-col items-center m-auto h-full'>
+      <Header />
+      <Navigation />
+      <div className='w-full flex flex-col items-center justify-start mt-3'>
+        <Outlet />
       </div>
     </div>
   )
