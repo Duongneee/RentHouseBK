@@ -17,6 +17,9 @@ module.exports = {
       },
       maxWidth : {
         '600' : '600px'
+      },
+      cursor: {
+        pointer: 'pointer'
       }
     },
   },
