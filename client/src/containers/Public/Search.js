@@ -6,7 +6,7 @@ const {GrNext, HiOutlineLocationMarker, TbReportMoney, RiCrop2Line, MdOutlineHou
 
 const Search = () => {
   return (
-    <div className='p-[10px] bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
+    <div className='p-[10px] w-3/5 my-3 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
         <SearchItem Text='Phòng trọ, nhà trọ' IconAfter={<GrNext />} IconBefore={<MdOutlineHouseSiding />} fontWeight />
         <SearchItem Text='Toàn quốc' IconAfter={<GrNext />} IconBefore={<HiOutlineLocationMarker />} />
         <SearchItem Text='Chọn giá' IconAfter={<GrNext />} IconBefore={<TbReportMoney />} />
