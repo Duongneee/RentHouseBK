@@ -1,4 +1,4 @@
-const {Sequelize} = require('sequelize');
+const { Sequelize } = require('sequelize');
 
 const config = require(__dirname + '/config.json')["development"];
 //Option 1: Passing parameters separately
@@ -19,3 +19,4 @@ const connectDatabase = async () => {
     }
 };
  export default connectDatabase;
+
