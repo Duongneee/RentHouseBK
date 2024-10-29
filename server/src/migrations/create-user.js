@@ -18,11 +18,11 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       },
-      zalo: {
-        type: Sequelize.STRING
-      },
+      // zalo: {
+      //   type: Sequelize.STRING
+      // },
       balance: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         defaultValue: 0
       },
       updatedAt: {

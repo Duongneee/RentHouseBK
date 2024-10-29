@@ -10,8 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    // TODO: relationship with Post, payments, etc.
     static associate(models) {
       // define association here
+      User.hasMany(models.Post, { foreignKey: 'userId', as: 'posts' })
     }
   }
   User.init({
@@ -20,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     // zalo: DataTypes.STRING,
     // using phone nummer instead of zalo
-    balance: DataTypes.INTEGER,
+    balance: DataTypes.FLOAT,
 
   }, {
     sequelize,
