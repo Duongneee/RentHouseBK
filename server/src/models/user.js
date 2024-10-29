@@ -18,8 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
-    zalo: DataTypes.STRING,
+    // zalo: DataTypes.STRING,
+    // using phone nummer instead of zalo
     balance: DataTypes.INTEGER,
+
   }, {
     sequelize,
     modelName: 'User'

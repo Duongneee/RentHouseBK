@@ -14,19 +14,23 @@ module.exports = {
                 type: Sequelize.STRING,
                 defaultValue: '0'
             },
-            labelCode: {
-                type: Sequelize.STRING
-            },
+            // labelCode: {
+            //     type: Sequelize.STRING
+            // },
             address: {
                 type: Sequelize.STRING
             },
-            attributesId: {
-                type: Sequelize.STRING
-            },
+            // attributesId: {
+            //     type: Sequelize.STRING
+            // },
+
+            // categoryCode is one of these: CTCH, CTMB, NCT, CTPT
             categoryCode: {
                 type: Sequelize.STRING
             },
-            priceCode: {
+
+            // Rental fee per month
+            price: {
                 type: Sequelize.STRING
             },
             areaCode: {
