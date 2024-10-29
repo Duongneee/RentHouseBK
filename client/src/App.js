@@ -4,7 +4,7 @@ import { path } from './untils/constant';
 
 function App() {
   return (
-    <div className="h-screen w-screen bg-primary">
+    <div className="h-screen w-screen bg-[#c0c0c0]">
       <Routes>
         <Route path={path.HOME} element={< Home/>}>
           <Route path='*' element={<Homepage />}/>

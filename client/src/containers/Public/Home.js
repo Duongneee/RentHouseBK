@@ -5,7 +5,7 @@ import { Navigation, Search} from './index'
 
 const Home = () => {
   return (
-    <div className='w-full flex flex-col items-center h-full'>
+    <div className='w-full flex flex-col items-center'>
       <Header />
       <Navigation />
       <Search />

@@ -1,12 +1,14 @@
 import { FaRegNewspaper } from "react-icons/fa6";
 import { IoLogIn } from "react-icons/io5";
 import { GiArchiveRegister } from "react-icons/gi";
-import { GrNext } from 'react-icons/gr'
+import { GrNext, GrStar } from 'react-icons/gr'
 import {HiOutlineLocationMarker} from 'react-icons/hi'
 import {TbReportMoney} from 'react-icons/tb'
-import {RiCrop2Line} from 'react-icons/ri'
+import {RiCrop2Line, RiHeartFill, RiHeartLine} from 'react-icons/ri'
 import {MdOutlineHouseSiding} from 'react-icons/md'
 import {FiSearch} from 'react-icons/fi'
+import {BsBookmarkStarFill} from 'react-icons/bs'
+
 
 const icons = {
     FaRegNewspaper,
@@ -17,7 +19,11 @@ const icons = {
     TbReportMoney,
     RiCrop2Line,
     MdOutlineHouseSiding,
-    FiSearch
+    FiSearch,
+    GrStar,
+    RiHeartFill, 
+    RiHeartLine,
+    BsBookmarkStarFill
 
 }
 

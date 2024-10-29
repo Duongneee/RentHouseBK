@@ -1,48 +1,48 @@
 import React, { memo } from 'react'
-import icons from '../ultils/icons'
-const images = [
-"https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/07/19/6310726d-d075-4e35-b1cb-cf5616bf5212_1658240491.jpg",
-"https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/07/19/9c60836e-2662-4737-a6c8-60cb5187fa4c_1658240485.jpg",
-"https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/07/19/716c-753e-8e03-4cc8-9d09-e52ec19ce01b_1658240485.jpg",
-"https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/07/19/400e7ebd-5d88-48af-8599-0d074a1ee014_1658240494.jpg",
-]
+import icons from '../untils/icon'
+  const images = [
+  "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2024/10/19/f2d6667fe8e751b908f69_1729303929.jpg",
+    "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2024/10/19/2a1e51b6df2e66703f3f13_1729303923.jpg",
+    "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2024/10/19/7fd78e7e00e6b9b8e0f711_1729303923.jpg",
+    "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2024/10/19/32f75b5fd5c76c9935d615_1729303925.jpg",
+ ]
 
 const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
 
         const Item = () => {
             return(
             <div className='w-full flex border-t border-orange-600 p-4'>
-                <div className='w-2/5 flex flex-wrap gap-[2px] items-center'>
+             <div className='w-2/5 flex flex-wrap gap-[2px] items-center'>
                     <img src={images[0]} alt="preview" className='w-[140px] h-[120px] object-cover' />
                     <img src={images[1]} alt="preview" className='w-[140px] h-[120px] object-cover' />
                     <img src={images[2]} alt="preview" className='w-[140px] h-[120px] object-cover' />
                     <img src={images[3]} alt="preview" className='w-[140px] h-[120px] object-cover' />
             </div>
             <div className='w-3/5'>
-                <div className='flex justify-between gap-4 w-full'>
-                    <div className='text-red-600 font-medium'>
+            <div className='flex justify-between gap-4 w-full'>
+                <div className='text-red-600 font-medium ' >
+                        <GrStar className='star-item' size={18}  color='yellow' />
+                        <GrStar className='star-item' size={18}  color='yellow' />
+                        <GrStar className='star-item' size={18}  color='yellow' />
                         <GrStar className='star-item' size={18} color='yellow' />
-                        <GrStar className='star-item' size={18} color='yellow' />
-                        <GrStar className='star-item' size={18} color='yellow' />
-                        <GrStar className='star-item' size={18} color='yellow' />
-                        <GrStar className='star-item' size={18} color='yellow' />
+                        <GrStar className='star-item' size={18} color='yellow' /> 
                         CHO THUÊ CĂN HỘ HOẶC VĂN PHÒNG LÀM VIỆC
                 </div>
                 <div className='w-[10%] flex justify-end'>
                     <BsBookmarkStarFill size={24} color='orange' />
-                </div>
+                </div> 
             </div>
                 <div className='my-2 flex items-center justify-between'>
                     <span className='font-bold text-green-600'>3.7 triệu/tháng</span>
                     <span>28m²</span>
                     <span>Quận Tân Bình, Hồ Chí Minh</span>
-                </div>
+                </div> 
                 <p className='text-gray-500'>
                     CẦN HỘ CAO CẤP ĐƯỜNG CỘNG HOÀ Đặc điểm: + Nội thất: Máy lạnh, máy giặt, giường, bàn trang điểm, máy nóng lạnh. + Giờ giấc tự do, phòng sạch...
                 </p>
                 <div className="flex items center my-5 justify-between">
                     <div className=" flex items-center">
-                        <img src="https://Insel.com/wp-content/uploads/2018/12/anon-avatar-300x300.png" alt="avatar" className='w-[38px] h-[30px]
+                        <img src="https://img.favpng.com/15/23/18/computer-icons-anonymous-anonymity-png-favpng-xjSdB3CKmqCSGUUqCxESbEFm0.jpg" alt="avatar" className='w-[30px] h-[30px]
                         object-cover rounded-full' />
                     <p>Tuệ Thu</p>
                 </div>
@@ -60,7 +60,7 @@ const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
                     Nhắn zalo
                     </button>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     )
