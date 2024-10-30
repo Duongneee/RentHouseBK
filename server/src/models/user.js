@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
     // TODO: relationship with Post, payments, etc.
     static associate(models) {
-      // define association here
+      // define association here, more info at https://sequelize.org/master/manual/assocs.html
       User.hasMany(models.Post, { foreignKey: 'userId', as: 'posts' })
     }
   }
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     // zalo: DataTypes.STRING,
     // using phone nummer instead of zalo
-    balance: DataTypes.FLOAT,
+    balance: DataTypes.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
 
   }, {
     sequelize,
