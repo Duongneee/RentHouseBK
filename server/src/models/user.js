@@ -14,7 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     // TODO: relationship with Post, payments, etc.
     static associate(models) {
       // define association here, more info at https://sequelize.org/master/manual/assocs.html
-      User.hasMany(models.Post, { foreignKey: 'userId', as: 'posts' })
+      User.hasMany(models.Post, {
+        foreignKey: 'userId',
+        as: 'owner',
+      })
+      User.hasMany(models.Payment, {
+        foreignKey: 'userId',
+        as: 'payments',
+      })
+      User.hasMany(models.Transaction, {
+        foreignKey: 'userId',
+        as: 'transactions',
+      })
     }
   }
   User.init({
