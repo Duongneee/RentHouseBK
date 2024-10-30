@@ -3,11 +3,15 @@ const { Sequelize } = require('sequelize');
 const config = require(__dirname + '/config.json')["development"];
 //Option 1: Passing parameters separately
 // Warning: DO NOT PUBLIC THESE CREDENTIALS. should be stored in .env file
-const sequelize = new Sequelize('renthousebk_db', 'avnadmin', config.password, {
-    host: 'mysql-renthousebk-duong-9e8d.j.aivencloud.com',
-    port: 27240,
-    dialect: 'mysql'
-});
+const sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password, {
+    host: config.host,
+    port: config.port,
+    dialect: config.dialect
+}
+);
 
 const connectDatabase = async () => {
     try {
@@ -18,5 +22,4 @@ const connectDatabase = async () => {
         console.log('Check credentials:', config);
     }
 };
- export default connectDatabase;
-
+export default connectDatabase;

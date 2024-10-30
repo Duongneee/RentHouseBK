@@ -2,29 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Payments', {
 
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING
       },
-      name: {
+      postId: {
         type: Sequelize.STRING
       },
-      password: {
+      userId: {
         type: Sequelize.STRING
       },
-      phone: {
-        type: Sequelize.STRING
+      amount: {
+        type: Sequelize.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
       },
       // zalo: {
       //   type: Sequelize.STRING
       // },
-      balance: {
-        type: Sequelize.FLOAT,
-        defaultValue: 0
-      },
+      // timestamp: {
+      //   type: Sequelize.DATETIME,
+      // },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -36,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Payments');
   }
 };
