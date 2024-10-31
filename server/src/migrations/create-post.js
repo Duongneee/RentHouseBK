@@ -17,13 +17,16 @@ module.exports = {
             images: {
                 type: Sequelize.STRING
             },
-            cityId: {
+            city: {
                 type: Sequelize.STRING
             },
-            districtId: {
+            district: {
                 type: Sequelize.STRING
             },
-            wardId: {
+            ward: {
+                type: Sequelize.STRING
+            },
+            street: {
                 type: Sequelize.STRING
             },
             price: {

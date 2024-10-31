@@ -28,9 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     star: DataTypes.STRING,
     images: DataTypes.STRING,
     // address: DataTypes.Text,
-    cityId: DataTypes.STRING,     // for both city and province
-    districtId: DataTypes.STRING,
-    wardId: DataTypes.STRING,
+    city: DataTypes.STRING,     // for both city and province
+    district: DataTypes.STRING,
+    ward: DataTypes.STRING,
+    street: DataTypes.STRING,
     price: DataTypes.FLOAT,
     priceRange: DataTypes.STRING,
     description: DataTypes.TEXT('long'),
