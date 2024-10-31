@@ -1,85 +1,66 @@
-import React, { memo, useState } from 'react'
-import icons from '../ultils/icons'
-import { useNavigate, Link } from 'react-router-dom'
-import { formatVietnameseToString } from '../ultils/Common/formatVietnameseToString'
-
-const indexs = [0, 1, 2, 3]
+import React, { memo } from 'react'
+import icons from '../untils/icon'
+  const images = [
+  "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2024/10/19/f2d6667fe8e751b908f69_1729303929.jpg",
+    "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2024/10/19/2a1e51b6df2e66703f3f13_1729303923.jpg",
+    "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2024/10/19/7fd78e7e00e6b9b8e0f711_1729303923.jpg",
+    "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2024/10/19/32f75b5fd5c76c9935d615_1729303925.jpg",
+ ]
 
 const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
 
-const Item = ({ images, user, title, star, description, attributes, address, id }) => {
-    const [isHoverHeart, setIsHoverHeart] = useState(false)
-
-    const handleStar = (star) => {
-        let stars = []
-        for (let i = 1; i <= +star; i++) stars.push(<GrStar className='star-item' size={18} color='yellow' />)
-        return stars
-
-    }
-    return (
-        <div className='w-full flex border-t border-orange-600 py-4'>
-            <Link
-                to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
-                className='w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer'
-            >
-                {images.length > 0 && images.filter((i, index) => indexs.some(i => i === index))?.map((i, index) => {
-                    return (
-                        <img key={index} src={i} alt="preview" className='w-[47%] h-[120px] object-cover' />
-                    )
-                })}
-                <span className='bg-overlay-70 text-white px-2 rounded-md absolute left-1 bottom-4'>{`${images.length} ảnh`}</span>
-                <span
-                    className='text-white absolute right-5 bottom-1'
-                    onMouseEnter={() => setIsHoverHeart(true)}
-                    onMouseLeave={() => setIsHoverHeart(false)}
-                >
-                    {isHoverHeart ? <RiHeartFill size={26} color='red' /> : <RiHeartLine size={26} />}
-                </span>
-            </Link>
+        const Item = () => {
+            return(
+            <div className='w-full flex border-t border-orange-600 p-4'>
+             <div className='w-2/5 flex flex-wrap gap-[2px] items-center'>
+                    <img src={images[0]} alt="preview" className='w-[140px] h-[120px] object-cover' />
+                    <img src={images[1]} alt="preview" className='w-[140px] h-[120px] object-cover' />
+                    <img src={images[2]} alt="preview" className='w-[140px] h-[120px] object-cover' />
+                    <img src={images[3]} alt="preview" className='w-[140px] h-[120px] object-cover' />
+            </div>
             <div className='w-3/5'>
-                <div className='flex justify-between gap-4 w-full'>
-                    <div className='text-red-600 font-medium'>
-                        {handleStar(+star).length > 0 && handleStar(+star).map((star, number) => {
-                            return (
-                                <span key={number}>{star}</span>
-                            )
-                        })}
-                        {title}
-                    </div>
-                    <div className='w-[10%] flex justify-end'>
-                        <BsBookmarkStarFill size={24} color='orange' />
-                    </div>
+            <div className='flex justify-between gap-4 w-full'>
+                <div className='text-red-600 font-medium ' >
+                        <GrStar className='star-item' size={18}  color='yellow' />
+                        <GrStar className='star-item' size={18}  color='yellow' />
+                        <GrStar className='star-item' size={18}  color='yellow' />
+                        <GrStar className='star-item' size={18} color='yellow' />
+                        <GrStar className='star-item' size={18} color='yellow' /> 
+                        CHO THUÊ CĂN HỘ HOẶC VĂN PHÒNG LÀM VIỆC
                 </div>
-                <div className='my-2 flex items-center justify-between gap-2'>
-                    <span className='font-bold flex-3 text-green-600  whitespace-nowrap overflow-hidden text-ellipsis'>{attributes?.price}</span>
-                    <span className='flex-1'>{attributes?.acreage}</span>
-                    <span className='flex-3 whitespace-nowrap overflow-hidden text-ellipsis'>
-                        {`${address.split(',')[address.split(',').length - 2]}${address.split(',')[address.split(',').length - 1]}`}
-                    </span>
-                </div>
-                <p className='text-gray-500 w-full h-[50px] text-ellipsis overflow-hidden'>
-                    {description}
+                <div className='w-[10%] flex justify-end'>
+                    <BsBookmarkStarFill size={24} color='orange' />
+                </div> 
+            </div>
+                <div className='my-2 flex items-center justify-between'>
+                    <span className='font-bold text-green-600'>3.7 triệu/tháng</span>
+                    <span>28m²</span>
+                    <span>Quận Tân Bình, Hồ Chí Minh</span>
+                </div> 
+                <p className='text-gray-500'>
+                    CẦN HỘ CAO CẤP ĐƯỜNG CỘNG HOÀ Đặc điểm: + Nội thất: Máy lạnh, máy giặt, giường, bàn trang điểm, máy nóng lạnh. + Giờ giấc tự do, phòng sạch...
                 </p>
-                <div className='flex items-center my-5 justify-between'>
-                    <div className=' flex items-center'>
-                        <img src="https://lnsel.com/wp-content/uploads/2018/12/anon-avatar-300x300.png" alt="avatar" className='w-[30px] h-[30px] object-cover rounded-full' />
-                        <p>{user?.name}</p>
-                    </div>
-                    <div className='flex items-center gap-1'>
-                        <button
-                            type='button'
-                            className='bg-blue-700 text-white p-1 rounded-md'
-                        >
-                            {`Gọi ${user?.phone}`}
-                        </button>
-                        <button
-                            type='button'
-                            className='text-blue-700 px-1 rounded-md border border-blue-700'
-                        >
-                            Nhắn zalo
-                        </button>
-                    </div>
+                <div className="flex items center my-5 justify-between">
+                    <div className=" flex items-center">
+                        <img src="https://img.favpng.com/15/23/18/computer-icons-anonymous-anonymity-png-favpng-xjSdB3CKmqCSGUUqCxESbEFm0.jpg" alt="avatar" className='w-[30px] h-[30px]
+                        object-cover rounded-full' />
+                    <p>Tuệ Thu</p>
                 </div>
+                <div className='flex items-center gap-1'>
+                    <button
+                    type='button'
+                    className='bg-blue-700 text-white p-1 rounded-md'
+                    >
+                        Gọi 4656465464
+                    </button>
+                    <button
+                        type='button'
+                        className='text-blue-700 px-1 rounded-ad border border-blue-700'
+                    >
+                    Nhắn zalo
+                    </button>
+                    </div>
+                </div> 
             </div>
         </div>
     )
