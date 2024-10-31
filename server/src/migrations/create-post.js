@@ -14,44 +14,39 @@ module.exports = {
                 type: Sequelize.STRING,
                 defaultValue: '0'
             },
-            labelCode: {
+            images: {
                 type: Sequelize.STRING
             },
-            address: {
+            cityId: {
                 type: Sequelize.STRING
             },
-            attributesId: {
+            districtId: {
                 type: Sequelize.STRING
             },
-            categoryCode: {
+            wardId: {
                 type: Sequelize.STRING
             },
-            priceCode: {
-                type: Sequelize.STRING
+            price: {
+                type: Sequelize.FLOAT
             },
-            areaCode: {
-                type: Sequelize.STRING
-            },
-            provinceCode: {
+            priceRange: {
                 type: Sequelize.STRING
             },
             description: {
                 type: Sequelize.TEXT
             },
+            size: {
+                type: Sequelize.FLOAT
+            },
+            sizeRange: {
+                type: Sequelize.STRING
+            },
+            // categoryId is one of these: CTCH, CTMB, NCT, CTPT
+            categoryCode: {
+                type: Sequelize.STRING
+            },
             userId: {
                 type: Sequelize.STRING
-            },
-            overviewId: {
-                type: Sequelize.STRING
-            },
-            imagesId: {
-                type: Sequelize.STRING
-            },
-            priceNumber: {
-                type: Sequelize.FLOAT
-            },
-            areaNumber: {
-                type: Sequelize.FLOAT
             },
             createdAt: {
                 allowNull: false,

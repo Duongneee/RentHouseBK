@@ -1,3 +1,4 @@
+// Run npx sequelize-cli db:migrate to create the table in the database.  
 'use strict';
 
 const fs = require('fs');
