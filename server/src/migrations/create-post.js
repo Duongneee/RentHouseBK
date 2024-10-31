@@ -51,6 +51,9 @@ module.exports = {
             userId: {
                 type: Sequelize.STRING
             },
+            expiryDate: {
+                type: Sequelize.DATE
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
