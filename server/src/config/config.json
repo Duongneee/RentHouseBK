@@ -1,22 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "username": "avnadmin",
+    "password": "AVNS_JqzTbShPAJmK7Frqw8o",
+    "database": "renthousebk_db",
+    "host": "mysql-renthousebk-duong-9e8d.j.aivencloud.com",
+    "port": 27240,
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "database_test",
+    "database": "renthousebk_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
+    "database": "renthousebk_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
