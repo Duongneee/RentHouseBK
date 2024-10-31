@@ -12,7 +12,7 @@ export const register = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1, // LỖI SERVER 
-            msg: 'Fail at auth controller'
+            msg: `Fail at auth controller: ${error.message}`
         })
     }
 }
