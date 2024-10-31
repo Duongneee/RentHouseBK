@@ -15,7 +15,7 @@ module.exports = {
                 defaultValue: '0'
             },
             images: {
-                type: Sequelize.STRING
+                type: Sequelize.TEXT('long')
             },
             city: {
                 type: Sequelize.STRING

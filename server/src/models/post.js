@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     // See https://sequelize.org/docs/v7/models/data-types/ for more info
     title: DataTypes.STRING,
     star: DataTypes.STRING,
-    images: DataTypes.STRING,
+    images: DataTypes.TEXT('long'),  // JSON stringified array of image URLs
     // address: DataTypes.Text,
     city: DataTypes.STRING,     // for both city and province
     district: DataTypes.STRING,
