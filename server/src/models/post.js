@@ -32,10 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     district: DataTypes.STRING,
     ward: DataTypes.STRING,
     street: DataTypes.STRING,
-    price: DataTypes.FLOAT,
+    price: DataTypes.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
     priceRange: DataTypes.STRING,
     description: DataTypes.TEXT('long'),
-    size: DataTypes.FLOAT,
+    size: DataTypes.INTEGER.UNSIGNED,   // in m2,  0 to 4,294,967,295
     sizeRange: DataTypes.STRING,
     categoryCode: DataTypes.STRING,
     userId: DataTypes.STRING,

@@ -30,7 +30,7 @@ module.exports = {
                 type: Sequelize.STRING
             },
             price: {
-                type: Sequelize.FLOAT
+                type: Sequelize.INTERGER.UNSIGNED
             },
             priceRange: {
                 type: Sequelize.STRING
@@ -39,7 +39,7 @@ module.exports = {
                 type: Sequelize.TEXT
             },
             size: {
-                type: Sequelize.FLOAT
+                type: Sequelize.INTERGER.UNSIGNED
             },
             sizeRange: {
                 type: Sequelize.STRING
