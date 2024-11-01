@@ -2,8 +2,8 @@
 
 
 # Remove database credentials from the codebase.
-# To config database credentials, copy the /server/src/config/example-example-config.json file to /server/src/example-config.json.example and update the p-assword.
-# Make sure exclude the /server/src/config/example-config.json file from the git repository.
+# To config database credentials, copy the /server/src/config/example-config.json file to /server/src/config.json and update the password.
+# Make sure exclude the /server/src/config/config.json file from the git repository.
 
-/src/config/example-config.json
+/src/config/config.json
 /server/package-lock.json
