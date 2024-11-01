@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "avnadmin",
+    "username": "user_name",
     "password": "please_enter_your_password",
     "database": "renthousebk_db",
     "host": "mysql-renthousebk-duong-9e8d.j.aivencloud.com",
