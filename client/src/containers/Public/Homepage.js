@@ -1,6 +1,6 @@
 import React from 'react'
 import {text} from '../../untils/constant'
-import {Province} from '../../components'
+import {Province, ItemSidebar} from '../../components'
 import {List} from './index'
 
 const Homepage = () => {
@@ -15,8 +15,10 @@ const Homepage = () => {
       <div className='w-[70%]'>
         <List />
       </div>
-      <div className='w-[30%]'>
-        Sidebar
+      <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
+        <ItemSidebar />
+        <ItemSidebar />
+        <ItemSidebar />
       </div>
       </div>
     </div>
