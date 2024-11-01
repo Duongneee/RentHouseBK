@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const config = require(__dirname + '/example-config.json')["development"];
+const config = require(__dirname + '/config.json')["development"];
 //Option 1: Passing parameters separately
 // Warning: DO NOT PUBLIC THESE CREDENTIALS. should be stored in .env file
 const sequelize = new Sequelize(

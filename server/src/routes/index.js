@@ -5,9 +5,12 @@ import insertRouter from './data-insert';
 
 const initRoutes = (app) => {
 
-    app.use('/api/v1/auth', authRouter) 
-    app.use('/api/v1/data-insert', insertRoute) 
-    app.use('/api/v1/category', categoryRouter) 
+    app.use('/api/v1/auth', authRouter)
+
+    // Data inserted into renhousebk_db2, don't trigger this route to prevent data duplication
+    // app.use('/api/v1/data-insert', insertRouter)
+
+    app.use('/api/v1/category', categoryRouter)
     app.use('/api/v1/category', postRouter)
 
     return app.use('/', (req, res) => {
