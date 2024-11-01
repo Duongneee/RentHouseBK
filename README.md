@@ -22,3 +22,5 @@ Credentials owner: duong204736
 # Run command at ~/server/src/
 npx database:migrate
 ```
+###### Delete all records of a table
+```Truncate table renthousebk_db2.Users;```
