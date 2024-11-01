@@ -5,5 +5,5 @@
 # To config database credentials, copy the /server/src/config/example-example-config.json file to /server/src/example-config.json.example and update the p-assword.
 # Make sure exclude the /server/src/config/example-config.json file from the git repository.
 
-/src/config/example-config.json
+/src/config/config.json
 /server/package-lock.json
