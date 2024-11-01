@@ -15,19 +15,22 @@ module.exports = {
                 defaultValue: '0'
             },
             images: {
+                type: Sequelize.TEXT('long')
+            },
+            city: {
                 type: Sequelize.STRING
             },
-            cityId: {
+            district: {
                 type: Sequelize.STRING
             },
-            districtId: {
+            ward: {
                 type: Sequelize.STRING
             },
-            wardId: {
+            street: {
                 type: Sequelize.STRING
             },
             price: {
-                type: Sequelize.FLOAT
+                type: Sequelize.INTEGER.UNSIGNED
             },
             priceRange: {
                 type: Sequelize.STRING
@@ -36,7 +39,7 @@ module.exports = {
                 type: Sequelize.TEXT
             },
             size: {
-                type: Sequelize.FLOAT
+                type: Sequelize.INTEGER.UNSIGNED
             },
             sizeRange: {
                 type: Sequelize.STRING
@@ -47,6 +50,9 @@ module.exports = {
             },
             userId: {
                 type: Sequelize.STRING
+            },
+            expiryDate: {
+                type: Sequelize.DATE
             },
             createdAt: {
                 allowNull: false,
