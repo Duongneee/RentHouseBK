@@ -1,7 +1,7 @@
 import React from 'react'
 import {text} from '../../untils/constant'
-import {Province} from '../../components'
-import {List} from './index'
+import {Province, RelatedPost} from '../../components'
+import {List, NewPost} from './index'
 
 const Homepage = () => {
   return (
@@ -15,8 +15,9 @@ const Homepage = () => {
       <div className='w-[70%]'>
         <List />
       </div>
-      <div className='w-[30%]'>
+      <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
         Sidebar
+        <RelatedPost />
       </div>
       </div>
     </div>
