@@ -14,7 +14,7 @@ Host: mysql-renthousebk-duong-9e8d.j.aivencloud.com
 
 Port: 27240
 
-Credentials owner: duong204736
+Credentials user: duong204736
 
 ###### Migrate
 

@@ -1,9 +1,12 @@
 import React from 'react'
 import {text} from '../../untils/constant'
 import {Province, ItemSidebar} from '../../components'
-import {List} from './index'
+import {List, Pagination} from './index'
+import {  useSearchParams } from 'react-router-dom'
 
 const Homepage = () => {
+  const [params] = useSearchParams()
+  console.log(params.get('page'));
   return (
     <div className='w-full flex flex-col gap-3'>
       <div>
@@ -14,6 +17,7 @@ const Homepage = () => {
       <div className='w-full flex gap-4'>
       <div className='w-[70%]'>
         <List />
+        <Pagination number={params.get('page')} />
       </div>
       <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
         <ItemSidebar />
