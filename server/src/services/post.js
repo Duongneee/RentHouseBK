@@ -6,9 +6,9 @@ export const getPostsService = () => new Promise(async(resolve, reject) => {
         const response = await db.Post.findAll({
             raw : true,
             include: [
-                { model: db.user, as: 'user', attributes: ['name', 'phone'] },
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes : ['id', 'title', 'star','priceRange', 'sizeRange', 'cityId', 'districtId', 'description' ]
+            attributes : ['id', 'title', 'star', 'images', 'priceRange', 'sizeRange', 'city', 'district', 'description' ]
         })
         resolve({
             err: response ? 0:1,
