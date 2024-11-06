@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import logo from '../../asset/bkrm.png'
 import Button from '../../components/Button'
 import icons from '../../untils/icon'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { path } from '../../untils/constant'
 
 const { FaRegNewspaper, IoLogIn, GiArchiveRegister } = icons
@@ -10,11 +10,18 @@ const { FaRegNewspaper, IoLogIn, GiArchiveRegister } = icons
 
 const Header = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const headerRef = useRef()
   const goLogin = useCallback((flag) => {
     navigate(path.LOGIN, { state: { flag } })
   }, [])
-  return (
-    <div className='w-1100 px-5 flex items-center justify-between'>
+
+useEffect(() => {
+  headerRef.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+},[searchParams.get('page')])  
+  
+return (
+    <div ref={headerRef} className='w-1100 px-5 flex items-center justify-between'>
       <Link to = '/'>
         <img src={logo}
           alt="logo"

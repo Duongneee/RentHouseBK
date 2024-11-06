@@ -7,6 +7,7 @@ import { useDispatch, useSelector} from 'react-redux'
     const List = ({page}) => {
     const dispatch = useDispatch()
     const {posts} = useSelector(state => state.post)
+
         useEffect(() => {
             let offset = page ? +page - 1 : 0
             dispatch(getPostsLimit(offset))
@@ -36,6 +37,7 @@ import { useDispatch, useSelector} from 'react-redux'
                             star={+item?.star}
                             title={item?.title}
                             owner={item?.owner}
+                            id={item?.id}
                             />
                         )
                    })}

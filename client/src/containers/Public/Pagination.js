@@ -9,7 +9,7 @@ const arrNumber = [1,2,3,4]
 const Pagination = ({page}) => {
     const {count, posts} = useSelector(state => state.post)
     const [arrPage, setarrPage] = useState([])
-    const [currentPage, setcurrentPage] = useState(+page)
+    const [currentPage, setcurrentPage] = useState(+page || 1)
     const [isHideEnd, setisHideEnd] = useState(false)
     const [isHideStart, setisHideStart] = useState(false)
     
