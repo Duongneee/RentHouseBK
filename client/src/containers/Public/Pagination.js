@@ -1,33 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {PageNumber} from '../../components'
 import {useSelector} from 'react-redux'
 import icons from '../../untils/icon'
 
-const {GrLinkNext} = icons
+const {GrLinkNext, GrLinkPrevious} = icons
+const arrNumber = [1,2,3,4]
 
-const Pagination = ({number}) => {
+const Pagination = ({page}) => {
     const {count, posts} = useSelector(state => state.post)
-
-    const handlePageNumber = () => {
-        let max = Math.floor(count / posts.length)
-        let arrNumber = []
-        for (let i = 1; i <= max; i++)
-            arrNumber.push(i)
-        return arrNumber.length > 4 ? arrNumber.filter(i => i < 5) : arrNumber
-    }
+    const [arrPage, setarrPage] = useState([])
+    const [currentPage, setcurrentPage] = useState(+page || 1)
+    const [isHideEnd, setisHideEnd] = useState(false)
+    const [isHideStart, setisHideStart] = useState(false)
+    
+    
+    useEffect(() => {
+        let maxPage = Math.floor(count / posts.length)
+        let end = (currentPage + 1) > maxPage ? maxPage : (currentPage + 1)
+        let start = (currentPage - 1) < 1 ? 1 : (currentPage - 1) 
+        let temp = []
+        for(let i = start; i <= end; i++) temp.push(i)
+            setarrPage(temp)
+        if (currentPage >= maxPage - 1) {
+            setisHideEnd(true)
+        } else {
+            setisHideEnd(false)
+        }
+        if (currentPage <= 2) {
+            setisHideStart(true)
+        } else {
+            setisHideStart(false)
+        }
+    },[count, posts, currentPage])
   return (
     <div className='flex items-center justify-center gap-2 py-5'>
-        {handlePageNumber().length > 0 && handlePageNumber().map(item => {
+        {!isHideStart && <PageNumber icon={<GrLinkPrevious />} setcurrentPage={setcurrentPage} text = {1} />}
+        {!isHideStart && <PageNumber text={'...'} />}
+        {arrPage.length > 0 && arrPage.map(item => {
             return (
                 <PageNumber 
                 key={item}
-                number={item}
-                currentPage={number || 1}
+                text={item}
+                setcurrentPage={setcurrentPage}
+                currentPage={currentPage}
                 />
             )
         })}
-        <PageNumber number={'...'} />
-        <PageNumber number={<GrLinkNext />} type='end' />
+        {!isHideEnd && <PageNumber text={'...'} />}
+        {!isHideEnd && <PageNumber icon={<GrLinkNext />} setcurrentPage={setcurrentPage} text = {Math.floor(count / posts.length)}/>}
     </div>
   )
 }

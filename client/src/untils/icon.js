@@ -1,7 +1,7 @@
 import { FaRegNewspaper } from "react-icons/fa6";
 import { IoLogIn } from "react-icons/io5";
 import { GiArchiveRegister } from "react-icons/gi";
-import { GrNext, GrStar, GrLinkNext } from 'react-icons/gr'
+import { GrNext, GrStar, GrLinkNext, GrLinkPrevious } from 'react-icons/gr'
 import {HiOutlineLocationMarker} from 'react-icons/hi'
 import {TbReportMoney} from 'react-icons/tb'
 import {RiCrop2Line, RiHeartFill, RiHeartLine} from 'react-icons/ri'
@@ -24,7 +24,8 @@ const icons = {
     RiHeartFill, 
     RiHeartLine,
     BsBookmarkStarFill,
-    GrLinkNext
+    GrLinkNext,
+    GrLinkPrevious
 
 }
 

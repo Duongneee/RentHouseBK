@@ -1,15 +1,22 @@
 import React, { memo, useState } from 'react'
 import icons from '../untils/icon'
+import { useNavigate, Link } from 'react-router-dom'
  
 
 const indexs = [0,1,2,3]
 const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
 
-        const Item = ({images,owner, title, star, description, price, size, city, district}) => {
+        const Item = ({images,owner, title, star, description, price, size, city, district, id}) => {
         const [isHoverHeart, setIsHoverHeart] = useState(false)
+        const navigate = useNavigate()
+        const handleStar = (star) => {
+            let stars = []
+            for (let i = 1; i <= +star; i++) stars.push(<GrStar className='star-item' size={18}  color='yellow' />)
+                return stars
+        } 
             return(
             <div className='w-full flex border-t border-orange-600 py-4 '>
-             <div className='w-2/5 flex flex-wrap gap-[2px] items-center cursor-pointer relative'>
+             <Link to={`chi-tiet/${title}/${id}`} className='w-2/5 flex flex-wrap gap-[2px] items-center cursor-pointer relative'>
                     {images.length > 0 && images.filter((i, index) => indexs.some(i => i===index))?.map((i, index) => {
                         return(
                             <img key={index} src={i} alt="preview" className='w-[140px] h-[120px] object-cover' />
@@ -23,15 +30,15 @@ const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
                     >
                         {isHoverHeart ? <RiHeartFill size={26} color='red' /> : <RiHeartLine size={26} />}
                     </span>
-            </div>
+            </Link>
             <div className='w-3/5'>
             <div className='flex justify-between gap-4 w-full'>
                 <div className='text-red-600 font-medium ' >
-                        <GrStar className='star-item' size={18}  color='yellow' />
-                        <GrStar className='star-item' size={18}  color='yellow' />
-                        <GrStar className='star-item' size={18}  color='yellow' />
-                        <GrStar className='star-item' size={18} color='yellow' />
-                        <GrStar className='star-item' size={18} color='yellow' /> 
+                        {handleStar(+star).length > 0 && handleStar(+star).map((star, number) => {
+                            return(
+                                <span key={number}>{star}</span>
+                            )
+                        })}
                         {title}
                 </div>
                 <div className='w-[10%] flex justify-end'>
