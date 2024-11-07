@@ -11,7 +11,7 @@ const initRoutes = (app) => {
     // app.use('/api/v1/data-insert', insertRouter)
 
     app.use('/api/v1/category', categoryRouter)
-    app.use('/api/v1/category', postRouter)
+    app.use('/api/v1/post', postRouter)
 
     return app.use('/', (req, res) => {
         res.send('Server is runnning')
