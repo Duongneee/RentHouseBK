@@ -22,7 +22,7 @@ module.exports = {
       //   type: Sequelize.STRING
       // },
       balance: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER.UNSIGNED,
         defaultValue: 0
       },
       updatedAt: {
