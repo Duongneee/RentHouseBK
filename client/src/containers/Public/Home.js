@@ -2,21 +2,19 @@ import React, { useEffect } from 'react'
 import Header from './Header'
 import { Outlet } from 'react-router-dom'
 import { Navigation, Search} from './index'
+import * as actions from '../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { apiGetCurrent, apiGetCurrentapi } from '../../services/user'
-// import {}
 
 const Home = () => {
+  const dispatch = useDispatch()
   const { isLoggedIn } = useSelector(state => state.auth)
-  useEffect (()=>{
-    const fetchCurrent = async () => {
-      const response = await apiGetCurrent()
-      console.log(response)
-    }
-    isLoggedIn&&fetchCurrent()
-
-  },[isLoggedIn])
-
+ 
+  useEffect(()=>{
+    setTimeout(() =>{
+      isLoggedIn && dispatch(actions.getCurrent())
+    },500)
+  }, [isLoggedIn])
+  
   return (
     <div className='w-full flex flex-col items-center'>
       <Header />
