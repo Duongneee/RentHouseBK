@@ -1,11 +1,15 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import logo from '../../asset/bkrm.png'
-import Button from '../../components/Button'
+import {Button, User } from '../../components'
 import icons from '../../untils/icon'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { path } from '../../untils/constant'
 import { useSelector, useDispatch } from 'react-redux'
 import * as actions from '../../store/actions'
+import menuManage from '../../untils/menuManage'
+import { IoLogOut } from "react-icons/io5";
+import { FaChevronDown } from "react-icons/fa";
+
 
 const { FaRegNewspaper, IoLogIn, GiArchiveRegister } = icons
 
@@ -14,17 +18,25 @@ const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { isLoggedIn } = useSelector(state => state.auth)
+  const { currentData } = useSelector(state => state.user)
+  const [isShowMenu, setIsShowMenu] = useState(false)
+  console.log(currentData)
   const [searchParams] = useSearchParams()
   const headerRef = useRef()
+
   const goLogin = useCallback((flag) => {
     navigate(path.LOGIN, { state: { flag } })
   }, [])
 
-useEffect(() => {
-  headerRef.current.scrollIntoView({behavior: 'smooth', block: 'start'})
-},[searchParams.get('page')])  
-  
-return (
+  useEffect(() => {
+    headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [searchParams.get('page')])
+
+  useEffect(() => {
+    if (!isLoggedIn) setIsShowMenu(false);
+  }, [isLoggedIn]);
+
+  return (
     <div ref={headerRef} className='w-1100 px-5 flex items-center justify-between'>
       <Link to='/'>
         <img src={logo}
@@ -51,14 +63,36 @@ return (
             onClick={() => goLogin(true)} />
         </div>}
 
-        {isLoggedIn && <div className='flex items-center gap-1'>
-          <small>Tên người đăng nhập ! ! !</small>
+        {isLoggedIn && <div className='flex items-center gap-1 relative'>
+          <User/>
           <Button
-            text={'Đăng Xuất'}
+            text={'Quản lí tài khoản'}
             textColor='text-white'
-            bgColor='bg-secondary2'
-            IcAfter={IoLogIn}
-            onClick={() => dispatch(actions.logout())} />
+            bgColor='bg-blue-700'
+            IcAfter={FaChevronDown}
+            onClick={() => setIsShowMenu(prev => !prev)} />
+
+          {isShowMenu &&
+            <div className='absolute min-w-200 top-full bg-white shadow-md rounded-md p-4 right-0 flex flex-col gap-2'>
+              {menuManage.map(item => {
+                return (
+                  <Link className='hover:text-orange-500 text-blue-500 flex items-center gap-1 border-b border-gray-200 py-2' key={item.id} to={item?.path}>
+                    {item?.icon}
+                    {item.text}
+                  </Link>
+                )
+              })}
+              <span className='cursor-pointer hover:text-orange-500 text-blue-500 flex items-center gap-1 border-b border-gray-200 py-2 '
+                onClick={() => {
+                  dispatch(actions.logout())}
+                }
+                >
+                <IoLogOut />
+                Đăng xuất
+              </span>
+            </div>
+          }
+
         </div>}
 
         <Button text={'Đăng tin mới'} textColor='text-white' bgColor='bg-secondary2' IcAfter={FaRegNewspaper} />
