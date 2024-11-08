@@ -18,9 +18,7 @@ const Homepage = () => {
         <List page={params.get('page')} />
         <Pagination page={params.get('page')} />
       </div>
-      <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
-        <ItemSidebar />
-        <ItemSidebar />
+      <div className='w-[30%]'>
         <ItemSidebar />
       </div>
       </div>

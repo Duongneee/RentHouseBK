@@ -15,7 +15,6 @@ function App() {
           <Route path={path.CHO_THUE_PHONG_TRO} element={<RentalRoom />}/>
           <Route path={path.CHO_THUE_MAT_BANG} element={<RentalSpace />}/>
           <Route path={path.DETAIL_POST__TITLE__POSTID} element={<DetailPost />}/>
-          <Route path={'chi-tiet/*'} element={<DetailPost />}/>
         </Route>
       </Routes>
     </div>
