@@ -1,7 +1,7 @@
 import authRouter from "./auth"
 import categoryRouter from './category'
 import postRouter from './post'
-import insertRouter from './data-insert';
+import insertRoute from './data-insert';
 
 const initRoutes = (app) => {
 

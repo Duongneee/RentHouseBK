@@ -2,6 +2,7 @@
 // viết cấu hình cho redux, để lưu trữ dữ liệu trong local để duy trì trạng thái đăng nhập khi trang được f5
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
+import postReducer from './postReducer'
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage"
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
@@ -20,7 +21,8 @@ const authConfig = {
 
 const rootReducer = combineReducers({
     auth: persistReducer(authConfig, authReducer),
-    user: userReducer
+    user: userReducer,
+    post: postReducer
 })
 
 export default rootReducer
