@@ -4,6 +4,9 @@ import { Outlet } from 'react-router-dom'
 import { Navigation, Search} from './index'
 
 const Home = () => {
+  const { isLoggedIn } = useSelector(state => state.auth)
+  const { currentData } = useSelector(state => state.user)
+
   return (
     <div className='w-full flex flex-col items-center'>
       <Header />

@@ -22,6 +22,7 @@ const Homepage = () => {
         <ItemSidebar />
         <ItemSidebar />
         <ItemSidebar />
+        <RelatedPost />
       </div>
       </div>
     </div>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d720e0fd-3ac6-4784-b081-766af5e8269d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/RelatedPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/RelatedPost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Sitem.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Sitem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/containers/Public/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Public/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/containers/Public/Homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/Public/Homepage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/actionTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/actions/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/actions/post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/postReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/postReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/reducers/userReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/ultis/constant.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/ultis/icon.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/services/post.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/services/post.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/services/post.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2ognvPXYdxUWk1z47OAZyncHfvy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Administrator/Documents/GitHub/Java-Space-Invaders",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d720e0fd-3ac6-4784-b081-766af5e8269d" name="Changes" comment="" />
+      <created>1731300317342</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731300317342</updated>
+      <workItem from="1731300320915" duration="3000" />
+    </task>
+    <servers />
+  </component>
+</project>
