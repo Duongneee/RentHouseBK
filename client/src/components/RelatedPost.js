@@ -15,7 +15,7 @@ const RelatedPost = () => {
     <div className='w-full bg-white round-md p-4'>
       <h3 className='font-semibold text-lg mb-4'>Tin mới đăng</h3>
       <div className='w-full flex flex-col gap-2'>
-           {newPosts?.map(item =>{
+           {newPosts?.map(posts =>{
             return (
               <Sitem
               key = {posts.id}
