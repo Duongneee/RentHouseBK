@@ -1,7 +1,7 @@
 import React from 'react'
 import {text} from '../../untils/constant'
-import {Province, ItemSidebar} from '../../components'
-import {List, Pagination} from './index'
+import {Province, ItemSidebar, RelatedPost} from '../../components'
+import {List, Pagination, NewPost} from './index'
 import {  useSearchParams } from 'react-router-dom'
 
 const Homepage = () => {
@@ -20,6 +20,7 @@ const Homepage = () => {
       </div>
       <div className='w-[30%]'>
         <ItemSidebar />
+        <RelatedPost />
       </div>
       </div>
     </div>
