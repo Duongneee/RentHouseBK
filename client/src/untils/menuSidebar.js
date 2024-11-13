@@ -29,8 +29,8 @@ const menuSidebar = [
     },
     {
         id: 5,
-        text: 'Sửa thông tin cá nhân',
-        path: '/he-thong/sua-thong-tin-ca-nhan',
+        text: 'Thông tin tài khoản',
+        path: '/he-thong/thong-tin-tai-khoan',
         icon: <BiUserPin />
     },
     {
