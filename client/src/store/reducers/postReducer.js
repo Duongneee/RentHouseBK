@@ -14,7 +14,7 @@ const initialState = {
 const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.GET_POSTS_REQUEST:
-            return { ...state, loading: true, error: null, msg: null };
+            return { ...state, loading: true, error: null, posts: null, msg: null };
         case actionTypes.GET_POSTS_SUCCESS:
             return { ...state, loading: false, posts: action.posts };
         case actionTypes.GET_POSTS_FAILURE:

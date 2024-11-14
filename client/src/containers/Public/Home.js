@@ -9,6 +9,7 @@ import { path } from '../../untils/constant'
 const Home = () => {
   const { isLoggedIn } = useSelector(state => state.auth)
   const { currentData } = useSelector(state => state.user)
+  const location = useLocation()
 
   return (
     <div className='w-full flex flex-col items-center'>

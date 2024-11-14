@@ -44,6 +44,29 @@ export const getPostsLimitService = (offset) => new Promise(async(resolve, rejec
     }
 })
 
+export const getPostByIdService = (postId) => new Promise(async (resolve, reject) => {
+
+    try {
+        const response = await db.Post.findOne({
+            where: { id: postId },
+            raw: true,
+            nest: true,
+            include: [
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+            ],
+            attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description']
+        })
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Post not found.',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+});
+
+
 export const getNewPostService = () => new Promise(async(resolve, reject) => {
     try{
         const response = await db.Post.findAll({
