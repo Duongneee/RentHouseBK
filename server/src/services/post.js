@@ -43,3 +43,27 @@ export const getPostsLimitService = (offset) => new Promise(async(resolve, rejec
         reject(error)
     }
 })
+
+export const getNewPostService = () => new Promise(async(resolve, reject) => {
+    try{
+        const response = await db.Post.findAll({
+            raw : true,
+            nest: true,
+            offset: 0,
+            order: [['createdDate', 'DESC']],
+            limit: +process.env.LIMIT,
+            include: [
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+            ],
+            attributes : ['id', 'title', 'star', 'price', 'createdDate' ]
+
+        })
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Failed to get posts.',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})

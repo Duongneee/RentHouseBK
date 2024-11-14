@@ -1,9 +1,10 @@
 import actionTypes from './actionTypes'
 import * as apis from '../../services'
 
+
 export const getCurrent = () => async (dispatch) => {
     try {
-        const response = await apis.apiGetCurrent()   
+        const response = await apis.apiGetCurrent()
         if (response?.data.err === 0) {
             dispatch({
                 type: actionTypes.GET_CURRENT,
@@ -16,12 +17,11 @@ export const getCurrent = () => async (dispatch) => {
                 currentData: null
             })
         }
-
     } catch (error) {
         dispatch({
             type: actionTypes.GET_CURRENT,
             currentData: null,
-            msg: error
+            msg: error,
         })
     }
 }
