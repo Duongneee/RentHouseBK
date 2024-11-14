@@ -55,7 +55,7 @@ export const getNewPostService = () => new Promise(async(resolve, reject) => {
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes : ['id', 'title', 'star', 'price', 'createdAt' ]
+            attributes : ['id', 'title', 'star', 'price', 'createdAt' ,'images']
 
         })
         resolve({
