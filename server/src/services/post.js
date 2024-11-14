@@ -73,12 +73,12 @@ export const getNewPostService = () => new Promise(async(resolve, reject) => {
             raw : true,
             nest: true,
             offset: 0,
-            order: [['createdDate', 'DESC']],
+            order: [['createdAt', 'DESC']],
             limit: +process.env.LIMIT,
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes : ['id', 'title', 'star', 'price', 'createdDate' ]
+            attributes : ['id', 'title', 'star', 'price', 'createdAt' ]
 
         })
         resolve({

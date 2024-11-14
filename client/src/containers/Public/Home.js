@@ -7,9 +7,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { path } from '../../untils/constant'
 
 const Home = () => {
-  const { isLoggedIn } = useSelector(state => state.auth)
   const { currentData } = useSelector(state => state.user)
+  const dispatch = useDispatch()
   const location = useLocation()
+  const { isLoggedIn } = useSelector(state => state.auth)
+ 
+  useEffect(()=>{
+    setTimeout(() =>{
+      isLoggedIn && dispatch(actions.getCurrent())
+    },500)
+  }, [isLoggedIn])
+  
 
   return (
     <div className='w-full flex flex-col items-center'>
