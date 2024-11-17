@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
 import { path } from '../../untils/constant'
-import { Header, Sidebar} from './'
+import { Header, Sidebar} from './index'
 
 const System = () => {
   const {isLoggedIn} = useSelector(state => state.auth)
