@@ -67,3 +67,30 @@ export const getNewPostService = () => new Promise(async(resolve, reject) => {
         reject(error)
     }
 })
+
+export const postFilterService = (filter, page) => new Promise(async (resolve, reject) => {
+    console.log('Service.PostFilter.Filter: ', filter)
+    console.log('Service.PostFilter.Page: ', page)
+    try {
+        const response = await db.Post.findAndCountAll({
+            raw: true,
+            nest: true,
+            include: [
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+            ],
+            where: {
+                ...filter
+            },
+            attributes : ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description' ],
+            limit: 10,
+            offset: (page - 1) * 10 || 0
+        })
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Failed to get posts.',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
