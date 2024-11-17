@@ -1,22 +1,25 @@
 import React, { useEffect } from 'react'
 import { Button, Item } from '../../components'
-import { getPosts, getPostsLimit } from '../../store/actions/post'
+import { getPostsFilter } from '../../store/actions/post'
 import { useDispatch, useSelector } from 'react-redux'
 
 
-const List = ({ page }) => {
+const ListFilter = ({ page, filters }) => {
+    console.log('ListFilter: ', filters, page)
     const dispatch = useDispatch()
     const { posts } = useSelector(state => state.post)
-    console.log('List: ', posts)
+    const [lastUpdated, setLastUpdated] = React.useState(new Date().toLocaleTimeString())
+
     useEffect(() => {
-        let offset = page ? +page - 1 : 0
-        dispatch(getPostsLimit(offset))
-    }, [page])
+        dispatch(getPostsFilter(page, filters))
+        setLastUpdated(new Date().toLocaleTimeString())
+    }, [page, dispatch, filters])
+    console.log('ListFilter: ', posts)
     return (
         <div className='w-full p-2 bg-white shadow-md rounded-md px-6'>
             <div className='flex items-center justify-between my-3'>
                 <h4 className='text-xl font-semibold'>Danh sách tin đăng</h4>
-                <span>Cập nhật: 12:05 25/08/2022</span>
+                <span>Cập nhật: {lastUpdated}</span>
             </div>
             <div className='flex items-center gap-2 my-2'>
                 <span>Sắp xếp: </span>
@@ -46,4 +49,4 @@ const List = ({ page }) => {
     )
 }
 
-export default List
+export default ListFilter

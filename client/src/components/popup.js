@@ -1,59 +1,81 @@
 import React, { useEffect, useState } from "react";
-import ReactSlider from "react-slider";
 import icons from "../untils/icon";
 import data from "../untils/data.json";
 import { categories } from "../untils/constant";
+import ReactSlider from "react-slider";
 
 const { GrLinkPrevious } = icons;
 
-const Popup = ({ setIsDisplayPopup, content }) => {
+const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
-    const [selectedCity, setSelectedCity] = useState("");
-    const [selectedDistrict, setSelectedDistrict] = useState("");
-    const [selectedWard, setSelectedWard] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [priceRange, setPriceRange] = useState([1000, 5000000]);
-    const [sizeRange, setSizeRange] = useState([10, 100]);
+    const [selectedCity, setSelectedCity] = useState(filters.city || ""); // Initialize with filters.city or empty string
+    const [selectedDistrict, setSelectedDistrict] = useState(filters.district || "");
+    const [selectedWard, setSelectedWard] = useState(filters.ward || "");
+    const [selectedCategory, setSelectedCategory] = useState(filters.category || "");
+    const [priceRange, setPriceRange] = useState(filters.priceRange || [0, 50000000]);
+    const [sizeRange, setSizeRange] = useState(filters.sizeRange||[0, 1000]);
 
+    useEffect(() => {
+        if (selectedCity !== "") {
+            setWards([]);
+            const selectedCityData = cities.find(city => city.Name === selectedCity);
+            setDistricts(selectedCityData ? selectedCityData.Districts : []);
+        } else setDistricts([]);
+    }, [selectedCity, cities]);
+    useEffect(() => {
+        if (selectedDistrict !== "") {
+            setWards([]);
+            const selectedDistrictData = districts.find(district => district.Name === selectedDistrict);
+            setWards(selectedDistrictData ? selectedDistrictData.Wards : []);
+        } else setWards([]);
+    }, [selectedDistrict, districts]);
     useEffect(() => {
         // Set cities from data.json
         setCities(data);
     }, []);
 
+    useEffect(() => {
+        const newFilters = {};
+        if (selectedCity) {
+            newFilters.city = selectedCity;
+            if (selectedDistrict) newFilters.district = selectedDistrict;
+                else if (selectedWard) newFilters.ward = selectedWard;}
+        if (selectedCategory) newFilters.category = selectedCategory;
+        if (priceRange[0] !== 0 || priceRange[1] !== 50000000 ) newFilters.priceRange = priceRange;
+        if (sizeRange[0] !== 0 || sizeRange[1] !== 1000) newFilters.sizeRange = sizeRange;
+
+        setFilters(newFilters);
+    }, [selectedCity, selectedDistrict, selectedWard, selectedCategory, priceRange, sizeRange, setFilters]);
     const handleCityChange = (event) => {
-        const cityId = event.target.value;
-        setSelectedCity(cityId);
-        setDistricts([]);
-        setWards([]);
-        if (cityId) {
-            const selectedCityData = cities.find(city => city.Id === cityId);
-            setDistricts(selectedCityData.Districts);
-        }
+        const cityName = event.target.value;
+        setSelectedCity(cityName);
+
     };
 
     const handleDistrictChange = (event) => {
-        const districtId = event.target.value;
-        setSelectedDistrict(districtId);
-        setWards([]);
-        if (districtId) {
-            const selectedDistrictData = districts.find(district => district.Id === districtId);
-            setWards(selectedDistrictData.Wards);
-        }
+        const districtName = event.target.value;
+        setSelectedDistrict(districtName);
+
     };
+
     const handleWardChange = (event) => {
         setSelectedWard(event.target.value);
     };
+
     const handleCategoryChange = (event) => {
         setSelectedCategory(event.target.value);
     };
+
     const handlePriceChange = (values) => {
         setPriceRange(values);
-    }
+    };
+
     const handleSizeChange = (values) => {
         setSizeRange(values);
-    }
+    };
+
     return (
         <div onClick={() => {
             setIsDisplayPopup(false);
@@ -90,6 +112,18 @@ const Popup = ({ setIsDisplayPopup, content }) => {
                                         </label>
                                     </div>
                                 ))}
+                                    <div key={''} className="mb-2">
+                                        <label className="flex items-center">
+                                            <input
+                                                type="radio"
+                                                name="category"
+                                                value={''}
+                                                checked={selectedCategory === ''|| selectedCategory === undefined}
+                                                onChange={handleCategoryChange}
+                                                className="mr-2"
+                                            />Tất cả
+                                        </label>
+                                    </div>
                             </form>
                         </div>
                     )}
@@ -97,28 +131,46 @@ const Popup = ({ setIsDisplayPopup, content }) => {
                         <div>
                             <div className="mb-3 flex items-center justify-between mt-2">
                                 <label className="block mb-2">Tỉnh/TP:</label>
-                                <select className="form-select form-select-sm p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-48" id="city" aria-label=".form-select-sm" onChange={handleCityChange}>
-                                    <option value="" selected>Tất cả</option>
+                                <select
+                                    className="form-select form-select-sm p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
+                                    id="city"
+                                    aria-label=".form-select-sm"
+                                    onChange={handleCityChange}
+                                    value={selectedCity} // Set the value to selectedCity
+                                >
+                                    <option value="">Tất cả</option>
                                     {cities.map(city => (
-                                        <option key={city.Id} value={city.Id}>{city.Name}</option>
+                                        <option key={city.Name} value={city.Name}>{city.Name}</option>
                                     ))}
                                 </select>
                             </div>
                             <div className="mb-3 flex items-center justify-between mt-2">
                                 <label className="block mb-2">Quận/huyện:</label>
-                                <select className="form-select form-select-sm p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-48" id="district" aria-label=".form-select-sm" onChange={handleDistrictChange}>
-                                    <option value="" selected>Tất cả</option>
+                                <select
+                                    className="form-select form-select-sm p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
+                                    id="district"
+                                    aria-label=".form-select-sm"
+                                    onChange={handleDistrictChange}
+                                    value={selectedDistrict} // Set the value to selectedDistrict
+                                >
+                                    <option value="">Tất cả</option>
                                     {districts.map(district => (
-                                        <option key={district.Id} value={district.Id}>{district.Name}</option>
+                                        <option key={district.Name} value={district.Name}>{district.Name}</option>
                                     ))}
                                 </select>
                             </div>
                             <div className="mb-3 flex items-center justify-between mt-2">
                                 <label className="block mb-2">Xã/phường/thị trấn:</label>
-                                <select className="form-select form-select-sm p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-48" id="ward" aria-label=".form-select-sm" onChange={handleWardChange}>
-                                    <option value="" selected>Tất cả</option>
+                                <select
+                                    className="form-select form-select-sm p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
+                                    id="ward"
+                                    aria-label=".form-select-sm"
+                                    onChange={handleWardChange}
+                                    value={selectedWard} // Set the value to selectedWard
+                                >
+                                    <option value="">Tất cả</option>
                                     {wards.map(ward => (
-                                        <option key={ward.Id} value={ward.Id}>{ward.Name}</option>
+                                        <option key={ward.Name} value={ward.Name}>{ward.Name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -131,10 +183,10 @@ const Popup = ({ setIsDisplayPopup, content }) => {
                                 className="horizontal-slider"
                                 thumbClassName="example-thumb"
                                 trackClassName="example-track"
-                                defaultValue={[10, 100]}
+                                defaultValue={[0, 1000]}
                                 min={0}
-                                max={200}
-                                step={1}
+                                max={1000}
+                                step={5}
                                 value={sizeRange}
                                 onChange={handleSizeChange}
                                 ariaLabel={['Lower thumb', 'Upper thumb']}
@@ -153,10 +205,10 @@ const Popup = ({ setIsDisplayPopup, content }) => {
                                 className="horizontal-slider"
                                 thumbClassName="example-thumb"
                                 trackClassName="example-track"
-                                defaultValue={[1000, 5000000]}
+                                defaultValue={[0, 50000000]}
                                 min={0}
-                                max={10000000}
-                                step={1000}
+                                max={50000000}
+                                step={100000}
                                 value={priceRange}
                                 onChange={handlePriceChange}
                                 ariaLabel={['Lower thumb', 'Upper thumb']}

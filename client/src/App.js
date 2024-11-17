@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { Home, Login, RentalApartment, RentalHouse, RentalRoom, RentalSpace, Homepage, DetailPost } from './containers/Public';
+import { Home, Login, RentalApartment, RentalHouse, RentalRoom, RentalSpace, Homepage, DetailPost, FilterResult } from './containers/Public';
 import { path } from './untils/constant';
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
           <Route path={path.CHO_THUE_MAT_BANG} element={<RentalSpace />}/>
           <Route path={path.DETAIL_POST__TITLE__POSTID} element={<DetailPost />}/>
           <Route path={'chi-tiet/*'} element={<DetailPost />}/>
+          <Route path={path.FILTER} element={<FilterResult />}/>
         </Route>
       </Routes>
     </div>

@@ -4,6 +4,7 @@ export const path = {
     HOME: '/*',
     HOME__PAGE: ':page',
     LOGIN: 'login',
+    FILTER: 'filter',
     CHO_THUE_CAN_HO: 'cho-thue-can-ho',
     CHO_THUE_MAT_BANG: 'cho-thue-mat-bang',
     NHA_CHO_THUE: 'nha-cho-thue',
@@ -33,5 +34,24 @@ export const location = [
         id: 'dn',
         name: 'Phòng trọ Đà Nẵng',
         image: 'https://phongtro123.com/images/location_dn.jpg'
+    }
+]
+
+export const categories = [
+    {
+        id: 'NCT',
+        name: 'Nhà cho thuê',
+    },
+    {
+        id: 'CTCH',
+        name: 'Căn hộ chung cư',
+    },
+    {
+        id: 'CTMB',
+        name: 'Cửa hàng, mặt bằng',
+    },
+    {
+        id: 'CTPT',
+        name: 'Cho thuê phòng trọ',
     }
 ]
