@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes'
-import { apiGetPosts, apiGetPostsFilter, apiGetPostsLimit } from '../../services/post'
+import { apiGetNewPosts, apiGetPosts, apiGetPostsFilter, apiGetPostsLimit } from '../../services/post'
 
 export const getPosts = () => async (dispatch) => {
     dispatch({ type: actionTypes.GET_POSTS_REQUEST });
@@ -46,6 +46,31 @@ export const getPostsLimit = (page) => async (dispatch) => {
         dispatch({
             type: actionTypes.GET_POSTS_LIMIT_FAILURE,
             posts: null
+        })
+    }
+}
+
+export const getNewPosts = () => async (dispatch) => {
+    dispatch({ type: actionTypes.GET_POSTS_REQUEST });
+    try {
+        const response = await apiGetNewPosts()
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.GET_NEW_POST,
+                newPosts: response.data.response,
+            })
+        } else {
+            dispatch({
+                type: actionTypes.GET_NEW_POST,
+                msg: response.data.msg,
+                newPosts: null
+            })
+        }
+
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_NEW_POST,
+            newPosts: null
         })
     }
 }

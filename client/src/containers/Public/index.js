@@ -15,4 +15,3 @@ export { default as ListFilter } from './listFilter'
 export { default as Pagination } from './Pagination'
 export { default as DetailPost } from './DetailPost'
 
-

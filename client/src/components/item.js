@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 import icons from '../untils/icon'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { path } from '../untils/constant'
  
 
 const indexs = [0,1,2,3]
@@ -8,7 +9,6 @@ const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
 
         const Item = ({images,owner, title, star, description, price, size, city, district, id}) => {
         const [isHoverHeart, setIsHoverHeart] = useState(false)
-        const navigate = useNavigate()
         const handleStar = (star) => {
             let stars = []
             for (let i = 1; i <= +star; i++) stars.push(<GrStar className='star-item' size={18}  color='yellow' />)
@@ -16,7 +16,7 @@ const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
         } 
             return(
             <div className='w-full flex border-t border-orange-600 py-4 '>
-             <Link to={`chi-tiet/${title}/${id}`} className='w-2/5 flex flex-wrap gap-[2px] items-center cursor-pointer relative'>
+             <Link to={`${path.DETAIL}${title?.replaceAll('/', '')}/${id}`} className='w-2/5 flex flex-wrap gap-[2px] items-center cursor-pointer relative'>
                     {images.length > 0 && images.filter((i, index) => indexs.some(i => i===index))?.map((i, index) => {
                         return(
                             <img key={index} src={i} alt="preview" className='w-[140px] h-[120px] object-cover' />
@@ -47,7 +47,7 @@ const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
             </div>
                 <div className='my-2 flex items-center justify-between gap-1'>
                     <span className='font-bold text-green-600 flex-3 whitespace-nowrap overflow-hidden text-ellipsis'>{`${price} đồng/tháng`}</span>
-                    <span className='flex-1'>{`${size}m2`}</span>
+                    <span className='flex-1'>{`${size}m²`}</span>
                     <span className='flex-3 whitespace-nowrap overflow-hidden text-ellipsis'>{`${district}, ${city}`}</span>
                 </div> 
                 <p className='text-gray-500 w-full h-[50px] text-ellipsis overflow-hidden'>
