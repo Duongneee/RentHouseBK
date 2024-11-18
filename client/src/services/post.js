@@ -24,6 +24,20 @@ export const apiGetPostsLimit =  (page) => new Promise(async (resolve, reject) =
     }
 }) 
 
+export const apiGetPostById =  (id) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/post/${id}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+}) 
+
+
+
 export const apiGetPostsFilter =  (page, filters) => new Promise(async (resolve, reject) => {
     try {
         console.log('API.GetPostsFilter: ', filters)  
