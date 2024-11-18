@@ -1,5 +1,6 @@
 
 export { default as InputForm} from './InputForm'
+export { default as InputFormV2} from './InputFormV2'
 export { default as Button} from './Button'
 export { default as SearchItem} from './SearchItem'
 export { default as ProvinceBtn} from './ProvinceBtn'
@@ -14,4 +15,4 @@ export { default as Slider } from './Slider'
 export { default as Address } from './Address'
 export { default as Overview } from './Overview'
 export { default as Select } from './Select'
-export { default as InputReadOnly } from './InputReadOnly'
+export { default as InputReadOnly } from './InputReadOnly.js'
