@@ -2,47 +2,46 @@ import actionTypes from './actionTypes'
 import { apiGetNewPosts, apiGetPosts, apiGetPostsLimit, apiGetPostById } from '../../services/post'
 
 export const getPosts = () => async (dispatch) => {
-    dispatch({ type: actionTypes.GET_POSTS_REQUEST });
     try {
         const response = await apiGetPosts()
         if (response?.data.err === 0) {
             dispatch({
-                type: actionTypes.GET_POSTS_SUCCESS,
+                type: actionTypes.GET_POSTS,
                 posts: response.data.response
             })
         } else {
             dispatch({
-                type: actionTypes.GET_POSTS_FAILURE,
+                type: actionTypes.GET_POSTS,
                 msg: response.data.msg
             })
         }
 
     } catch (error) {
         dispatch({
-            type: actionTypes.GET_POSTS_FAILURE,
+            type: actionTypes.GET_POSTS,
             posts: null
         })
     }
 }
 
-export const getPostById = (postId) => async (dispatch) => {
-    dispatch({ type: actionTypes.GET_POST_REQUEST });
+export const getPostById = (id) => async (dispatch) => {
     try {
-        const response = await apiGetPostById(postId);
+        const response = await apiGetPostById(id);
+        
         if (response?.data.err === 0) {
             dispatch({
-                type: actionTypes.GET_POST_SUCCESS,
-                post: response.data.response,
+                type: actionTypes.GET_POST_BY_ID,
+                posts: response.data.response,
             });
         } else {
             dispatch({
-                type: actionTypes.GET_POST_FAILURE,
+                type: actionTypes.GET_POST_BY_ID,
                 msg: response.data.msg,
             });
         }
     } catch (error) {
         dispatch({
-            type: actionTypes.GET_POST_FAILURE,
+            type: actionTypes.GET_POST_BY_ID,
             post: null,
             msg: 'Failed to fetch post.',
         });
@@ -51,33 +50,30 @@ export const getPostById = (postId) => async (dispatch) => {
 
 
 export const getPostsLimit = (page) => async (dispatch) => {
-    
-    dispatch({ type: actionTypes.GET_POSTS_REQUEST });
     try {
         const response = await apiGetPostsLimit(page)
         if (response?.data.err === 0) {
             dispatch({
-                type: actionTypes.GET_POSTS_LIMIT_SUCCESS,
+                type: actionTypes.GET_POSTS_LIMIT,
                 posts: response.data.response?.rows,
-                count: response.data.response?.count,
+                count: response.data.response?.count
             })
         } else {
             dispatch({
-                type: actionTypes.GET_POSTS_LIMIT_FAILURE,
+                type: actionTypes.GET_POSTS_LIMIT,
                 msg: response.data.msg
             })
         }
 
     } catch (error) {
         dispatch({
-            type: actionTypes.GET_POSTS_LIMIT_FAILURE,
+            type: actionTypes.GET_POSTS_LIMIT,
             posts: null
         })
     }
 }
 
 export const getNewPosts = () => async (dispatch) => {
-    dispatch({ type: actionTypes.GET_POSTS_REQUEST });
     try {
         const response = await apiGetNewPosts()
         if (response?.data.err === 0) {

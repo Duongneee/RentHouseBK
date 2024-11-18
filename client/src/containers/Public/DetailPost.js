@@ -4,50 +4,75 @@ import { SliderCustom } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPostById } from '../../store/actions/post'
 import icons from '../../untils/icon'
+import moment from 'moment'
 
 const {HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch} = icons
 
 const DetailPost = () => {
   const {id} = useParams()
   const dispatch = useDispatch()
-  const { post, loading } = useSelector(state => state.post)
+  const { posts } = useSelector(state => state.post)
+  const formattedTime = moment(posts?.createdAt).fromNow();
+  const images = posts?.images ? JSON.parse(posts.images) : [];
 
   useEffect(() => {
     if (id) {
       dispatch(getPostById(id))
     }
-  },[id, dispatch]);
-
-  if(loading) return <p>Loading...</p>
-  if(!post) return <p>No post found.</p>
+  },[id]);
 
   return (
-    <div className='w-full flex gap-4'>
-        <div className='w-[70%]'>
-          <SliderCustom />
-          <div className='flex flex-col gap-2'>
-              <h2 className='text-xl font-bold text-red-600 my-4'>{post.title}</h2>
+    <div className='w-full flex gap-4'>     
+        <div className='w-[70%] '>
+        <SliderCustom images={images} />
+          <div className='bg-white rounded-md shadow-md p-4'>
+          <div className='flex flex-col gap-2 '>
+              <h2 className='text-xl font-bold text-red-600 my-4'>{posts?.title}</h2>
               <div className='flex items-center gap-2'>
                 <HiLocationMarker color='#2563eb'/>
-                <span>{`Địa chỉ: ${post.district}, ${post.city}`}</span>
+                <span>{`Địa chỉ: ${posts?.street}, ${posts?.ward}, ${posts?.district}, ${posts?.city}.`}</span>
               </div>
               <div className='flex items-center justify-between'>
                 <span className='flex items-center gap-1'>
                   <TbReportMoney />
-                  <span className='font-semibold text-lg text-green-600'>{`${post.price} đồng/ tháng`}</span>
+                  <span className='font-semibold text-lg text-green-600'>{`${posts?.price} đồng/ tháng`}</span>
                 </span>
                 <span className='flex items-center gap-1'>
                   <RiCrop2Line />
-                  <span className='font-semibold text-lg text-green-600'>{`${post.size} m²`}</span>
+                  <span className='font-semibold text-lg text-green-600'>{`${posts?.size} m²`}</span>
                 </span>
                 <span className='flex items-center gap-1'>
                   <BsStopwatch />
-                  <span className='font-semibold text-lg text-green-600'>Ngày đăng bài</span>
+                  <span className='font-semibold text-lg text-green-600'>{`${formattedTime}`}</span>
                 </span>
               </div>
           </div>
-          <div>
-              <h3 className='font-semibold text-lg'>Thông tin mô tả</h3>
+          <div className='mt-8'>
+              <h3 className='font-semibold text-xl my-[4px]'>Thông tin mô tả</h3>
+              <div className='flex flex-col gap-3'>
+                  <span>{posts?.description}</span>
+              </div>
+          </div>
+          
+          <div className='mt-8'>
+            <h3 className='font-semibold text-xl my-[4px]'>Thông tin liên hệ</h3>
+            <table className='w-full'>
+                  <tbody className='w-full'>
+                    <tr className='w-full'>
+                      <td className='p-2'>Liên hệ</td>
+                      <td className='p-2'>{posts?.owner?.name}</td>
+                    </tr>
+                    <tr className=' w-full bg-gray-300'>
+                      <td className='p-2'>Điện thoại</td>
+                      <td className='p-2'>{posts?.owner?.phone}</td>
+                    </tr>
+                    <tr className=' w-full'>
+                      <td className='p-2'>Zalo</td>
+                      <td className='p-2'>{posts?.owner?.phone}</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
           </div>
         </div>
         <div className='w-[30%]'>

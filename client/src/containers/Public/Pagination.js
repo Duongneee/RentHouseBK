@@ -12,7 +12,6 @@ const Pagination = ({page}) => {
     const [currentPage, setcurrentPage] = useState(+page || 1)
     const [isHideEnd, setisHideEnd] = useState(false)
     const [isHideStart, setisHideStart] = useState(false)
-    console.log(posts)
     
     useEffect(() => {
         let maxPage = Math.ceil(count / posts.length)

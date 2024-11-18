@@ -24,17 +24,18 @@ export const apiGetPostsLimit =  (page) => new Promise(async (resolve, reject) =
     }
 }) 
 
-export const apiGetPostById =  (postId) => new Promise(async (resolve, reject) => {
+export const apiGetPostById =  (id) => new Promise(async (resolve, reject) => {
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: '/api/v1/post/:id',
+            url: `/api/v1/post/${id}`,
         })
         resolve(response)
     } catch (error) {
         reject(error)
     }
 }) 
+
 
 
 export const apiGetNewPosts =  () => new Promise(async (resolve, reject) => {

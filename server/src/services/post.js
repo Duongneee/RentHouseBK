@@ -54,7 +54,7 @@ export const getPostByIdService = (postId) => new Promise(async (resolve, reject
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description']
+            attributes: ['id', 'title',  'images', 'price', 'size', 'city', 'district', 'description', 'ward', 'street', 'createdAt', 'expiryDate']
         })
         resolve({
             err: response ? 0 : 1,
