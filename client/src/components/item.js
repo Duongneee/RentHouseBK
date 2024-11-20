@@ -2,6 +2,7 @@ import React, { memo, useState } from 'react'
 import icons from '../untils/icon'
 import { Link } from 'react-router-dom'
 import { path } from '../untils/constant'
+import { shortenMoneyAmount } from '../untils/moneyShorten'
  
 
 const indexs = [0,1,2,3]
@@ -46,7 +47,7 @@ const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
                 </div> 
             </div>
                 <div className='my-2 flex items-center justify-between gap-1'>
-                    <span className='font-bold text-green-600 flex-3 whitespace-nowrap overflow-hidden text-ellipsis'>{`${price} đồng/tháng`}</span>
+                    <span className='font-bold text-green-600 flex-3 whitespace-nowrap overflow-hidden text-ellipsis'>{`${shortenMoneyAmount(price)}`}</span>
                     <span className='flex-1'>{`${size}m²`}</span>
                     <span className='flex-3 whitespace-nowrap overflow-hidden text-ellipsis'>{`${district}, ${city}`}</span>
                 </div> 
