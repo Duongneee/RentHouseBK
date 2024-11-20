@@ -1,10 +1,21 @@
-import React, {memo} from 'react'
+import React, { memo } from 'react'
 import icons from '../untils/icon'
 import { useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
-const {GrNext} = icons 
+const { GrNext } = icons
 const ItemSidebar = () => {
   const navigate = useNavigate()
+  const [params, setParams] = useSearchParams()
+  function clickHandler(key, value) {
+    // params.set(key, value)
+    // console.log('params: ', params.toString())
+    // setParams(params)
+    // navigate({
+    //   pathname: '/filter',
+    //   search: params.toString()
+    // })
+  }
   return (
     <div className='w-full flex flex-col gap-4 justify-start items-center'>
       <div className='p-4 rounded-md bg-white w-full'>
@@ -12,15 +23,21 @@ const ItemSidebar = () => {
         <div className='flex flex-col gap-2'>
           <div className='flex gap-2 items-center border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='#c0c0c0' />
-            <p className='cursor-pointer hover:text-orange-600'>Cho thuê căn hộ</p>
+            <p className='cursor-pointer hover:text-orange-600'
+
+            >Cho thuê căn hộ</p>
           </div>
           <div className='flex gap-2 items-center border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='#c0c0c0' />
-            <p className='cursor-pointer hover:text-orange-600'>Cho thuê phòng trọ</p>
+            <p className='cursor-pointer hover:text-orange-600'
+              onClick={clickHandler('category', 'CTPT')}
+            >Cho thuê phòng trọ</p>
           </div>
           <div className='flex gap-2 items-center border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='#c0c0c0' />
-            <p className='cursor-pointer hover:text-orange-600'>Cho thuê nhà nguyên căn</p>
+            <p className='cursor-pointer hover:text-orange-600'
+              onClick={clickHandler('category', 'NCT')}
+            >Cho thuê nhà nguyên căn</p>
           </div>
           <div className='flex gap-2 items-center border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='#c0c0c0' />
@@ -34,12 +51,13 @@ const ItemSidebar = () => {
           <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600' 
-                  onClick={() => navigate('/filter?priceFrom=0&priceTo=1000000')}>Dưới 1 triệu</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => navigate('/filter?priceFrom=0&priceTo=1000000')}>Dưới 1 triệu</p>
             </div>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 1-2 triệu</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => navigate('/filter?priceFrom=1000000&priceTo=2000000')}>Từ 1-2 triệu</p>
             </div>
           </div>
           <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
@@ -110,7 +128,7 @@ const ItemSidebar = () => {
         </div>
       </div>
     </div>
-    
+
   )
 }
 
