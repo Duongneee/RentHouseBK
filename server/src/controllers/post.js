@@ -21,8 +21,6 @@ export const postFilter = async (req, res) => {
         if (req.query.district) filters.district = req.query.district
         if (req.query.ward) filters.ward = req.query.ward
         if (req.query.priceFrom && req.query.priceTo) {
-            console.log('PriceFrom: ', req.query.priceFrom)
-            console.log('PriceTo: ', req.query.priceTo)
             filters.price = {
                 [Op.between]: [parseInt(req.query.priceFrom, 10), parseInt(req.query.priceTo, 10)]
             }
