@@ -2,11 +2,6 @@ import React from 'react'
 import { Select, InputReadOnly, InputFormV2} from './'
 import { useSelector } from 'react-redux'
 
-const targets = [
-  { code: 'Nam', value: 'Nam' },
-  { code: 'Nữ', value: 'Nữ' },
-]
-
 const Overview = ({payload, setPayload}) => {
 
   // const { categories } = useSelector(state => state.app)
@@ -36,7 +31,6 @@ const Overview = ({payload, setPayload}) => {
         <InputReadOnly label='Điện thoại' value={currentData?.phone}/>
         <InputFormV2 value={payload.price} setValue={setPayload} small='Nhập đầy đủ số, ví dụ 1 triệu thì nhập là 1000000' label='Giá cho thuê' unit='đồng' name='price'/>
         <InputFormV2 value={payload.size} setValue={setPayload} label='Diện tích' unit='m2' name='size' />
-        <Select value={payload.target} setValue={setPayload} name='target' options={targets} label='Đối tượng cho thuê' />
         </div>
         
       </div>

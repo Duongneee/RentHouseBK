@@ -74,7 +74,7 @@ export const createNewPostService = (body, userId) => new Promise(async(resolve,
             id: generateId(),
             title: body.title ,
             userId: userId,
-            images: body.images || null,
+            images: JSON.stringify(body.images) || null,
             categoryCode: body.categoryCode || null,
             city: body.city || null,
             district: body.district || null,
@@ -86,11 +86,6 @@ export const createNewPostService = (body, userId) => new Promise(async(resolve,
             expiryDate: new Date(new Date().setDate(new Date().getDate() + 90)),
         })
             
-
-        // const response = await db.Post.create({
-        //     ...body,
-        //     userId
-        // })
         resolve({
             err: 0 ,
             msg: 'OK' ,
