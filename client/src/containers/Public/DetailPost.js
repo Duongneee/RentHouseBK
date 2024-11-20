@@ -5,8 +5,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPostById } from '../../store/actions/post'
 import icons from '../../untils/icon'
 import moment from 'moment'
+import GoogleMapReact from 'google-map-react';
 
 const {HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch} = icons
+
+const defaultProps = {
+  center: {
+    lat: 10.99835602,
+    lng: 77.01502627
+  },
+  zoom: 11
+};
 
 const DetailPost = () => {
   const {id} = useParams()
@@ -72,6 +81,17 @@ const DetailPost = () => {
                     </tr>
                   </tbody>
               </table>
+          </div>
+          <div className='mt-8'>
+            <h3 className='font-semibold text-xl my-[4px]'>Bản đồ</h3>
+            <div style={{ height: '300px', width: '100%' }}>
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "" }}
+                defaultCenter={defaultProps.center}
+                defaultZoom={defaultProps.zoom}
+              >
+              </GoogleMapReact>
+            </div>
           </div>
           </div>
         </div>
