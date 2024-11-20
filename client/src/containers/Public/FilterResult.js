@@ -42,8 +42,6 @@ const Homepage = () => {
       </div>
       <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
         <ItemSidebar />
-        <ItemSidebar />
-        <ItemSidebar />
       </div>
       </div>
     </div>

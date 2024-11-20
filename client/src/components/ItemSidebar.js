@@ -1,8 +1,10 @@
 import React, {memo} from 'react'
 import icons from '../untils/icon'
+import { useNavigate } from 'react-router-dom'
 
 const {GrNext} = icons 
 const ItemSidebar = () => {
+  const navigate = useNavigate()
   return (
     <div className='w-full flex flex-col gap-4 justify-start items-center'>
       <div className='p-4 rounded-md bg-white w-full'>
@@ -32,7 +34,8 @@ const ItemSidebar = () => {
           <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Dưới 1 triệu</p>
+              <p className='cursor-pointer hover:text-orange-600' 
+                  onClick={() => navigate('/filter?priceFrom=0&priceTo=1000000')}>Dưới 1 triệu</p>
             </div>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />

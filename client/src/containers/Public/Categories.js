@@ -1,14 +1,14 @@
 import React from 'react'
-import {categories, text} from '../../untils/constant'
+import { text} from '../../untils/constant'
 import {Province, ItemSidebar} from '../../components'
 import {ListFilter, Pagination} from './index'
 import {  useSearchParams } from 'react-router-dom'
 
-const RentalApartment = () => {
+const Categories = (category) => {
   const [params] = useSearchParams()  
   // const category = categories.find(item => item.key === params.get('category'))
   // console.log('/<category>: ', category)
-  const filters = {category : 'NCT'}
+  const filters = {category : category}
   return (    
     <div className='w-full flex flex-col gap-3'>
       <div>
@@ -28,4 +28,4 @@ const RentalApartment = () => {
   )
 }
 
-export default RentalApartment
+export default Categories
