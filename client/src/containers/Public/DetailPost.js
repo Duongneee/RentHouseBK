@@ -24,7 +24,6 @@ const DetailPost = () => {
   return (
     <div className='w-full flex gap-4'>     
         <div className='w-[70%] '>
-        <SliderCustom images={images} />
           <div className='bg-white rounded-md shadow-md p-4'>
           <div className='flex flex-col gap-2 '>
               <h2 className='text-xl font-bold text-red-600 my-4'>{posts?.title}</h2>

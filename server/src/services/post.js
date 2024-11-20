@@ -90,8 +90,8 @@ export const getNewPostService = () => new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-<<<<<<< HEAD
-})
+
+});
 
 export const postFilterService = (filter, page) => new Promise(async (resolve, reject) => {
     console.log('Service.PostFilter.Filter: ', filter)
@@ -114,8 +114,12 @@ export const postFilterService = (filter, page) => new Promise(async (resolve, r
             err: response ? 0 : 1,
             msg: response ? 'OK' : 'Failed to get posts.',
             response
-=======
-}) 
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+    
 export const createNewPostService = (body, userId) => new Promise(async(resolve, reject) => {
     try{
         await db.Post.create({
@@ -137,9 +141,9 @@ export const createNewPostService = (body, userId) => new Promise(async(resolve,
         resolve({
             err: 0 ,
             msg: 'OK' ,
->>>>>>> tduong
         })
     } catch (error) {
         reject(error)
     }
 })
+       
