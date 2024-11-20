@@ -1,4 +1,5 @@
 import * as postServive from '../services/post'
+const { Op } = require('sequelize')
 
 export const getPosts = async (req, res) => {
     try {
@@ -21,15 +22,19 @@ export const postFilter = async (req, res) => {
         if (req.query.ward) filters.ward = req.query.ward
         if (req.query.priceFrom && req.query.priceTo) {
             console.log('PriceFrom: ', req.query.priceFrom)
+            console.log('PriceTo: ', req.query.priceTo)
             filters.price = {
-            [Op.between]: [parseInt(req.query.priceFrom, 10), parseInt(req.query.priceTo, 10)]
-        }}
-        if (req.query.sizeFrom && req.query.sizeTo) 
-            filters.size = {[Op.between]: [req.query.sizeFrom, req.query.sizeTo] }
+                [Op.between]: [parseInt(req.query.priceFrom, 10), parseInt(req.query.priceTo, 10)]
+            }
+        }
+        if (req.query.sizeFrom && req.query.sizeTo)
+            filters.size = { [Op.between]: [req.query.sizeFrom, req.query.sizeTo] }
         if (req.query.categoryCode) filters.categoryCode = req.query.categoryCode
+        console.log('Controller.PostFilter.Filters: ', filters)
         const response = await postServive.postFilterService(filters, req.query.page)
         return res.status(200).json(response)
     } catch (error) {
+        console.log('Controller.PostFilter.Error: ', error)
         return res.status(500).json({
             err: -1,
             msg: 'Failed to get post controller: ' + error
@@ -46,7 +51,7 @@ export const getPostsLimit = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Failed to get post controller: '+ error
+            msg: 'Failed to get post controller: ' + error
         })
     }
 }
@@ -58,7 +63,7 @@ export const getNewPosts = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Failed to get post controller: '+ error
+            msg: 'Failed to get post controller: ' + error
         })
     }
 }
