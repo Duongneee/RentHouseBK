@@ -5,7 +5,7 @@ export const apiDeposit = (payLoad) => new Promise(async (resolve, reject) => {
     try {
         const response = await axiosConfig({
             method: 'post',
-            url: '/api/v1/payment/deposit', // Đảm bảo rằng đây là endpoint đúng cho chức năng nạp tiền
+            url: '/api/v1/payment/create_payment_url', // Đảm bảo rằng đây là endpoint đúng cho chức năng nạp tiền
             data: payLoad
         });
         resolve(response);

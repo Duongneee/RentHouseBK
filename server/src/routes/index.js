@@ -3,6 +3,7 @@ import categoryRouter from './category'
 import postRouter from './post'
 import insertRoute from './data-insert';
 import userRouter from './user'
+import paymentRouter from './payment'
 
 const initRoutes = (app) => {
 
@@ -14,6 +15,9 @@ const initRoutes = (app) => {
     app.use('/api/v1/category', categoryRouter)
     app.use('/api/v1/post', postRouter)
     app.use('/api/v1/user', userRouter)
+    app.use('/api/v1/payment', paymentRouter)
+
+
 
     return app.use('/', (req, res) => {
         res.send('Server is runnning')
