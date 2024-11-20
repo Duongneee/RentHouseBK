@@ -78,9 +78,7 @@ export const postFilterService = (filter, page) => new Promise(async (resolve, r
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            where: {
-                ...filter
-            },
+            where: filter,
             attributes : ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description' ],
             limit: 10,
             offset: (page - 1) * 10 || 0
@@ -91,6 +89,7 @@ export const postFilterService = (filter, page) => new Promise(async (resolve, r
             response
         })
     } catch (error) {
-        reject(error)
+        // reject(error)
+        console.log('Service.PostFilter.Error: ', error)
     }
 })

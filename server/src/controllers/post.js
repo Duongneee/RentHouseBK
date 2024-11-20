@@ -19,12 +19,13 @@ export const postFilter = async (req, res) => {
         if (req.query.city) filters.city = req.query.city
         if (req.query.district) filters.district = req.query.district
         if (req.query.ward) filters.ward = req.query.ward
-        if (req.query.priceFrom & req.query.priceTo) filters.price = {
-            [Op.between]: [req.query.priceFrom, req.query.priceTo]
-        }
-        if (req.query.sizeFrom & req.query.sizeTo) filters.size = {
-            [Op.between]: [req.query.sizeFrom, req.query.sizeTo]
-        }
+        if (req.query.priceFrom && req.query.priceTo) {
+            console.log('PriceFrom: ', req.query.priceFrom)
+            filters.price = {
+            [Op.between]: [parseInt(req.query.priceFrom, 10), parseInt(req.query.priceTo, 10)]
+        }}
+        if (req.query.sizeFrom && req.query.sizeTo) 
+            filters.size = {[Op.between]: [req.query.sizeFrom, req.query.sizeTo] }
         if (req.query.categoryCode) filters.categoryCode = req.query.categoryCode
         const response = await postServive.postFilterService(filters, req.query.page)
         return res.status(200).json(response)
