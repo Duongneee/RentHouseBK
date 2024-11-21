@@ -1,21 +1,13 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { SliderCustom } from '../../components'
+import { SliderCustom, BoxInfo, RelatedPost, GoogleMapEmbed } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPostById } from '../../store/actions/post'
 import icons from '../../untils/icon'
 import moment from 'moment'
-import GoogleMapReact from 'google-map-react';
+
 
 const {HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch} = icons
-
-const defaultProps = {
-  center: {
-    lat: 10.99835602,
-    lng: 77.01502627
-  },
-  zoom: 11
-};
 
 const DetailPost = () => {
   const {id} = useParams()
@@ -23,6 +15,7 @@ const DetailPost = () => {
   const { posts } = useSelector(state => state.post)
   const formattedTime = moment(posts?.createdAt).fromNow();
   const images = posts?.images ? JSON.parse(posts.images) : [];
+  const address = `${posts?.street}, ${posts?.ward}, ${posts?.district}, ${posts?.city}`
 
   useEffect(() => {
     if (id) {
@@ -85,19 +78,18 @@ const DetailPost = () => {
           <div className='mt-8'>
             <h3 className='font-semibold text-xl my-[4px]'>Bản đồ</h3>
             <div style={{ height: '300px', width: '100%' }}>
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: "" }}
-                defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
-              >
-              </GoogleMapReact>
+              <GoogleMapEmbed 
+                address={address}
+              />
             </div>
           </div>
           </div>
         </div>
-        <div className='w-[30%]'>
-          sidebar
+        <div className='w-[30%] flex flex-col gap-8'>
+          <BoxInfo userData={posts?.owner} />
+          <RelatedPost />
         </div>
+        
     </div>
   )
 }

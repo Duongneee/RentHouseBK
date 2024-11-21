@@ -16,7 +16,7 @@ const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
         } 
             return(
             <div className='w-full flex border-t border-orange-600 py-4 '>
-             <Link to={`${path.DETAIL}${title?.replaceAll('/', '')}/${id}`} className='w-2/5 flex flex-wrap gap-[2px] items-center cursor-pointer relative'>
+             <Link to={`${path.DETAIL}${id}`} className='w-2/5 flex flex-wrap gap-[2px] items-center cursor-pointer relative'>
                     {images.length > 0 && images.filter((i, index) => indexs.some(i => i===index))?.map((i, index) => {
                         return(
                             <img key={index} src={i} alt="preview" className='w-[140px] h-[120px] object-cover' />
@@ -39,7 +39,7 @@ const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
                                 <span key={number}>{star}</span>
                             )
                         })}
-                        {title}
+                    <Link to={`${path.DETAIL}${title?.replaceAll('/', '')}/${id}`}>{title}</Link>            
                 </div>
                 <div className='w-[10%] flex justify-end'>
                     <BsBookmarkStarFill size={24} color='orange' />
