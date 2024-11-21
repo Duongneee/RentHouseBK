@@ -1,11 +1,12 @@
 import React from 'react'
-import {text} from '../../untils/constant'
-import {Province, ItemSidebar} from '../../components'
-import {ListFilter, Pagination} from './index'
-import {  useSearchParams } from 'react-router-dom'
+import { text } from '../../untils/constant'
+import { Province, ItemSidebar } from '../../components'
+import { ListFilter, Pagination } from './index'
+import { useSearchParams } from 'react-router-dom'
 
 const Homepage = () => {
-  const [params] = useSearchParams()  
+  const [params] = useSearchParams()
+  // console.log('FilterResult.js: params:', params.toString())
   const filters = {}
   if (params.get('categoryCode') !== null) {
     filters.categoryCode = params.get('categoryCode')
@@ -36,13 +37,13 @@ const Homepage = () => {
       </div>
       <Province />
       <div className='w-full flex gap-4'>
-      <div className='w-[70%]'>
-        <ListFilter page={params.get('page')} filters={filters} />
-        <Pagination page={params.get('page')} />
-      </div>
-      <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
-        <ItemSidebar />
-      </div>
+        <div className='w-[70%]'>
+          <ListFilter page={params.get('page')} filters={filters} />
+          <Pagination page={params.get('page')} />
+        </div>
+        <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
+          <ItemSidebar />
+        </div>
       </div>
     </div>
   )
