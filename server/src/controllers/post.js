@@ -26,7 +26,7 @@ export const postFilter = async (req, res) => {
             [Op.between]: [req.query.sizeFrom, req.query.sizeTo]
         }
         if (req.query.category) filters.categoryCode = req.query.category
-        const response = await postServive.postFilterService(filters, req.query.page)
+        const response = await postService.postFilterService(filters, req.query.page)
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
