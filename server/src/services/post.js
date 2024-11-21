@@ -105,8 +105,8 @@ export const postFilterService = (filter, page) => new Promise(async (resolve, r
             ],
             where: { ...filter },
             attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description'],
-            limit: 10,
-            offset: (page - 1) * 10 || 0
+            limit: +process.env.LIMIT,
+            offset: (page - 1) * +process.env.LIMIT || 0
         })
         resolve({
             err: response ? 0 : 1,
