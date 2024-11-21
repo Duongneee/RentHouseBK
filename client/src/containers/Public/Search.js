@@ -38,13 +38,13 @@ const Search = () => {
     setPopupContent(value)
   }
   useEffect(() => {
-    console.log('Search.js: ', filters)
+    console.log('Search.js: filteres', filters)
   }, [filters])
   const searchHandler = () => {
     // TODO: Call navigate to search route
     const filterParams = {}
-    if (filters.category !== undefined) {
-      filterParams.categoryCode = filters.category
+    if (filters.categoryCode !== undefined) {
+      filterParams.categoryCode = filters.categoryCode
     }
     if (filters.city !== undefined) {
       filterParams.city = filters.city
@@ -65,21 +65,22 @@ const Search = () => {
     }
     const query = new URLSearchParams(filterParams).toString()
     navigate(`/filter?${query}`)
-    console.log('Search.js: ', query)
   }
   function categoryDisplay() {
-    if (filters.category !== undefined) {
+    if (filters.categoryCode !== undefined) {
+      console.log('Search.js: filters.categoryCode', filters.categoryCode)
       return (
         <span onClick={() => popupEvent(0)} className='cursor-pointer flex-1'>
-          <SearchItem Text={categories.find(category => category.id === filters.category).name} IconAfter={<GrNext />} IconBefore={<MdOutlineHouseSiding />} fontWeight />
+          <SearchItem Text={categories.find(category => category.id === filters.categoryCode).name} IconAfter={<GrNext />} IconBefore={<MdOutlineHouseSiding />} fontWeight />
+        </span>
+      )
+    } else {
+      return (
+        <span onClick={() => popupEvent(0)} className='cursor-pointer flex-1'>
+          <SearchItem Text='Tất cả loại hình' fontWeight />
         </span>
       )
     }
-    return (
-      <span onClick={() => popupEvent(0)} className='cursor-pointer flex-1'>
-        <SearchItem Text='Tất cả loại hình' fontWeight />
-      </span>
-    )
   }
   function addressDisplay() {
     if (filters.city !== undefined) {
@@ -88,12 +89,13 @@ const Search = () => {
           <SearchItem Text={filters.city} IconAfter={<GrNext />} IconBefore={<HiOutlineLocationMarker />} fontWeight />
         </span>
       )
+    } else {
+      return (
+        <span onClick={() => popupEvent(1)} className='cursor-pointer flex-1'>
+          <SearchItem Text='Chọn khu vực' fontWeight />
+        </span>
+      )
     }
-    return (
-      <span onClick={() => popupEvent(1)} className='cursor-pointer flex-1'>
-        <SearchItem Text='Chọn khu vực' fontWeight />
-      </span>
-    )
   }
   function priceDisplay() {
     if (filters.priceRange !== undefined) {
@@ -102,12 +104,13 @@ const Search = () => {
           <SearchItem Text={`${shortenMoneyAmount(filters.priceRange[0])} - ${shortenMoneyAmount(filters.priceRange[1])}`} IconAfter={<GrNext />} IconBefore={<TbReportMoney />} fontWeight />
         </span>
       )
+    } else {
+      return (
+        <span onClick={() => popupEvent(2)} className='cursor-pointer flex-1'>
+          <SearchItem Text='Chọn giá' IconAfter={<GrNext />} IconBefore={<TbReportMoney />} fontWeight />
+        </span>
+      )
     }
-    return (
-      <span onClick={() => popupEvent(2)} className='cursor-pointer flex-1'>
-        <SearchItem Text='Chọn giá' IconAfter={<GrNext />} IconBefore={<TbReportMoney />} fontWeight />
-      </span>
-    )
   }
   function sizeDisplay() {
     if (filters.sizeRange !== undefined) {
@@ -116,12 +119,13 @@ const Search = () => {
           <SearchItem Text={`${filters.sizeRange[0]} - ${filters.sizeRange[1]} m²`} IconAfter={<GrNext />} IconBefore={<RiCrop2Line />} fontWeight />
         </span>
       )
+    } else {
+      return (
+        <span onClick={() => popupEvent(3)} className='cursor-pointer flex-1'>
+          <SearchItem Text='Chọn diện tích' IconAfter={<GrNext />} IconBefore={<RiCrop2Line />} fontWeight />
+        </span>
+      )
     }
-    return (
-      <span onClick={() => popupEvent(3)} className='cursor-pointer flex-1'>
-        <SearchItem Text='Chọn diện tích' IconAfter={<GrNext />} IconBefore={<RiCrop2Line />} fontWeight />
-      </span>
-    )
   }
   return (
     <>
