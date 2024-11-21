@@ -16,6 +16,7 @@ const DetailPost = () => {
   const formattedTime = moment(posts?.createdAt).fromNow();
   const images = posts?.images ? JSON.parse(posts.images) : [];
   const address = `${posts?.street}, ${posts?.ward}, ${posts?.district}, ${posts?.city}`
+  const formattedAddress = encodeURIComponent(address)
 
   useEffect(() => {
     if (id) {
@@ -77,9 +78,9 @@ const DetailPost = () => {
           </div>
           <div className='mt-8'>
             <h3 className='font-semibold text-xl my-[4px]'>Bản đồ</h3>
-            <div style={{ height: '300px', width: '100%' }}>
+            <div style={{ height: '400px', width: '100%' }}>
               <GoogleMapEmbed 
-                address={address}
+                formattedAddress={formattedAddress}
               />
             </div>
           </div>

@@ -1,14 +1,13 @@
 import React from "react"
 
-const GoogleMapEmbed = (address) => {
+const GoogleMapEmbed = (formattedAddress) => {
+const address = formattedAddress.formattedAddress;
 
-const formattedAddress = encodeURIComponent({address})
-const url = `https://www.google.com/maps?q=${formattedAddress}&key=AIzaSyD6Coia3ssHYuRKJ2nDysWBdSlVlBCzKAw&zoom=14`
-console.log(url)
+const url = `https://maps.google.com/maps?q=${address}&t=&z=13&ie=UTF8&iwloc=&output=embed`
 
   return (
 
-      <div>
+      <div className="w-full h-full">
         <iframe
           title="Google Map"
           style={{ border: 0, width: "100%", height: "100%" }}
