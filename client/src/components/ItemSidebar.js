@@ -6,15 +6,14 @@ import { useSearchParams } from 'react-router-dom'
 const { GrNext } = icons
 const ItemSidebar = () => {
   const navigate = useNavigate()
-  const [params, setParams] = useSearchParams()
+  const [params] = useSearchParams()
   function clickHandler(key, value) {
-    // params.set(key, value)
-    // console.log('params: ', params.toString())
-    // setParams(params)
-    // navigate({
-    //   pathname: '/filter',
-    //   search: params.toString()
-    // })
+    const paramsObject = Object.fromEntries(params.entries())
+    paramsObject[key] = value
+    console.log('params: ', paramsObject.toString())
+    const query = new URLSearchParams(paramsObject).toString()
+    console.log('query: ', query)
+    navigate(`/filter?${query}`)
   }
   return (
     <div className='w-full flex flex-col gap-4 justify-start items-center'>
@@ -24,24 +23,25 @@ const ItemSidebar = () => {
           <div className='flex gap-2 items-center border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='#c0c0c0' />
             <p className='cursor-pointer hover:text-orange-600'
-
-            >Cho thuê căn hộ</p>
+              onClick={() => clickHandler('categoryCode', 'CTCH')}>Cho thuê nhà chung cư</p>
           </div>
           <div className='flex gap-2 items-center border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='#c0c0c0' />
             <p className='cursor-pointer hover:text-orange-600'
-              onClick={clickHandler('category', 'CTPT')}
+              onClick={() => clickHandler('categoryCode', 'CTPT')}
             >Cho thuê phòng trọ</p>
           </div>
           <div className='flex gap-2 items-center border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='#c0c0c0' />
             <p className='cursor-pointer hover:text-orange-600'
-              onClick={clickHandler('category', 'NCT')}
+              onClick={() => clickHandler('categoryCode', 'NCT')}
             >Cho thuê nhà nguyên căn</p>
           </div>
           <div className='flex gap-2 items-center border-b border-gray-200 pb-1 border-dashed'>
             <GrNext size={10} color='#c0c0c0' />
-            <p className='cursor-pointer hover:text-orange-600'>Cho thuê mặt bằng</p>
+            <p className='cursor-pointer hover:text-orange-600'
+              onClick={() => clickHandler('categoryCode', 'CTMB')}
+            >Cho thuê mặt bằng</p>
           </div>
         </div>
       </div>
