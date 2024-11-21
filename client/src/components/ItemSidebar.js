@@ -7,9 +7,15 @@ const { GrNext } = icons
 const ItemSidebar = () => {
   const navigate = useNavigate()
   const [params] = useSearchParams()
-  function clickHandler(key, value) {
+  function clickHandler(key, value, key2, value2) {
     const paramsObject = Object.fromEntries(params.entries())
     paramsObject[key] = value
+    if (key2 && value2) {
+      paramsObject[key2] = value2
+    } else if (value2 === '') {
+      delete paramsObject[key2]
+    }
+
     console.log('params: ', paramsObject.toString())
     const query = new URLSearchParams(paramsObject).toString()
     console.log('query: ', query)
@@ -52,42 +58,48 @@ const ItemSidebar = () => {
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
               <p className='cursor-pointer hover:text-orange-600'
-                onClick={() => navigate('/filter?priceFrom=0&priceTo=1000000')}>Dưới 1 triệu</p>
+                onClick={() => clickHandler('priceFrom', '0', 'priceTo', '1000000')}>Dưới 1 triệu</p>
             </div>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
               <p className='cursor-pointer hover:text-orange-600'
-                onClick={() => navigate('/filter?priceFrom=1000000&priceTo=2000000')}>Từ 1-2 triệu</p>
+                onClick={() => clickHandler('priceFrom', '1000000', 'priceTo', '2000000')}>Từ 1-2 triệu</p>
             </div>
           </div>
           <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 2-3 triệu</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('priceFrom', '2000000', 'priceTo', '3000000')}>Từ 2-3 triệu</p>
             </div>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 3-5 triệu</p>
-            </div>
-          </div>
-          <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
-            <div className='flex flex-1 gap-2 items-center'>
-              <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 5-7 triệu</p>
-            </div>
-            <div className='flex flex-1 gap-2 items-center'>
-              <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 7-10 triệu</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('priceFrom', '3000000', 'priceTo', '5000000')}>Từ 3-5 triệu</p>
             </div>
           </div>
           <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 10-15 triệu</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('priceFrom', '5000000', 'priceTo', '7000000')}>Từ 5-7 triệu</p>
             </div>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Trên 15 triệu</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('priceFrom', '7000000', 'priceTo', '10000000')}>Từ 7-10 triệu</p>
+            </div>
+          </div>
+          <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
+            <div className='flex flex-1 gap-2 items-center'>
+              <GrNext size={10} color='#c0c0c0' />
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('priceFrom', '10000000', 'priceTo', '15000000')}>Từ 10-15 triệu</p>
+            </div>
+            <div className='flex flex-1 gap-2 items-center'>
+              <GrNext size={10} color='#c0c0c0' />
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('priceFrom', '15000000', 'priceTo', '')}>Trên 15 triệu</p>
             </div>
           </div>
         </div>
@@ -98,31 +110,37 @@ const ItemSidebar = () => {
           <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Dưới 20 m²</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('sizeFrom', '0', 'sizeTo', '20')}>Dưới 20 m²</p>
             </div>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 20-30 m²</p>
-            </div>
-          </div>
-          <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
-            <div className='flex flex-1 gap-2 items-center'>
-              <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 30-50 m²</p>
-            </div>
-            <div className='flex flex-1 gap-2 items-center'>
-              <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 50-70 m²</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('sizeFrom', '20', 'sizeTo', '30')}>Từ 20-30 m²</p>
             </div>
           </div>
           <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Từ 70-90 m²</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('sizeFrom', '30', 'sizeTo', '50')}>Từ 30-50 m²</p>
             </div>
             <div className='flex flex-1 gap-2 items-center'>
               <GrNext size={10} color='#c0c0c0' />
-              <p className='cursor-pointer hover:text-orange-600'>Trên 90 m²</p>
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('sizeFrom', '50', 'sizeTo', '70')}>Từ 50-70 m²</p>
+            </div>
+          </div>
+          <div className='flex items-center border-b border-gray-200 pb-1 border-dashed'>
+            <div className='flex flex-1 gap-2 items-center'>
+              <GrNext size={10} color='#c0c0c0' />
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('sizeFrom', '70', 'sizeTo', '90')}>Từ 70-90 m²</p>
+            </div>
+            <div className='flex flex-1 gap-2 items-center'>
+              <GrNext size={10} color='#c0c0c0' />
+              <p className='cursor-pointer hover:text-orange-600'
+                onClick={() => clickHandler('sizeFrom', '90', 'sizeTo', '')}>Trên 90 m²</p>
             </div>
           </div>
         </div>
