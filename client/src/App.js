@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home, Login, Categories, Homepage, DetailPost, FilterResult } from './containers/Public';
 import { path } from './untils/constant'
-import {CreatePost, System} from './containers/system'
+import {CreatePost, System} from './containers/System'
 import * as actions from './store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'

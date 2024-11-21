@@ -40,7 +40,7 @@ const Item = ({ images, owner, title, star, description, price, size, city, dist
                                 <span key={number}>{star}</span>
                             )
                         })}
-                    <Link to={`${path.DETAIL}${title?.replaceAll('/', '')}/${id}`}>{title}</Link>            
+                    <Link to={`${path.DETAIL}${id}`}>{title}</Link>            
                     </div>
                     <div className='w-[10%] flex justify-end'>
                         <BsBookmarkStarFill size={24} color='orange' />
