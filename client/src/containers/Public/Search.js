@@ -3,11 +3,12 @@ import { SearchItem } from '../../components'
 import icons from '../../untils/icon'
 import Popup from '../../components/popup'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import {categories} from '../../untils/constant'
+import { categories } from '../../untils/constant'
+import { shortenMoneyAmount } from '../../untils/moneyShorten'
 
 const { GrNext, HiOutlineLocationMarker, TbReportMoney, RiCrop2Line, MdOutlineHouseSiding, FiSearch } = icons
 const Search = () => {
-  const [params] = useSearchParams()  
+  const [params] = useSearchParams()
   const filtersInit = {}
   if (params.get('categoryCode') !== null) {
     filtersInit.categoryCode = params.get('categoryCode')
@@ -37,13 +38,13 @@ const Search = () => {
     setPopupContent(value)
   }
   useEffect(() => {
-    console.log('Search.js: ', filters)
+    console.log('Search.js: filteres', filters)
   }, [filters])
   const searchHandler = () => {
     // TODO: Call navigate to search route
     const filterParams = {}
-    if (filters.category !== undefined) {
-      filterParams.categoryCode = filters.category
+    if (filters.categoryCode !== undefined) {
+      filterParams.categoryCode = filters.categoryCode
     }
     if (filters.city !== undefined) {
       filterParams.city = filters.city
@@ -64,65 +65,71 @@ const Search = () => {
     }
     const query = new URLSearchParams(filterParams).toString()
     navigate(`/filter?${query}`)
-    console.log('Search.js: ', query)
   }
   function categoryDisplay() {
-    if (filters.category !== undefined) {
+    if (filters.categoryCode !== undefined) {
+      console.log('Search.js: filters.categoryCode', filters.categoryCode)
       return (
         <span onClick={() => popupEvent(0)} className='cursor-pointer flex-1'>
-          <SearchItem Text={categories.find(category => category.id === filters.category).name} IconAfter={<GrNext />} IconBefore={<MdOutlineHouseSiding />} fontWeight />
+          <SearchItem Text={categories.find(category => category.id === filters.categoryCode).name} IconAfter={<GrNext />} IconBefore={<MdOutlineHouseSiding />} fontWeight />
         </span>
       )
-    }
+    } else {
       return (
         <span onClick={() => popupEvent(0)} className='cursor-pointer flex-1'>
           <SearchItem Text='Tất cả loại hình' fontWeight />
         </span>
       )
+    }
   }
-function addressDisplay() {
-  if (filters.city !== undefined) {
-    return (
-      <span onClick={() => popupEvent(1)} className='cursor-pointer flex-1'>
-        <SearchItem Text={filters.city} IconAfter={<GrNext />} IconBefore={<HiOutlineLocationMarker />} fontWeight />
-      </span>
-    )
+  function addressDisplay() {
+    if (filters.city !== undefined) {
+      return (
+        <span onClick={() => popupEvent(1)} className='cursor-pointer flex-1'>
+          <SearchItem Text={filters.city} IconAfter={<GrNext />} IconBefore={<HiOutlineLocationMarker />} fontWeight />
+        </span>
+      )
+    } else {
+      return (
+        <span onClick={() => popupEvent(1)} className='cursor-pointer flex-1'>
+          <SearchItem Text='Chọn khu vực' fontWeight />
+        </span>
+      )
+    }
   }
-    return (
-      <span onClick={() => popupEvent(1)} className='cursor-pointer flex-1'>
-        <SearchItem Text='Chọn khu vực' fontWeight />
-      </span>
-    )
-}
-function priceDisplay() {
-  if (filters.priceRange !== undefined) {
-    return (
-      <span onClick={() => popupEvent(2)} className='cursor-pointer flex-1'>
-        <SearchItem Text={`${filters.priceRange[0]} - ${filters.priceRange[1]}`} IconAfter={<GrNext />} IconBefore={<TbReportMoney />} fontWeight />
-      </span>
-    )
+  function priceDisplay() {
+    if (filters.priceRange !== undefined) {
+      return (
+        <span onClick={() => popupEvent(2)} className='cursor-pointer flex-1'>
+          <SearchItem Text={`${shortenMoneyAmount(filters.priceRange[0])} - ${shortenMoneyAmount(filters.priceRange[1])}`} IconAfter={<GrNext />} IconBefore={<TbReportMoney />} fontWeight />
+        </span>
+      )
+    } else {
+      return (
+        <span onClick={() => popupEvent(2)} className='cursor-pointer flex-1'>
+          <SearchItem Text='Chọn giá' IconAfter={<GrNext />} IconBefore={<TbReportMoney />} fontWeight />
+        </span>
+      )
+    }
   }
-    return (
-      <span onClick={() => popupEvent(2)} className='cursor-pointer flex-1'>
-        <SearchItem Text='Chọn giá' IconAfter={<GrNext />} IconBefore={<TbReportMoney />} fontWeight />
-      </span>
-    )}
-function sizeDisplay() {
-  if (filters.sizeRange !== undefined ) {
-    return (
-      <span onClick={() => popupEvent(3)} className='cursor-pointer flex-1'>
-        <SearchItem Text={`${filters.sizeRange[0]} - ${filters.sizeRange[1]}`} IconAfter={<GrNext />} IconBefore={<RiCrop2Line />} fontWeight />
-      </span>
-    )
+  function sizeDisplay() {
+    if (filters.sizeRange !== undefined) {
+      return (
+        <span onClick={() => popupEvent(3)} className='cursor-pointer flex-1'>
+          <SearchItem Text={`${filters.sizeRange[0]} - ${filters.sizeRange[1]} m²`} IconAfter={<GrNext />} IconBefore={<RiCrop2Line />} fontWeight />
+        </span>
+      )
+    } else {
+      return (
+        <span onClick={() => popupEvent(3)} className='cursor-pointer flex-1'>
+          <SearchItem Text='Chọn diện tích' IconAfter={<GrNext />} IconBefore={<RiCrop2Line />} fontWeight />
+        </span>
+      )
+    }
   }
-    return (
-      <span onClick={() => popupEvent(3)} className='cursor-pointer flex-1'>
-        <SearchItem Text='Chọn diện tích' IconAfter={<GrNext />} IconBefore={<RiCrop2Line />} fontWeight />
-      </span>
-    )}
   return (
     <>
-      <div className='p-[10px] w-3/5 my-3 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
+      <div className='p-[10px] w-full max-w-[1200px] my-3 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
         {categoryDisplay()}
         {addressDisplay()}
         {priceDisplay()}
@@ -130,7 +137,7 @@ function sizeDisplay() {
         {sizeDisplay()}
         <button
           type='button'
-          className='cursor-pointer outline-none py-2 px-4 w-full bg-secondary1 text-[13px] flex items-center justify-center gap-2 text-white rounded-md font-medium'
+          className='cursor-pointer outline-none py-2 px-4 bg-secondary1 text-[13px] flex items-center justify-center gap-2 text-white rounded-md font-medium'
           onClick={searchHandler}
         >
           <FiSearch />

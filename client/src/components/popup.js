@@ -13,9 +13,9 @@ const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
     const [selectedCity, setSelectedCity] = useState(filters.city || ""); // Initialize with filters.city or empty string
     const [selectedDistrict, setSelectedDistrict] = useState(filters.district || "");
     const [selectedWard, setSelectedWard] = useState(filters.ward || "");
-    const [selectedCategory, setSelectedCategory] = useState(filters.category || "");
+    const [selectedCategory, setSelectedCategory] = useState(filters.categoryCode || "");
     const [priceRange, setPriceRange] = useState(filters.priceRange || [0, 50000000]);
-    const [sizeRange, setSizeRange] = useState(filters.sizeRange||[0, 1000]);
+    const [sizeRange, setSizeRange] = useState(filters.sizeRange || [0, 1000]);
 
     useEffect(() => {
         if (selectedCity !== "") {
@@ -41,9 +41,10 @@ const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
         if (selectedCity) {
             newFilters.city = selectedCity;
             if (selectedDistrict) newFilters.district = selectedDistrict;
-                else if (selectedWard) newFilters.ward = selectedWard;}
-        if (selectedCategory) newFilters.category = selectedCategory;
-        if (priceRange[0] !== 0 || priceRange[1] !== 50000000 ) newFilters.priceRange = priceRange;
+            else if (selectedWard) newFilters.ward = selectedWard;
+        }
+        if (selectedCategory) newFilters.categoryCode = selectedCategory;
+        if (priceRange[0] !== 0 || priceRange[1] !== 50000000) newFilters.priceRange = priceRange;
         if (sizeRange[0] !== 0 || sizeRange[1] !== 1000) newFilters.sizeRange = sizeRange;
 
         setFilters(newFilters);
@@ -112,18 +113,18 @@ const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
                                         </label>
                                     </div>
                                 ))}
-                                    <div key={''} className="mb-2">
-                                        <label className="flex items-center">
-                                            <input
-                                                type="radio"
-                                                name="category"
-                                                value={''}
-                                                checked={selectedCategory === ''|| selectedCategory === undefined}
-                                                onChange={handleCategoryChange}
-                                                className="mr-2"
-                                            />Tất cả
-                                        </label>
-                                    </div>
+                                <div key={''} className="mb-2">
+                                    <label className="flex items-center">
+                                        <input
+                                            type="radio"
+                                            name="category"
+                                            value={''}
+                                            checked={selectedCategory === '' || selectedCategory === undefined}
+                                            onChange={handleCategoryChange}
+                                            className="mr-2"
+                                        />Tất cả
+                                    </label>
+                                </div>
                             </form>
                         </div>
                     )}

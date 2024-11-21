@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
-import { Home, Login, RentalApartment, RentalHouse, RentalRoom, RentalSpace, Homepage, DetailPost, FilterResult } from './containers/Public';
+import { Home, Login, Categories, Homepage, DetailPost, FilterResult } from './containers/Public';
 import { path } from './untils/constant'
-import {CreatePost, System} from './containers/System'
+import {CreatePost, System} from './containers/system'
 import * as actions from './store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
@@ -23,10 +23,10 @@ function App() {
           <Route path='*' element={<Homepage />}/>
           <Route path={path.HOME__PAGE} element={<Homepage />}/>
           <Route path={path.LOGIN} element={<Login />}/>
-          <Route path={path.CHO_THUE_CAN_HO} element={<RentalApartment />}/>
-          <Route path={path.NHA_CHO_THUE} element={<RentalHouse />}/>
-          <Route path={path.CHO_THUE_PHONG_TRO} element={<RentalRoom />}/>
-          <Route path={path.CHO_THUE_MAT_BANG} element={<RentalSpace />}/>
+          <Route path={path.CHO_THUE_CAN_HO} element={<Categories category={"CTCH"} />}/>
+          <Route path={path.NHA_CHO_THUE} element={<Categories category={"NCT"} />}/>
+          <Route path={path.CHO_THUE_PHONG_TRO} element={<Categories category={"CTPT"} />}/>
+          <Route path={path.CHO_THUE_MAT_BANG} element={<Categories category={"CTMB"} />}/>
           <Route path={path.DETAIL_POST__TITLE__POSTID} element={<DetailPost />}/>
           <Route path={'chi-tiet/'} element={<DetailPost />}/>
           <Route path={path.FILTER} element={<FilterResult />}/>
