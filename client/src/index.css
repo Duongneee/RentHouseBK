@@ -25,3 +25,20 @@
     background: #ddd;
     border-radius: 999px;
   }
+
+button.slick-arrow::before{
+    font-size: 50px !important;
+    color: yellow !important;
+
+}
+
+.slick-next {
+    right: 35px !important;
+    top: 45% !important;
+}
+
+.slick-prev {
+    left: 10px !important;
+    z-index: 10 !important;
+    top: 45% !important;
+}

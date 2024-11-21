@@ -10,7 +10,6 @@ const RelatedPost = () => {
     useEffect(() => {
         dispatch(actions.getNewPosts())
     }, [])
-  console.log(newPosts)
   return (
     <div className='w-full bg-white round-md p-4'>
       <h3 className='font-semibold text-lg mb-4'>Tin mới đăng</h3>
@@ -22,7 +21,7 @@ const RelatedPost = () => {
               title={item.title}
               price={item?.attributes?.price}
               createdAt={item.createdAt}
-              //image={JSON.parse(item.images.image)}
+              image={JSON.parse(item.images)}
               />
             )
            })}

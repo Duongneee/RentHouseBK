@@ -10,8 +10,8 @@ const Sitem = ({title, price, image, createdAt}) => {
 
   return (
     <div className='w-full flex items-center gap-2 py-2 border-b border-gray-300'>
-      <img // src={image[0]}
-      src="https://pt123.cdn.static123.com/images/thumbs/450x300/fit/2024/11/01/z5988970599282-eba7976461c5968368d6e7d6df677f9a_1730458316.jpg" 
+      <img  src={image[0]}
+      //src="https://pt123.cdn.static123.com/images/thumbs/450x300/fit/2024/11/01/z5988970599282-eba7976461c5968368d6e7d6df677f9a_1730458316.jpg" 
       alt="anh" 
       className='w-[65px] h-[65px] object-cover flex-none rounded-md'
       />
