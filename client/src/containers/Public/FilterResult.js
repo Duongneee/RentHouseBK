@@ -23,10 +23,14 @@ const Homepage = () => {
   if (params.get('priceFrom') !== null & params.get('priceTo') !== null) {
     filters.priceFrom = params.get('priceFrom')
     filters.priceTo = params.get('priceTo')
+  } else if (params.get('priceFrom') !== null) {
+    filters.priceFrom = params.get('priceFrom')
   }
   if (params.get('sizeFrom') !== null & params.get('sizeTo') !== null) {
     filters.sizeFrom = params.get('sizeFrom')
     filters.sizeTo = params.get('sizeTo')
+  } else if (params.get('sizeFrom') !== null) {
+    filters.sizeFrom = params.get('sizeFrom')
   }
   // console.log('FilterResult.js: ', filters)
   return (
