@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home, Login, Categories, Homepage, DetailPost, FilterResult } from './containers/Public';
 import { path } from './untils/constant'
-import {CreatePost, System} from './containers/System'
+import { CreatePost, System } from './containers/system'
 import * as actions from './store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
@@ -9,30 +9,30 @@ import { useEffect } from 'react'
 function App() {
   const dispatch = useDispatch()
   const { isLoggedIn } = useSelector(state => state.auth)
-  useEffect(()=>{
-    setTimeout(() =>{
+  useEffect(() => {
+    setTimeout(() => {
       isLoggedIn && dispatch(actions.getCurrent())
-    },500)
+    }, 500)
   }, [isLoggedIn])
-  
+
 
   return (
     <div className=" bg-[#c0c0c0]">
       <Routes>
-        <Route path={path.HOME} element={< Home/>}>
-          <Route path='*' element={<Homepage />}/>
-          <Route path={path.HOME__PAGE} element={<Homepage />}/>
-          <Route path={path.LOGIN} element={<Login />}/>
-          <Route path={path.CHO_THUE_CAN_HO} element={<Categories category={"CTCH"} />}/>
-          <Route path={path.NHA_CHO_THUE} element={<Categories category={"NCT"} />}/>
-          <Route path={path.CHO_THUE_PHONG_TRO} element={<Categories category={"CTPT"} />}/>
-          <Route path={path.CHO_THUE_MAT_BANG} element={<Categories category={"CTMB"} />}/>
-          <Route path={path.DETAIL_POST__TITLE__POSTID} element={<DetailPost />}/>
-          <Route path={'chi-tiet/'} element={<DetailPost />}/>
-          <Route path={path.FILTER} element={<FilterResult />}/>
+        <Route path={path.HOME} element={< Home />}>
+          <Route path='*' element={<Homepage />} />
+          <Route path={path.HOME__PAGE} element={<Homepage />} />
+          <Route path={path.LOGIN} element={<Login />} />
+          <Route path={path.CHO_THUE_CAN_HO} element={<Categories category={"CTCH"} />} />
+          <Route path={path.NHA_CHO_THUE} element={<Categories category={"NCT"} />} />
+          <Route path={path.CHO_THUE_PHONG_TRO} element={<Categories category={"CTPT"} />} />
+          <Route path={path.CHO_THUE_MAT_BANG} element={<Categories category={"CTMB"} />} />
+          <Route path={path.DETAIL_POST__TITLE__POSTID} element={<DetailPost />} />
+          <Route path={'chi-tiet/'} element={<DetailPost />} />
+          <Route path={path.FILTER} element={<FilterResult />} />
         </Route>
-        <Route path={path.SYSTEM} element={< System/>}>
-          <Route path={path.CREATE_POST} element={< CreatePost/>} />
+        <Route path={path.SYSTEM} element={< System />}>
+          <Route path={path.CREATE_POST} element={< CreatePost />} />
         </Route>
 
       </Routes>
