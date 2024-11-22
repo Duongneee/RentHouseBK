@@ -129,7 +129,7 @@ const Search = () => {
   }
   return (
     <>
-      <div className='p-[10px] w-full max-w-[1200px] my-3 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
+      <div className='p-[10px] w-full max-w-[1130px] my-3 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
         {categoryDisplay()}
         {addressDisplay()}
         {priceDisplay()}
