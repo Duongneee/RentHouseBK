@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.STRING,
     amount: DataTypes.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
     // timestamp: DataTypes.DATETIME,
+    status: DataTypes.STRING,
 
   }, {
     sequelize,
