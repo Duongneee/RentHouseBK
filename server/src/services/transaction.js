@@ -194,23 +194,26 @@ export const handlePaymentReturn = async (vnp_Params, secureHash, userId) => {
         const amount = parseInt(vnp_Params['vnp_Amount'], 10) / 100; // Số tiền
 
         if (responseCode === '00') {
-            // Gọi addAmountService để cộng tiền và cập nhật trạng thái giao dịch
             const { err, msg, newBalance } = await addAmountService({ userId, amount, orderId });
-
             if (err === 0) {
                 return {
                     status: 200,
-                    message: msg,
+                    message: 'Payment successful',
                     data: { orderId, amount, newBalance },
-                };
+                    redirectUrl: `${process.env.CLIENT_URL}/he-thong/nap-tien/return?status=success&orderId=${orderId}&amount=${amount}&newBalance=${newBalance}`,
+                }
             } else {
                 throw new Error(msg);
             }
         } else {
-            // Cập nhật trạng thái giao dịch thành "failed"
             await updateTransactionStatus(orderId, 'failed');
 
-            throw new Error('Payment failed');
+            return {
+                status: 400,
+                message: 'Payment failed',
+                data: { orderId, amount },
+                redirectUrl: `${process.env.CLIENT_URL}/he-thong/nap-tien/return?status=failed&orderId=${orderId}&amount=${amount}&message=Payment%20failed`,
+            };
         }
     } catch (error) {
         return {

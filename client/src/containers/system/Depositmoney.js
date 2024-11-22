@@ -10,10 +10,18 @@ const DepositMoney = () => {
     const navigate = useNavigate();
 
     // Lấy thông tin từ redux
-    const { isLoggedIn, userId, msg, update } = useSelector((state) => state.auth); 
+    const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
+    const { currentData } = useSelector((state) => state.user);
 
+
+    // Quản lý payload
+    const [payload, setPayload] = useState({
+        userId: currentData?.id,
+        amount: "",
+    });
+
+    console.log(payload)
     const [invalidFields, setInvalidFields] = useState([]);
-    const [amount, setAmount] = useState("");
 
     // Kiểm tra trạng thái đăng nhập
     useEffect(() => {
@@ -41,24 +49,21 @@ const DepositMoney = () => {
         }
     }, [msg, update]);
 
+    // Hàm submit
     const handleSubmit = async () => {
-        const payload = {
-            userId,
-            amount: parseInt(amount, 10), // Chuyển sang số nguyên
-        };
-
-        let invalids = validate(payload);
+        const invalids = validate(payload);
         if (invalids === 0) {
             dispatch(actions.deposit(payload)); // Gửi payload lên backend
         }
     };
 
-    const validate = (payload) => {
+    // Hàm validate
+    const validate = (data) => {
         let invalids = 0;
         const newInvalidFields = [];
 
-        // Kiểm tra trường "amount"
-        if (!payload.amount || payload.amount <= 0) {
+        // Kiểm tra "amount"
+        if (!data.amount || isNaN(data.amount) || parseInt(data.amount, 10) <= 0) {
             newInvalidFields.push({
                 name: "amount",
                 message: "Số tiền nạp phải lớn hơn 0.",
@@ -77,13 +82,13 @@ const DepositMoney = () => {
                     Nạp tiền vào tài khoản
                 </h3>
                 <div className="w-full flex flex-col gap-6">
-                    {/* Nhập số tiền */}
+                    {/* Ô nhập tiền */}
                     <InputForm
                         setInvalidFields={setInvalidFields}
                         invalidFields={invalidFields}
                         label="Số tiền nạp (VNĐ)"
-                        value={amount}
-                        setValue={(key, value) => setAmount(value)}
+                        value={payload.amount}
+                        setValue={setPayload} 
                         keyPayload="amount"
                         type="number"
                         placeholder="Nhập số tiền cần nạp"

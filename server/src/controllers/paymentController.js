@@ -36,15 +36,19 @@ export const createPaymentUrl = async (req, res) => {
 
 export const handlePaymentReturn = async (req, res) => {
     const vnp_Params = req.query;
-    const secureHash = vnp_Params['vnp_SecureHash']; // Chữ ký; 
-    const vnp_OrderInfo = vnp_Params['vnp_OrderInfo']
+    const secureHash = vnp_Params['vnp_SecureHash'];
+    const vnp_OrderInfo = vnp_Params['vnp_OrderInfo'];
     const userId = vnp_OrderInfo.split('user')[1];
-
 
     const result = await transaction.handlePaymentReturn(vnp_Params, secureHash, userId);
 
-    res.status(result.status).json({
+    if (result.redirectUrl) {
+        return res.redirect(result.redirectUrl);
+    }
+
+    return res.status(result.status).json({
         message: result.message,
-        data: result.data,
+        data: result.data || null,
     });
 };
+

@@ -20,7 +20,7 @@ const Home = () => {
       <Header />
       <Navigation />
       {isLoggedIn && <Search />}
-      <div className='w-4/5 lg:w-4/5 flex flex-col items-start justify-start mt-3'>
+      <div className='w-full max-w-[1200px] lg:w-4/5 flex flex-col items-start justify-start mt-3'>
         <Outlet />
       </div>
     </div>

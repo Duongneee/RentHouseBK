@@ -8,17 +8,22 @@ export const apiDeposit = (payLoad) => new Promise(async (resolve, reject) => {
             url: '/api/v1/payment/create_payment_url', 
             data: payLoad
         });
-        resolve(response);
+
+        // Kiểm tra response trả về từ API
+        console.log(response.data);  // In ra dữ liệu thực sự từ API
+
+        // Nếu thành công, resolve với dữ liệu từ API
+        resolve(response.data);
     } catch (error) {
         if (error.response) {
-            // Có phản hồi từ server
+            // Lỗi từ server
             console.error('Lỗi từ server:', error.response.data);
             reject({
                 err: error.response.data.err || -1,
                 msg: error.response.data.msg || 'Đã có lỗi xảy ra.'
             });
         } else {
-            // Không có phản hồi
+            // Không có phản hồi từ server
             reject({
                 err: -1,
                 msg: 'Không thể kết nối đến máy chủ.'
