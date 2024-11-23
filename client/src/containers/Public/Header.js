@@ -85,7 +85,7 @@ const Header = () => {
                   </Link>
                 )
               })}
-              <span className='cursor-pointer hover:text-orange-500 text-blue-500 flex items-center gap-1 border-b border-gray-200 py-2 '
+              <span className='cursor-pointer hover:text-orange-500 text-blue-500 flex items-center gap-1 border-b border-gray-200 py-2 hover:scale-110 transition-transform duration-200  '
                 onClick={() => {
                   dispatch(actions.logout())
                 }

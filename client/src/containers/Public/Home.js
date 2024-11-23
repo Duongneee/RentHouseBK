@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import { Navigation, Search } from './index'
 import * as actions from '../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
+import { Intro, Contact } from '../../components'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -16,12 +17,18 @@ const Home = () => {
   }, [isLoggedIn])
 
   return (
-    <div className='w-full flex flex-col items-center'>
+    <div className='w-full flex flex-col gap-4 items-center'>
       <Header />
       <Navigation />
       {isLoggedIn && <Search />}
       <div className='w-full max-w-[1200px] lg:w-4/5 flex flex-col items-start justify-start mt-3'>
         <Outlet />
+      </div>
+      <Intro />
+      <Contact />
+
+      <div className = ' h-[400px]'>
+
       </div>
     </div>
   )
