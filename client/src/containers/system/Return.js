@@ -33,7 +33,7 @@ const PaymentResult = () => {
                             Về trang chủ
                         </button>
                         <button
-                            onClick={() => navigate('/he-thong/nap-tien/return')}
+                            onClick={() => navigate('/he-thong/nap-tien')}
                             className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 mt-4"
                         >
                             Nạp tiền tiếp

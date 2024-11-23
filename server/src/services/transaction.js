@@ -222,3 +222,32 @@ export const handlePaymentReturn = async (vnp_Params, secureHash, userId) => {
         };
     }
 };
+
+
+export const getPaymentList = async (userId, page, limit) => {
+    try {
+        // Tính toán offset và limit cho truy vấn
+        const offset = page * limit;
+
+        // Truy vấn dữ liệu từ database
+        const payments = await db.Transaction.findAndCountAll({
+            raw: true,
+            nest: true,
+            offset,  // Tính toán offset
+            limit,   // Giới hạn số bản ghi mỗi trang
+            where: { userId },  // Lọc theo userId
+            attributes: ['amount', 'status', 'createdAt', 'updatedAt'], 
+            order: [['createdAt', 'DESC']], 
+        });
+
+        // Trả về dữ liệu dưới dạng một đối tượng
+        return {
+            rows: payments.rows,  
+            count: payments.count, 
+            totalPages: Math.ceil(payments.count / limit), // Tổng số trang
+        };
+    } catch (error) {
+        throw new Error('Error fetching payment data: ' + error.message);
+    }
+};
+

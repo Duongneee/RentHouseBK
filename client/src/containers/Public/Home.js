@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import Header from './Header'
 import { Outlet } from 'react-router-dom'
-import { Navigation, Search} from './index'
+import { Navigation, Search } from './index'
 import * as actions from '../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Home = () => {
   const dispatch = useDispatch()
   const { isLoggedIn } = useSelector(state => state.auth)
- 
-  useEffect(()=>{
-    setTimeout(() =>{
+
+  useEffect(() => {
+    setTimeout(() => {
       isLoggedIn && dispatch(actions.getCurrent())
-    },500)
+    }, 500)
   }, [isLoggedIn])
-  
+
   return (
     <div className='w-full flex flex-col items-center'>
       <Header />

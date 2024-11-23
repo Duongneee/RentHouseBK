@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 import icons from '../../untils/icon'
 
 const {GrLinkNext, GrLinkPrevious} = icons
-const arrNumber = [1,2,3,4]
+
 
 const Pagination = ({page}) => {
     const {count, posts} = useSelector(state => state.post)
@@ -13,24 +13,15 @@ const Pagination = ({page}) => {
     const [isHideEnd, setisHideEnd] = useState(false)
     const [isHideStart, setisHideStart] = useState(false)
     
-    
     useEffect(() => {
-        let maxPage = Math.floor(count / posts.length)
-        let end = (currentPage + 1) > maxPage ? maxPage : (currentPage + 1)
-        let start = (currentPage - 1) < 1 ? 1 : (currentPage - 1) 
+        let maxPage = Math.ceil(count / posts.length)
+        let end = (currentPage + 2) > maxPage ? maxPage : (currentPage + 2)
+        let start = (currentPage - 2) < 1 ? 1 : (currentPage - 2) 
         let temp = []
         for(let i = start; i <= end; i++) temp.push(i)
             setarrPage(temp)
-        if (currentPage >= maxPage - 1) {
-            setisHideEnd(true)
-        } else {
-            setisHideEnd(false)
-        }
-        if (currentPage <= 2) {
-            setisHideStart(true)
-        } else {
-            setisHideStart(false)
-        }
+        currentPage >= (maxPage - 2) ? setisHideEnd(true) : setisHideEnd(false)
+        currentPage <= 3 ? setisHideStart(true) : setisHideStart(false)
     },[count, posts, currentPage])
   return (
     <div className='flex items-center justify-center gap-2 py-5'>

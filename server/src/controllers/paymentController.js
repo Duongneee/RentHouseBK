@@ -52,3 +52,32 @@ export const handlePaymentReturn = async (req, res) => {
     });
 };
 
+
+export const handlePaymentList = async (req, res) => {
+
+    if (!req.user || !req.user.id) {
+        return res.status(400).send('User ID is missing');
+    }
+
+    // Lấy các giá trị từ query params, nếu không có sẽ mặc định là 0 cho page và 10 cho limit
+    const page = parseInt(req.query.page) || 0;  // Nếu không có page thì mặc định là 0
+    const limit = parseInt(req.query.limit) || 2;  // Nếu không có limit thì mặc định là 10
+    console.log(limit)
+    const { id } = req.user; // Lấy id từ req.user
+
+    try {
+        // Gọi dịch vụ để lấy danh sách thanh toán
+        const payments = await transaction.getPaymentList(id, page, limit);
+
+        res.status(200).json({
+            err: 0,
+            msg: 'OK',
+            response: payments,  // Trả về kết quả từ service
+        });
+    } catch (error) {
+        res.status(500).json({ err: 1, msg: 'Error fetching data', error: error.message });
+    }
+};
+
+
+

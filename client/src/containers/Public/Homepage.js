@@ -1,7 +1,7 @@
 import React from 'react'
 import {text} from '../../untils/constant'
-import {Province, ItemSidebar} from '../../components'
-import {List, Pagination} from './index'
+import {Province, ItemSidebar, RelatedPost} from '../../components'
+import {List, Pagination, NewPost} from './index'
 import {  useSearchParams } from 'react-router-dom'
 
 const Homepage = () => {
@@ -18,10 +18,9 @@ const Homepage = () => {
         <List page={params.get('page')} />
         <Pagination page={params.get('page')} />
       </div>
-      <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
+      <div className='w-[30%] flex flex-col gap-4'>
         <ItemSidebar />
-        <ItemSidebar />
-        <ItemSidebar />
+        <RelatedPost />
       </div>
       </div>
     </div>

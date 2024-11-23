@@ -31,3 +31,16 @@ export const apiDeposit = (payLoad) => new Promise(async (resolve, reject) => {
         }
     }
 });
+
+
+export const fetchPaymentHistory = async (page, limit) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/payment/payment-history?page=${page}&limit=${limit}`, 
+        })
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || { err: -1, msg: 'Server error' };
+    }
+};

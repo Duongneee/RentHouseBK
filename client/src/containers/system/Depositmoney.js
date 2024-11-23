@@ -9,21 +9,15 @@ const DepositMoney = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // Lấy thông tin từ redux
     const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
     const { currentData } = useSelector((state) => state.user);
 
-
-    // Quản lý payload
     const [payload, setPayload] = useState({
         userId: currentData?.id,
         amount: "",
     });
-
-    console.log(payload)
     const [invalidFields, setInvalidFields] = useState([]);
 
-    // Kiểm tra trạng thái đăng nhập
     useEffect(() => {
         if (!isLoggedIn) {
             Swal.fire({
@@ -37,32 +31,20 @@ const DepositMoney = () => {
         }
     }, [isLoggedIn, navigate]);
 
-    // Hiển thị thông báo lỗi từ redux
     useEffect(() => {
         if (msg) {
             Swal.fire({
                 icon: "error",
-                title: "Oops!",
+                title: "Thông báo",
                 text: msg,
                 confirmButtonText: "OK",
             });
         }
     }, [msg, update]);
 
-    // Hàm submit
-    const handleSubmit = async () => {
-        const invalids = validate(payload);
-        if (invalids === 0) {
-            dispatch(actions.deposit(payload)); // Gửi payload lên backend
-        }
-    };
-
-    // Hàm validate
     const validate = (data) => {
         let invalids = 0;
         const newInvalidFields = [];
-
-        // Kiểm tra "amount"
         if (!data.amount || isNaN(data.amount) || parseInt(data.amount, 10) <= 0) {
             newInvalidFields.push({
                 name: "amount",
@@ -70,25 +52,31 @@ const DepositMoney = () => {
             });
             invalids++;
         }
-
         setInvalidFields(newInvalidFields);
         return invalids;
     };
 
+    const handleSubmit = async () => {
+        const invalids = validate(payload);
+        if (invalids === 0) {
+            dispatch(actions.deposit(payload));
+        }
+    };
+
     return (
-        <div className="w-full h-[500px] flex items-center justify-center bg-gray-100">
-            <div className="bg-white w-[500px] p-8 rounded-lg shadow-lg">
-                <h3 className="font-semibold text-2xl mb-6 text-center text-gray-800">
+        <div className="flex-auto bg-gradient-to-r from-indigo-50 to-blue-50 flex justify-center items-center h-screen">
+            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <h3 className="font-bold text-2xl text-center text-gray-800 mb-6">
                     Nạp tiền vào tài khoản
                 </h3>
-                <div className="w-full flex flex-col gap-6">
+                <div className="flex flex-col gap-6">
                     {/* Ô nhập tiền */}
                     <InputForm
                         setInvalidFields={setInvalidFields}
                         invalidFields={invalidFields}
                         label="Số tiền nạp (VNĐ)"
                         value={payload.amount}
-                        setValue={setPayload} 
+                        setValue={setPayload}
                         keyPayload="amount"
                         type="number"
                         placeholder="Nhập số tiền cần nạp"
@@ -97,16 +85,17 @@ const DepositMoney = () => {
                     {/* Nút nạp tiền */}
                     <Button
                         text="Nạp tiền"
-                        bgColor="bg-blue-500 hover:bg-blue-600"
+                        bgColor="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600"
                         textColor="text-white"
                         fullWidth
                         onClick={handleSubmit}
+                        className="shadow-lg hover:shadow-xl transition-shadow"
                     />
                 </div>
 
                 {/* Hiển thị lỗi */}
                 {invalidFields.length > 0 && (
-                    <div className="mt-4 text-red-500 text-sm">
+                    <div className="mt-4 text-red-500 text-sm bg-red-100 p-3 rounded-md shadow-sm">
                         {invalidFields.map((field, index) => (
                             <div key={index} className="flex items-center gap-2">
                                 <span className="font-bold">•</span> {field.message}
