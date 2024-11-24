@@ -19,14 +19,12 @@ export const deposit = (payload) => async (dispatch) => {
             Swal.fire('Lỗi', 'Không có URL thanh toán trả về.', 'error');
         }
 
-        // Bạn có thể dispatch hành động thành công sau khi thanh toán được tạo
         dispatch({
             type: actionTypes.DEPOSIT_SUCCESS,
             data: response,
         });
         
     } catch (error) {
-        // Nếu có lỗi trong quá trình gọi API
         dispatch({
             type: actionTypes.DEPOSIT_FAIL,
             data: 'Không thể kết nối đến máy chủ.',

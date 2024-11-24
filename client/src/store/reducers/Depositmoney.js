@@ -13,20 +13,20 @@ const depositMoney = (state = initState, action) => {
         case actionTypes.DEPOSIT_SUCCESS:
             return {
                 ...state,
-                balance: state.balance + action.amount, // Cập nhật số dư tài khoản khi nạp tiền thành công
+                balance: state.balance + action.amount, 
                 msg: 'Nạp tiền thành công!'
             };
 
         case actionTypes.DEPOSIT_FAIL:
             return {
                 ...state,
-                msg: action.data // Hiển thị thông báo lỗi khi nạp tiền thất bại
+                msg: action.data 
             };
 
         case actionTypes.UPDATE_BALANCE:
             return {
                 ...state,
-                balance: action.amount // Cập nhật số dư tài khoản khi có thay đổi ngoài quá trình nạp tiền
+                balance: action.amount 
             };
 
         default:
