@@ -1,11 +1,12 @@
 import React from 'react'
 import { text } from '../../untils/constant'
-import { Province, ItemSidebar, RelatedPost } from '../../components'
-import { ListFilter, Pagination, NewPost } from './index'
+import { Province, ItemSidebar } from '../../components'
+import { ListFilter, Pagination } from './index'
 import { useSearchParams } from 'react-router-dom'
 
-const Homepage = () => {
+const Categories = (categoryCode) => {
   const [params] = useSearchParams()
+  console.log('/<categoryCode>: ', categoryCode)
   return (
     <div className='w-full flex flex-col gap-3'>
       <div>
@@ -15,16 +16,15 @@ const Homepage = () => {
       <Province />
       <div className='w-full flex gap-4'>
         <div className='w-[70%]'>
-          <ListFilter page={params.get('page')} />
+          <ListFilter page={params.get('page')} filters={categoryCode} />
           <Pagination page={params.get('page')} />
         </div>
         <div className='w-[30%] flex flex-col gap-4'>
           <ItemSidebar />
-          <RelatedPost />
         </div>
       </div>
     </div>
   )
 }
 
-export default Homepage
+export default Categories

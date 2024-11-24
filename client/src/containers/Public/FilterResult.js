@@ -1,11 +1,12 @@
 import React from 'react'
-import {text} from '../../untils/constant'
-import {Province, ItemSidebar} from '../../components'
-import {ListFilter, Pagination} from './index'
-import {  useSearchParams } from 'react-router-dom'
+import { text } from '../../untils/constant'
+import { Province, ItemSidebar } from '../../components'
+import { ListFilter, Pagination } from './index'
+import { useSearchParams } from 'react-router-dom'
 
 const Homepage = () => {
-  const [params] = useSearchParams()  
+  const [params] = useSearchParams()
+  // console.log('FilterResult.js: params:', params.toString())
   const filters = {}
   if (params.get('categoryCode') !== null) {
     filters.categoryCode = params.get('categoryCode')
@@ -22,10 +23,14 @@ const Homepage = () => {
   if (params.get('priceFrom') !== null & params.get('priceTo') !== null) {
     filters.priceFrom = params.get('priceFrom')
     filters.priceTo = params.get('priceTo')
+  } else if (params.get('priceFrom') !== null) {
+    filters.priceFrom = params.get('priceFrom')
   }
   if (params.get('sizeFrom') !== null & params.get('sizeTo') !== null) {
     filters.sizeFrom = params.get('sizeFrom')
     filters.sizeTo = params.get('sizeTo')
+  } else if (params.get('sizeFrom') !== null) {
+    filters.sizeFrom = params.get('sizeFrom')
   }
   // console.log('FilterResult.js: ', filters)
   return (
@@ -36,15 +41,13 @@ const Homepage = () => {
       </div>
       <Province />
       <div className='w-full flex gap-4'>
-      <div className='w-[70%]'>
-        <ListFilter page={params.get('page')} filters={filters} />
-        <Pagination page={params.get('page')} />
-      </div>
-      <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
-        <ItemSidebar />
-        <ItemSidebar />
-        <ItemSidebar />
-      </div>
+        <div className='w-[70%]'>
+          <ListFilter page={params.get('page')} filters={filters} />
+          <Pagination page={params.get('page')} />
+        </div>
+        <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
+          <ItemSidebar />
+        </div>
       </div>
     </div>
   )

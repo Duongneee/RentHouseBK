@@ -97,26 +97,26 @@ export const getNewPosts = () => async (dispatch) => {
     }
 }
 export const getPostsFilter = (page, filters) => async (dispatch) => {
-    dispatch({ type: actionTypes.GET_POSTS_REQUEST });
+    // dispatch({ type: actionTypes.GET_POSTS_FILTER });
     try {
         const response = await apiGetPostsFilter(page, filters)
         console.log('Action.GetPostsFilter: ', response)
         if (response?.data.err === 0) {
             dispatch({
-                type: actionTypes.GET_POSTS_LIMIT_SUCCESS,
+                type: actionTypes.GET_POSTS_FILTER,
                 posts: response.data.response?.rows,
                 count: response.data.response?.count
             })
         } else {
             dispatch({
-                type: actionTypes.GET_POSTS_LIMIT_FAILURE,
+                type: actionTypes.GET_POSTS_FILTER,
                 msg: response.data.msg
             })
         }
 
     } catch (error) {
         dispatch({
-            type: actionTypes.GET_POSTS_LIMIT_FAILURE,
+            type: actionTypes.GET_POSTS_FILTER,
             posts: null
         })
     }

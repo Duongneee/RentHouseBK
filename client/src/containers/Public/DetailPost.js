@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { SliderCustom } from '../../components'
+import { SliderCustom, BoxInfo, RelatedPost, GoogleMapEmbed } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPostById } from '../../store/actions/post'
 import icons from '../../untils/icon'
 import moment from 'moment'
+
 
 const {HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch} = icons
 
@@ -14,6 +15,8 @@ const DetailPost = () => {
   const { posts } = useSelector(state => state.post)
   const formattedTime = moment(posts?.createdAt).fromNow();
   const images = posts?.images ? JSON.parse(posts.images) : [];
+  const address = `${posts?.street}, ${posts?.ward}, ${posts?.district}, ${posts?.city}`
+  const formattedAddress = encodeURIComponent(address)
 
   useEffect(() => {
     if (id) {
@@ -24,6 +27,7 @@ const DetailPost = () => {
   return (
     <div className='w-full flex gap-4'>     
         <div className='w-[70%] '>
+        <SliderCustom images={images} />  
           <div className='bg-white rounded-md shadow-md p-4'>
           <div className='flex flex-col gap-2 '>
               <h2 className='text-xl font-bold text-red-600 my-4'>{posts?.title}</h2>
@@ -72,11 +76,21 @@ const DetailPost = () => {
                   </tbody>
               </table>
           </div>
+          <div className='mt-8'>
+            <h3 className='font-semibold text-xl my-[4px]'>Bản đồ</h3>
+            <div style={{ height: '400px', width: '100%' }}>
+              <GoogleMapEmbed 
+                formattedAddress={formattedAddress}
+              />
+            </div>
+          </div>
           </div>
         </div>
-        <div className='w-[30%]'>
-          sidebar
+        <div className='w-[30%] flex flex-col gap-8'>
+          <BoxInfo userData={posts?.owner} />
+          <RelatedPost />
         </div>
+        
     </div>
   )
 }

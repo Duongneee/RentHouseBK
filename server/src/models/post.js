@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     categoryCode: DataTypes.STRING,
     userId: DataTypes.STRING,
     expiryDate: DataTypes.DATE,
-    updateAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
   }, {
     sequelize,
     modelName: 'Post'
