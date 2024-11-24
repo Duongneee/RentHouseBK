@@ -25,6 +25,9 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED,
         defaultValue: 0
       },
+      avatar: {
+        type: Sequelize.BLOB('medium'),
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
