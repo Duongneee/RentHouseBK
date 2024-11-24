@@ -18,7 +18,7 @@ const Sitem = ({title, price, image, createdAt}) => {
       <div className='w-full flex-auto flex flex-col justify-between gap-1'>
         <h4 className='text-blue-600 text-[14px]'>{`${title?.slice(0,45)}...`}</h4>
         <div className='flex items-center justify-between w-full'>
-            <span className='text-sm font-medium text-green-500'>{price}</span>
+            <span className='text-sm font-medium text-green-500'>{price} triệu/tháng</span>
             <span className='text-sm text-gray-500'>{formatTime(createdAt)}</span>
         </div>
      </div>

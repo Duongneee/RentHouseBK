@@ -146,4 +146,28 @@ export const createNewPostService = (body, userId) => new Promise(async(resolve,
         reject(error)
     }
 })
-       
+
+export const getPostsLimitAdminService = ( offset, id, query) => new Promise(async(resolve, reject) => {
+    try{
+        const queries = { ...query, userId: id}
+        const response = await db.Post.findAndCountAll({
+            where: queries,
+            raw : true,
+            nest: true,
+            offset: offset * (+process.env.LIMIT) || 0,
+            limit: +process.env.LIMIT,
+            include: [
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+            ],
+            attributes : ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description', 'createdAt', 'updatedAt', 'expiryDate' ]
+
+        })
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Failed to get posts.',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})

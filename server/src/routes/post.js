@@ -10,8 +10,11 @@ router.get('/new-post', postController.getNewPosts)
 router.get('/filter', postController.postFilter)
 router.get('/:id', postController.getPostById)
 
+
 router.use(verifyToken)
+router.post('/limit-admin', postController.getPostsLimitAdmin)
 router.post('/create-new', postController.createNewPost)
+
 
 
 

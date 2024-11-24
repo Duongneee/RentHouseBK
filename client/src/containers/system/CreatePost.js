@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
-import { Overview, Address , Button, Loading, InputFormV2} from '../../components'
+import { Overview, Address , Button, Loading} from '../../components'
 import { apiUploadImages } from '../../services'
 import { useSelector } from 'react-redux'
 import { apiCreatePost } from '../../services'
 import icon from '../../untils/icon'
+import Swal from 'sweetalert2'
+import validate from '../../untils/common/validateField'
 
 const {BsCameraFill, ImBin} = icon
 
@@ -24,7 +26,7 @@ const CreatePost = () => {
 const [imagesPreview, setImagesPreview] = useState([])
 const [isLoading, setIsLoading] = useState(false)
 const {currentData} = useSelector(state => state.user)
-  console.log(payload)
+const [invalidFields, setInvalidFields] = useState([])
 
   const handleFiles = async (e) => {
     e.stopPropagation()
@@ -54,18 +56,44 @@ const handleDeleteImage = (image) => {
 
 const handleSubmit = async () => {
   if(payload.title === '' || payload.price === 0 || payload.size === 0 || payload.description === ''  || payload.city === '' || payload.street === '' || payload.images === '') {
-    alert('Vui lòng điền đầy đủ thông tin')
+    alert('Vui lòng điền đầy đủ thông tin');
+    return;
   } 
+  
   let finalPayload = {
     ...payload,
-    price: (payload.price / 1000000).toString(),
+    price: +payload.price / Math.pow(10, 6),
     size: payload.size.toString(),
     userId: currentData.id,    
   }
-  const response = await apiCreatePost(finalPayload)
-  console.log(response)
-}
-
+  // let invalids = validate(finalPayload, setInvalidFields)
+  // if (invalids === 0) {
+  //   console.log(payload);
+  //   console.log(invalidFields);
+  try {
+    console.log('Final payload:', finalPayload); // Log the final payload
+    const response = await apiCreatePost(finalPayload);
+    if (response?.data.err === 0) {
+      Swal.fire('Thành công', 'Đã thêm bài đăng mới', 'success').then(() => {
+        setPayload({
+          title: '',
+          price: 0,
+          size: 0,
+          images: '',
+          address: '',
+          description: '',
+          city: '',
+          street: ''
+        });
+      });
+    } else {
+      Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+    }
+  } catch (error) {
+    console.error('Error creating post:', error); // Log the error
+    Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+  }
+};
 
 
   return (
@@ -73,8 +101,8 @@ const handleSubmit = async () => {
       <h1 className='text-3xl font-medium py-4 border-b border-gray-200'>Đăng tin mới</h1>
       <div className='flex gap-4'>
         <div className='py-4 flex flex-col gap-8 flex-auto'>
-          <Address payload={payload} setPayload={setPayload}/>
-          <Overview payload={payload} setPayload={setPayload}/>
+          <Address invalidFields={invalidFields} payload={payload} setPayload={setPayload}/>
+          <Overview invalidFields={invalidFields} payload={payload} setPayload={setPayload}/>
           <div className='w-full'>
             <h2 className='font-semibold text-xl py-4'>Hình ảnh</h2>
             <small>Cập nhật hình ảnh rõ ràng sẽ giúp cho thuê nhanh hơn</small>
@@ -114,7 +142,7 @@ const handleSubmit = async () => {
           </div>
         </div>
         <div className='w-[30%] flex-none'>
-          <Loading />
+          
         </div>
       </div>
     </div>

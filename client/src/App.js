@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home, Login, RentalApartment, RentalHouse, RentalRoom, RentalSpace, Homepage, DetailPost, FilterResult } from './containers/Public';
 import { path } from './untils/constant'
-import {CreatePost, System} from './containers/System'
+import {CreatePost, System, ManagePost} from './containers/System'
 import * as actions from './store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
@@ -17,7 +17,7 @@ function App() {
   
 
   return (
-    <div className=" bg-[#c0c0c0]">
+    <div className=" bg-[#c0c0c0] overflow-hidden">
       <Routes>
         <Route path={path.HOME} element={< Home/>}>
           <Route path='*' element={<Homepage />}/>
@@ -33,6 +33,7 @@ function App() {
         </Route>
         <Route path={path.SYSTEM} element={< System/>}>
           <Route path={path.CREATE_POST} element={< CreatePost/>} />
+          <Route path={path.MANAGE_POST} element={< ManagePost/>} />
         </Route>
 
       </Routes>

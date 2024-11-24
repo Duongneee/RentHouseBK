@@ -13,7 +13,8 @@ export const path = {
     DETAIL: '/chi-tiet/',
     DETAIL_ALL: 'chi-tiet/*',
     SYSTEM: '/he-thong/*',
-    CREATE_POST: 'tao-moi-bai-dang'
+    CREATE_POST: 'tao-moi-bai-dang',
+    MANAGE_POST: 'quan-ly-bai-dang'
 }
 
 export const text = {

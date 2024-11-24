@@ -26,7 +26,7 @@ export const postFilter = async (req, res) => {
             [Op.between]: [req.query.sizeFrom, req.query.sizeTo]
         }
         if (req.query.category) filters.categoryCode = req.query.category
-        const response = await postServive.postFilterService(filters, req.query.page)
+        const response = await postService.postFilterService(filters, req.query.page)
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
@@ -85,7 +85,27 @@ export const createNewPost = async (req, res) => {
                 msg: 'Missing input'
             })
         
-        const response = await postServive.createNewPostService(req.body, id)
+        const response = await postService.createNewPostService(req.body, id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to get post controller: '+ error
+        })
+    }
+}
+
+export const getPostsLimitAdmin = async (req, res) => {
+    const { page, ...query } = req.query
+    const { id } = req.user
+    try {
+        if (!id) {
+            return res.status(400).json({
+                err: -1,
+                msg: 'Missing inputs'
+            })
+        }
+        const response = await postService.getPostsLimitAdminService(page, id, query)
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
