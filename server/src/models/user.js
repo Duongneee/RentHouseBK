@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     // zalo: DataTypes.STRING,
     // using phone nummer instead of zalo
     balance: DataTypes.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
-    avatar: DataTypes.BLOB('medium'),     // Upto 16MB, for image should be less than 1MB for performance
+    avatar: DataTypes.STRING,     // avatar URL
 
   }, {
     sequelize,
