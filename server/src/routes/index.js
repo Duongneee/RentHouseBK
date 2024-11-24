@@ -11,7 +11,9 @@ const initRoutes = (app) => {
     // Data inserted into renhousebk_db2, don't trigger this route to prevent data duplication
     // app.use('/api/v1/data-insert', insertRouter)
 
-    app.use('/api/v1/category', categoryRouter)
+    // Deprecated
+    // app.use('/api/v1/category', categoryRouter)
+
     app.use('/api/v1/post', postRouter)
     app.use('/api/v1/user', userRouter)
 
