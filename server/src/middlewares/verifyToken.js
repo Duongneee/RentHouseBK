@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
             err: 1,
             msg: 'Access token expired'
         })
-
+        
         req.user = user
         next()
     })

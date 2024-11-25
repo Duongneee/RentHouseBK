@@ -94,8 +94,28 @@ export const createNewPost = async (req, res) => {
                 err: -1,
                 msg: 'Missing input'
             })
+        
+        const response = await postService.createNewPostService(req.body, id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to get post controller: '+ error
+        })
+    }
+}
 
-        const response = await postServive.createNewPostService(req.body, id)
+export const getPostsLimitAdmin = async (req, res) => {
+    const { page, ...query } = req.query
+    const { id } = req.user
+    try {
+        if (!id) {
+            return res.status(400).json({
+                err: -1,
+                msg: 'Missing inputs'
+            })
+        }
+        const response = await postService.getPostsLimitAdminService(page, id, query)
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({

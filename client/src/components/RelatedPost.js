@@ -9,7 +9,8 @@ const RelatedPost = () => {
 
   useEffect(() => {
     dispatch(actions.getNewPosts())
-  }, [])
+  }, [dispatch])
+  
   return (
     <div className='w-full bg-white round-md p-4'>
       <h3 className='font-semibold text-lg mb-4'>Tin mới đăng</h3>
@@ -29,11 +30,14 @@ const RelatedPost = () => {
               className="hover:scale-105 transition-transform duration-200"
             >
               <Sitem
+
+                key={item.id}
                 title={item.title}
-                price={item?.attributes?.price}
+                price={item?.price}
                 createdAt={item.createdAt}
                 image={JSON.parse(item.images)}
                 id={item?.id}
+
               />
             </div>
           )
