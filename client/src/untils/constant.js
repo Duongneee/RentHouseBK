@@ -14,7 +14,10 @@ export const path = {
     DETAIL: '/chi-tiet/',
     DETAIL_ALL: 'chi-tiet/*',
     SYSTEM: '/he-thong/*',
-    CREATE_POST: 'tao-moi-bai-dang'
+    CREATE_POST: 'tao-moi-bai-dang',
+    TRANSACTION: 'nap-tien',
+    RETURNTRANSACTION: 'nap-tien/return',
+    TRANSACTIONLIST: 'lich-su-nap-tien'
 
 }
 
