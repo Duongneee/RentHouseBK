@@ -19,5 +19,7 @@ export { default as Overview } from './Overview'
 export { default as Select } from './Select'
 export { default as InputReadOnly } from './InputReadOnly'
 export { default as Loading } from './Loading'
+export { default as Intro} from './intro'
+export { default as Contact} from './contact'
 export { default as UpdatePost } from './UpdatePost'
 

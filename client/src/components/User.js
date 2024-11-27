@@ -15,9 +15,10 @@ const User = () => {
                     </span>
                 </span>
                 <span>
-                    Mã tài khoản:
+                    Số dư : 
                     <span className='font-semibold' >
-                        {`${currentData?.id?.slice(0, 10)}...`}
+                        {/* {`${currentData?.id?.slice(0, 10)}...`} */}
+                        {currentData?.balance} VNĐ
                     </span>
                 </span>
 
