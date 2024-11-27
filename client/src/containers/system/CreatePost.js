@@ -9,18 +9,26 @@ import validate from '../../untils/common/validateField'
 
 const {BsCameraFill, ImBin} = icon
 
-const CreatePost = () => {
+const CreatePost = ({isUpdate}) => {
 
-  const [payload, setPayload] = useState({
-    title: '',
-    price: 0,
-    size: 0,
-    images: '',
-    address: '',
-    description: '',
-    city: '',
-    street: ''
+  const { dataUpdate } = useSelector(state => state.post)
+  const [payload, setPayload] = useState(() => {
+    const initData = {
+      // categoryCode: dataUpdate?.categoryCode || '',
+      title: dataUpdate?.title || '',
+      price: dataUpdate?.price || 0,
+      size: dataUpdate?.size || 0,
+      images: dataUpdate?.images || '',
+      address: dataUpdate?.address || '',
+      description: dataUpdate?.description || '',
+      city: dataUpdate?.city || '',
+      district: dataUpdate?.district || '',
+      ward: dataUpdate?.ward || '',
+      street: dataUpdate?.street || ''
+    }
+    return initData;
 })
+
 
 
 const [imagesPreview, setImagesPreview] = useState([])
@@ -55,14 +63,14 @@ const handleDeleteImage = (image) => {
 
 
 const handleSubmit = async () => {
-  if(payload.title === '' || payload.price === 0 || payload.size === 0 || payload.description === ''  || payload.city === '' || payload.street === '' || payload.images === '') {
+  if(payload.title === '' || payload.price === 0 || payload.size === 0 || payload.description === ''  || payload.city === '' || payload.street === '' || payload.images === '', payload.district === '', payload.ward === '') {
     alert('Vui lòng điền đầy đủ thông tin');
     return;
   } 
   
   let finalPayload = {
     ...payload,
-    price: +payload.price / Math.pow(10, 6),
+    price: +payload.price ,
     size: payload.size.toString(),
     userId: currentData.id,    
   }
@@ -83,6 +91,8 @@ const handleSubmit = async () => {
           address: '',
           description: '',
           city: '',
+          district: '',
+          ward: '',
           street: ''
         });
       });
@@ -98,7 +108,7 @@ const handleSubmit = async () => {
 
   return (
     <div className='px-6'>
-      <h1 className='text-3xl font-medium py-4 border-b border-gray-200'>Đăng tin mới</h1>
+      <h1 className='text-3xl font-medium py-4 border-b border-gray-200'>{isUpdate ? 'Chỉnh sửa tin đăng' : 'Đăng tin mới'}</h1>
       <div className='flex gap-4'>
         <div className='py-4 flex flex-col gap-8 flex-auto'>
           <Address invalidFields={invalidFields} payload={payload} setPayload={setPayload}/>

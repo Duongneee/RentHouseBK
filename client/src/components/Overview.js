@@ -1,10 +1,11 @@
 import React from 'react'
 import { Select, InputReadOnly, InputFormV2} from './'
 import { useSelector } from 'react-redux'
+import { categories } from "../untils/constant";
+
 
 const Overview = ({payload, setPayload}) => {
 
-  // const { categories } = useSelector(state => state.app)
   const {currentData} = useSelector(state => state.user)
   return (
     <div>
@@ -12,7 +13,7 @@ const Overview = ({payload, setPayload}) => {
       <h2 className='font-semibold text-xl py-4'>Thông tin mô tả</h2>
       
       <div className='w-full flex flex-col gap-4'>
-      {/* <div className='w-1/2'><Select value={payload.categoryCode} setValue={setPayload} name='categoryCode' options={categories} label='Loại chuyên mục' /></div> */}
+      <div className='w-1/2'><Select value={payload.categoryCode} setValue={setPayload} name='categoryCode' options={categories} label='Loại chuyên mục' /></div>
         
         <div className='flex flex-col gap-2'>
         <InputFormV2  value={payload.title} setValue={setPayload} name='title' label='Tiêu đề'/>

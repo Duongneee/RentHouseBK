@@ -9,6 +9,7 @@ const initialState = {
     count: 0,
     newPosts: [],
     currentPost: [],
+    dataUpdate: {}
 };
 
 const postsReducer = (state = initialState, action) => {
@@ -27,6 +28,10 @@ const postsReducer = (state = initialState, action) => {
             msg:action.msg || null, 
             currentPost: action.posts || []
         }
+        case actionTypes.UPDATE_DATA:
+            return{ ...state, 
+                dataUpdate: action.dataUpdate || {}
+            }
         default:
             return state;
     }

@@ -146,3 +146,8 @@ export const getPostsLimitAdmin = (query) => async (dispatch) => {
         })
     }
 }
+
+export const updateData = (dataUpdate) => ({
+    type: actionTypes.UPDATE_DATA,
+    dataUpdate
+})
