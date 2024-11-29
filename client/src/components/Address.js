@@ -6,94 +6,106 @@ import { useDispatch, useSelector } from 'react-redux'
 const Address = ({ setPayload}) => {
 
     const { dataUpdate } = useSelector(state => state.post)
-    console.log(dataUpdate)
-
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
     const [selectedCity, setSelectedCity] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
     const [selectedWard, setSelectedWard] = useState("");
-    const [exactAddress, setExactAddress] = useState("");
-    useEffect(() => {
-      // Set cities from data.json
-      setCities(data);
-      
-      if (dataUpdate?.city) {
-        const city = data.find(city => city.Name === dataUpdate.city);
-        if (city) {
-            setSelectedCity(city.Id);
-            setDistricts(city.Districts || []);
-        }
-    }
 
-    if (dataUpdate?.district && selectedCity) {
-        const city = data.find(city => city.Id === selectedCity);
-        const district = city?.Districts.find(district => district.Name === dataUpdate.district);
-        if (district) {
+    useEffect(() => {
+      if (cities.length === 0) {
+        setCities(data);
+      }
+    }, [data, cities]);
+  
+    useEffect(() => {
+      if (dataUpdate?.city) {
+        const city = data.find((city) => city.Name === dataUpdate.city);
+        if (city) {
+          setSelectedCity(city.Id);
+          setDistricts(city.Districts || []);
+        }
+  
+        if (dataUpdate?.district) {
+          const district = city?.Districts.find(
+            (district) => district.Name === dataUpdate.district
+          );
+          if (district) {
             setSelectedDistrict(district.Id);
             setWards(district.Wards || []);
+          }
         }
-    }
-  }, [dataUpdate, data, selectedCity]);
+  
+        if (dataUpdate?.ward) {
+          const district = city?.Districts.find(
+            (district) => district.Name === dataUpdate.district
+          );
+          const ward = district?.Wards.find(
+            (ward) => ward.Name === dataUpdate.ward
+          );
+          if (ward) {
+            setSelectedWard(ward.Id);
+          }
+        }
+      }
+    }, [dataUpdate, data]);
 
-  useEffect(() => {
-    if (selectedCity) {
-        const selectedCityData = cities.find(city => city.Id === selectedCity);
+    useEffect(() => {
+      if (selectedCity) {
+        const selectedCityData = cities.find((city) => city.Id === selectedCity);
         setDistricts(selectedCityData?.Districts || []);
-    }
-  }, [selectedCity, cities]);
-
-  useEffect(() => {
-    if (selectedDistrict) {
-        const selectedDistrictData = districts.find(district => district.Id === selectedDistrict);
+        setSelectedDistrict(''); // Reset district when city changes
+        setSelectedWard(''); // Reset ward when city changes
+      }
+    }, [selectedCity, cities]);
+  
+    useEffect(() => {
+      if (selectedDistrict) {
+        const selectedDistrictData = districts.find(
+          (district) => district.Id === selectedDistrict
+        );
         setWards(selectedDistrictData?.Wards || []);
-    }
-  }, [selectedDistrict, districts]);
+        setSelectedWard(''); // Reset ward when district changes
+      }
+    }, [selectedDistrict, districts]);
 
   const handleCityChange = (event) => {
-    const cityId = event.target.value;
-    setSelectedCity(cityId);
-    setDistricts([]);
-    setWards([]);
-    if (cityId) {
-        const selectedCityData = cities.find(city => city.Id === cityId);
-        setDistricts(selectedCityData?.Districts || []);
-        setPayload(prev => ({ ...prev, city: selectedCityData.Name, district: '', ward: '' }));
-    }
+      const cityId = event.target.value;
+      setSelectedCity(cityId);
+      setPayload(prev => ({ ...prev, city: cityId, district: '', ward: '' }));
   };
 
   const handleDistrictChange = (event) => {
-    const districtId = event.target.value;
-    setSelectedDistrict(districtId);
-    setWards([]);
-    if (districtId) {
-        const selectedDistrictData = districts.find(district => district.Id === districtId);
-        setWards(selectedDistrictData?.Wards || []);
-        setPayload(prev => ({ ...prev, district: selectedDistrictData.Name, ward: '' }));
-    }
+      const districtId = event.target.value;
+      setSelectedDistrict(districtId);
+      setPayload(prev => ({ ...prev, district: districtId, ward: '' }));
   };
 
   const handleWardChange = (event) => {
-    const wardId = event.target.value;
-    setSelectedWard(wardId);
-    setPayload(prev => ({ ...prev, ward: wardId }));
+      const wardId = event.target.value;
+      setSelectedWard(wardId);
+      setPayload(prev => ({ ...prev, ward: wardId }));
   };
 
 
-useEffect(() => {
-  const selectedCityData = cities.find(city => city.Id === selectedCity);
-  const selectedDistrictData = districts.find(district => district.Id === selectedDistrict);
-  const selectedWardData = wards.find(ward => ward.Id === selectedWard);
+  useEffect(() => {
+    const selectedCityData = cities.find((city) => city.Id === selectedCity);
+    const selectedDistrictData = districts.find(
+      (district) => district.Id === selectedDistrict
+    );
+    const selectedWardData = wards.find((ward) => ward.Id === selectedWard);
 
-  setPayload(prev => ({
-    ...prev,
-    address: `${selectedWardData ? selectedWardData.Name + ', ' : ''}${selectedDistrictData ? selectedDistrictData.Name + ', ' : ''}${selectedCityData ? selectedCityData.Name : ''}`,
-    city: selectedCityData ? selectedCityData.Name : '',
-    district: selectedDistrictData ? selectedDistrictData.Name : '',
-    ward: selectedWardData ? selectedWardData.Name : '',
-  }));
-}, [selectedCity, selectedDistrict, selectedWard, wards, districts, cities, setPayload]);
+    setPayload((prev) => ({
+      ...prev,
+      address: `${selectedWardData ? selectedWardData.Name + ', ' : ''}${
+        selectedDistrictData ? selectedDistrictData.Name + ', ' : ''
+      }${selectedCityData ? selectedCityData.Name : ''}`,
+      city: selectedCityData ? selectedCityData.Name : '',
+      district: selectedDistrictData ? selectedDistrictData.Name : '',
+      ward: selectedWardData ? selectedWardData.Name : '',
+    }));
+  }, [selectedCity, selectedDistrict, selectedWard, wards, districts, cities, setPayload]);
 
 
 

@@ -1,40 +1,72 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Overview, Address , Button, Loading} from '../../components'
 import { apiUploadImages } from '../../services'
 import { useSelector } from 'react-redux'
 import { apiCreatePost } from '../../services'
+import { apiUpdatePost } from '../../services'
 import icon from '../../untils/icon'
 import Swal from 'sweetalert2'
 import validate from '../../untils/common/validateField'
+import { useDispatch } from 'react-redux'
+import { resetData } from '../../store/actions'
 
 const {BsCameraFill, ImBin} = icon
 
 const CreatePost = ({isUpdate}) => {
-
+  const dispatch = useDispatch()
   const { dataUpdate } = useSelector(state => state.post)
+  const { currentData } = useSelector(state => state.user)
+
   const [payload, setPayload] = useState(() => {
     const initData = {
-      // categoryCode: dataUpdate?.categoryCode || '',
-      title: dataUpdate?.title || '',
-      price: dataUpdate?.price || 0,
-      size: dataUpdate?.size || 0,
-      images: dataUpdate?.images || '',
-      address: dataUpdate?.address || '',
-      description: dataUpdate?.description || '',
-      city: dataUpdate?.city || '',
-      district: dataUpdate?.district || '',
-      ward: dataUpdate?.ward || '',
-      street: dataUpdate?.street || ''
+      categoryCode: '',
+      title: '',
+      price: 0,
+      size: 0,
+      images: '',
+      address: '',
+      description: '',
+      city: '',
+      district: '',
+      ward: '',
+      street: ''
+    };
+
+    if (isUpdate && dataUpdate) {
+      try {
+        return {
+          ...initData,
+          ...dataUpdate,
+          price: dataUpdate.price * 1000000,
+          images: JSON.parse(dataUpdate.images || ''),
+          description: JSON.parse(dataUpdate.description)
+        };
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+        return initData;
+      }
     }
+
     return initData;
-})
+  });
 
 
 
-const [imagesPreview, setImagesPreview] = useState([])
-const [isLoading, setIsLoading] = useState(false)
-const {currentData} = useSelector(state => state.user)
-const [invalidFields, setInvalidFields] = useState([])
+  const [imagesPreview, setImagesPreview] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [invalidFields, setInvalidFields] = useState([])
+
+  useEffect(() => {
+    if (dataUpdate) {
+        try {
+            let images = JSON.parse(dataUpdate?.images || '');
+            images && setImagesPreview(images);
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+            setImagesPreview([]);
+        }
+    }
+}, [dataUpdate]);
 
   const handleFiles = async (e) => {
     e.stopPropagation()
@@ -54,8 +86,10 @@ const [invalidFields, setInvalidFields] = useState([])
 }
 
 const handleDeleteImage = (image) => {
-  setImagesPreview(prev => prev?.filter(item => item !== image))
-        setPayload(prev => ({
+  if (isUpdate && dataUpdate) setImagesPreview(prev => prev?.filter(item => item !== image));
+  else setImagesPreview(prev => prev.images?.filter(item => item !== image)); 
+  
+  setPayload(prev => ({
             ...prev,
             images: prev.images?.filter(item => item !== image)
         }))
@@ -70,7 +104,7 @@ const handleSubmit = async () => {
   
   let finalPayload = {
     ...payload,
-    price: +payload.price ,
+    price: +payload.price / 1000000,
     size: payload.size.toString(),
     userId: currentData.id,    
   }
@@ -78,32 +112,50 @@ const handleSubmit = async () => {
   // if (invalids === 0) {
   //   console.log(payload);
   //   console.log(invalidFields);
-  try {
-    console.log('Final payload:', finalPayload); // Log the final payload
-    const response = await apiCreatePost(finalPayload);
-    if (response?.data.err === 0) {
-      Swal.fire('Thành công', 'Đã thêm bài đăng mới', 'success').then(() => {
-        setPayload({
-          title: '',
-          price: 0,
-          size: 0,
-          images: '',
-          address: '',
-          description: '',
-          city: '',
-          district: '',
-          ward: '',
-          street: ''
+  // const result = 
+  // if ( result === 0) {
+
+  // }
+    try {
+      let response;
+      if (isUpdate) {
+        response = await apiUpdatePost(finalPayload);
+      } else {
+        response = await apiCreatePost(finalPayload);
+      }
+
+      if (response?.data.err === 0) {
+        Swal.fire('Thành công', isUpdate ? 'Đã chỉnh sửa bài đăng' : 'Đã thêm bài đăng mới', 'success').then(() => {
+          resetPayload();
+          if (isUpdate) {
+            dispatch(resetData());
+          }
         });
-      });
-    } else {
-      Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+          } else {
+            Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+          }
+        } catch (error) {
+          if (error.response?.data?.message === 'Tài khoản không đủ số dư để đăng bài') {
+            Swal.fire('Thất bại', 'Tài khoản không đủ số dư để đăng bài', 'error');
+          } else {
+            Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+          }
     }
-  } catch (error) {
-    console.error('Error creating post:', error); // Log the error
-    Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+  };
+  const resetPayload = () => {
+    setPayload({
+      title: '',
+      price: 0,
+      size: 0,
+      images: '',
+      address: '',
+      description: '',
+      city: '',
+      district: '',
+      ward: '',
+      street: ''
+    });
   }
-};
 
 
   return (
@@ -146,7 +198,11 @@ const handleSubmit = async () => {
               </div>
             </div>
           </div>
-          <Button onClick={handleSubmit} text='Tạo mới' bgColor='bg-green-600' textColor='text-white' />
+          <Button 
+          onClick={handleSubmit} 
+          text={isUpdate ? 'Chỉnh sửa' : 'Đăng tin'} 
+          bgColor='bg-green-600' 
+          textColor='text-white' />
           <div className='h-[500px]'>
 
           </div>

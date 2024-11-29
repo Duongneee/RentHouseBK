@@ -7,6 +7,7 @@ import { categories } from "../untils/constant";
 const Overview = ({payload, setPayload}) => {
 
   const {currentData} = useSelector(state => state.user)
+  const { dataUpdate } = useSelector(state => state.post)
   return (
     <div>
       <InputFormV2  value={payload.street} setValue={setPayload} name='street' label='Địa chỉ cụ thể'/>
@@ -28,10 +29,25 @@ const Overview = ({payload, setPayload}) => {
               ></textarea>
         </div>
         <div className='w-1/2 flex-col gap-4'>
-        <InputReadOnly label='Thông tin liên hệ' value={currentData?.name || currentData?.username}/>
-        <InputReadOnly label='Điện thoại' value={currentData?.phone}/>
-        <InputFormV2 value={payload.price} setValue={setPayload} small='Nhập đầy đủ số, ví dụ 1 triệu thì nhập là 1000000' label='Giá cho thuê' unit='đồng' name='price'/>
-        <InputFormV2 value={payload.size} setValue={setPayload} label='Diện tích' unit='m2' name='size' />
+        <InputReadOnly 
+        label='Thông tin liên hệ' 
+        value={currentData?.name || currentData?.username}
+        />
+        <InputReadOnly 
+        label='Điện thoại' 
+        value={currentData?.phone}/>
+        <InputFormV2 
+        value={payload.price} 
+        setValue={setPayload} 
+        small='Nhập đầy đủ số, ví dụ 1 triệu thì nhập là 1000000' label='Giá cho thuê' 
+        unit='đồng' 
+        name='price'/>
+        <InputFormV2 
+        value={payload.size} 
+        setValue={setPayload} 
+        label='Diện tích' 
+        unit='m2' 
+        name='size' />
         </div>
         
       </div>

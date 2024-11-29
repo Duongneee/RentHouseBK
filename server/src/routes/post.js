@@ -14,6 +14,10 @@ router.get('/:id', postController.getPostById)
 router.use(verifyToken)
 router.post('/limit-admin', postController.getPostsLimitAdmin)
 router.post('/create-new', postController.createNewPost)
+router.put('/update', postController.updatePost)
+router.delete('/delete', postController.deletePost)
+
+
 
 
 

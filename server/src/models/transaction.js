@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 
     transactionTrace: DataTypes.STRING,
     userId: DataTypes.STRING,
-    amount: DataTypes.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
+    amount: DataTypes.DECIMAL(12, 2),   // in VND,  0 to 4,294,967,295
     status: DataTypes.STRING,
     // timestamp: DataTypes.DATETIME,
     status: DataTypes.STRING,

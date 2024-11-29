@@ -151,3 +151,7 @@ export const updateData = (dataUpdate) => ({
     type: actionTypes.UPDATE_DATA,
     dataUpdate
 })
+
+export const resetData = () => ({
+    type: actionTypes.RESET_DATA,
+})
