@@ -116,28 +116,30 @@ const handleSubmit = async () => {
   // if ( result === 0) {
 
   // }
-      if (dataUpdate && isUpdate) {
-        finalPayload.id = dataUpdate.id;
-
-        const response = await apiUpdatePost(finalPayload);
-        if (response?.data.err === 0) {
-          Swal.fire('Thành công', 'Đã chỉnh sửa bài đăng', 'success').then(() => {
-            resetPayload();
-            dispatch(resetData());
-          })
-        } else {
-          Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
-        }
+    try {
+      let response;
+      if (isUpdate) {
+        response = await apiUpdatePost(finalPayload);
+      } else {
+        response = await apiCreatePost(finalPayload);
       }
-      else {
-        const response = await apiCreatePost(finalPayload);
-        if (response?.data.err === 0) {
-          Swal.fire('Thành công', 'Đã thêm bài đăng mới', 'success').then(() => {
-            resetPayload();
-          });
-        } else {
-          Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
-        }
+
+      if (response?.data.err === 0) {
+        Swal.fire('Thành công', isUpdate ? 'Đã chỉnh sửa bài đăng' : 'Đã thêm bài đăng mới', 'success').then(() => {
+          resetPayload();
+          if (isUpdate) {
+            dispatch(resetData());
+          }
+        });
+          } else {
+            Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+          }
+        } catch (error) {
+          if (error.response?.data?.message === 'Tài khoản không đủ số dư để đăng bài') {
+            Swal.fire('Thất bại', 'Tài khoản không đủ số dư để đăng bài', 'error');
+          } else {
+            Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+          }
     }
   };
   const resetPayload = () => {
