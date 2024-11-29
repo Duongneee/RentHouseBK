@@ -1,5 +1,6 @@
 import { raw } from 'express'
 import db from '../models'
+const { sequelize } = db
 import { v4 as generateId } from 'uuid'
 
 export const getPostsService = () => new Promise(async (resolve, reject) => {
@@ -55,7 +56,8 @@ export const getPostByIdService = (postId) => new Promise(async (resolve, reject
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes: ['id', 'title', 'images', 'price', 'size', 'city', 'district', 'description', 'ward', 'street', 'createdAt', 'expiryDate']
+            attributes: ['id', 'title', 'images', 'price', 'size', 'city', 'district', 'description', 'ward', 'street', 'createdAt', 'expiryDate',
+                [sequelize.literal('(SELECT COUNT(*) FROM Bookmarks WHERE Bookmarks.postId = Post.id)'), 'bookmarkCount']]
         })
         resolve({
             err: response ? 0 : 1,
