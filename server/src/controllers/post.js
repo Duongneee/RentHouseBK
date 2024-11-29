@@ -1,4 +1,5 @@
 import * as postService from '../services/post'
+import * as transaction from "../services/transaction"
 const { Op } = require('sequelize')
 
 export const getPosts = async (req, res) => {
@@ -89,19 +90,43 @@ export const createNewPost = async (req, res) => {
     try {
         const { title, price, size } = req.body
         const { id } = req.user
-        if (!title || !id || !price || !size)
+        const postCost = 5000
+        if (!title || !id|| !price || !size)
             return res.status(400).json({
                 err: -1,
                 msg: 'Missing input'
             })
-        
-        const response = await postService.createNewPostService(req.body, id)
-        return res.status(200).json(response)
+
+             // Deduct money
+        const deductionResult = await transaction.deductMoney(id, postCost);
+        if (!deductionResult.success) {
+            return res.status(400).json({
+                err: -1,
+                msg: deductionResult.message || "Failed to deduct money",
+            });
+        }
+        try {
+            // Attempt to create the post
+            const response = await postService.createNewPostService(req.body, id);
+
+            // If successful, return the response
+            return res.status(200).json(response);
+        } catch (postCreationError) {
+            // If post creation fails, refund the deducted amount
+            await transaction.refundMoney(userId, postCost);
+            return res.status(500).json({
+                err: -1,
+                msg: "Failed to create post: " + postCreationError.message,
+            });
+        }
     } catch (error) {
+        if (error.message.includes('Insufficient balance')) {
+            return res.status(400).json({ success: false, message: 'Tài khoản không đủ số dư để đăng bài' });
+        }
         return res.status(500).json({
             err: -1,
-            msg: 'Failed to get post controller: '+ error
-        })
+            msg: "Failed to create post controller: " + error.message,
+        });
     }
 }
 
@@ -116,6 +141,44 @@ export const getPostsLimitAdmin = async (req, res) => {
             })
         }
         const response = await postService.getPostsLimitAdminService(page, id, query)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to get post controller: ' + error
+        })
+    }
+}
+
+export const updatePost = async (req, res) => {
+    const { id, ...payload} = req.body
+    try {
+        if (!id ) {
+            return res.status(400).json({
+                err: -1,
+                msg: 'Missing inputs'
+            })
+        }
+        const response = await postService.updatePost(req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to get post controller: ' + error
+        })
+    }
+}
+
+export const deletePost = async (req, res) => {
+    const { id } = req.query
+    try {
+        if (!id ) {
+            return res.status(400).json({
+                err: -1,
+                msg: 'Missing inputs'
+            })
+        }
+        const response = await postService.deletePost(id)
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({

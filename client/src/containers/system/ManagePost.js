@@ -4,15 +4,28 @@ import * as actions from '../../store/actions'
 import moment from 'moment'
 import 'moment/locale/vi'
 import { Button , UpdatePost} from '../../components'
+import { apiDeletePost } from '../../services'
+import Swal from 'sweetalert2'
 
 
 const ManagePost = () => {
     const dispatch = useDispatch()
     const [isUpdate, setIsUpdate] = useState(false)
-    const {currentPost} = useSelector(state => state.post)    
+    const {currentPost, dataUpdate} = useSelector(state => state.post)
+    const [updateData, setUpdateData]  = useState(false)
+    const [posts, setPosts] = useState('')
+    const [status, setStatus] = useState('0')
     useEffect(() => {
-        dispatch(actions.getPostsLimitAdmin())
-    }, [])
+        setPosts(currentPost)
+    }, [currentPost])
+
+    useEffect(() => {
+        !dataUpdate && dispatch(actions.getPostsLimitAdmin())
+    }, [dataUpdate, updateData])
+
+    useEffect(() => {
+        !dataUpdate && setIsUpdate(false)
+    }, [dataUpdate])
 
     const checkStatus = (datetime) => {
         let todayInSeconds = new Date().getTime()
@@ -21,12 +34,36 @@ const ManagePost = () => {
         return todayInSeconds <= expiryDateInSeconds ? 'Đang hiệu lực' : 'Hết hạn'
     }
 
+    const handleDeletePost = async(id) => {
+        const response = await apiDeletePost(id)
+        if (response?.data.err === 0) {
+            setUpdateData(prev => !prev)
+            Swal.fire('Thành công!', 'Xóa tin đăng thành công', 'success')
+        } else{
+            Swal.fire('Lỗi!', 'Xóa tin đăng thất bại', 'error')
+        }
+    }
+
+    useEffect(() => {
+        if (status === 1) {
+            const activePosts = currentPost.filter(post => checkStatus(post.expiryDate) )
+            setPosts(activePosts)
+        } else if (status === 2){
+            const expirePosts = currentPost.filter(post => !checkStatus(post.expiryDate) )
+            setPosts(expirePosts)
+        }   else {
+            setPosts(currentPost)
+        }
+    }, [status])
+
     return (
     <div className='flex flex-col gap-6 '>
       <div className='py-4 border-b border-gray-200 flex items-center justify-between'>
             <h1 className='text-3xl font-medium py-4 border-b border-gray-200'>Quản lý tin đăng</h1>
-            <select className='outline-none border p-2 border-gray-200 rounded-md'>
-                <option value=''>Lọc theo trạng thái</option>
+            <select onChange={e => setStatus(+e.target.value)} value={status} className='outline-none border p-2 border-gray-200 rounded-md'>
+                <option value='0'>Lọc theo trạng thái</option>
+                <option value='1'>Đang hiệu lực</option>
+                <option value='2'>Hết hạn</option>
             </select>
         </div>
         <table className='w-full table-auto'>
@@ -44,11 +81,11 @@ const ManagePost = () => {
                 </tr>
             </thead>
             <tbody>
-            {!currentPost ?
+            {!posts ?
                 <tr>
                         <td> aaa </td>
                         </tr> 
-                        : currentPost?.map(post => {
+                        : posts?.map(post => {
                             return (
                             <tr className='flex items-center h-16' key={post.id}>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>#{post?.id?.match(/\d/g).join('')?.slice(0, 6)}</td>
@@ -56,7 +93,7 @@ const ManagePost = () => {
                                     <img src={JSON.parse(post?.images)[0] || '' } alt='avatar-post' className='w-10 h-10 object-cover rounded-md'></img>
                                 </td>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>{`${post?.title?.slice(0,40)}...`}</td>
-                                <td className='border px-2 flex-1 h-full flex justify-center items-center '>{post?.price} triệu/tháng</td>
+                                <td className='border px-2 flex-1 h-full flex justify-center items-center '>{post?.price } triệu/tháng</td>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>{moment(post.createdAt).format('DD/MM/YYYY')}</td>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>{moment(post.expiryDate).format('DD/MM/YYYY')}</td>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>{checkStatus(post.expiryDate)}</td>
@@ -74,6 +111,7 @@ const ManagePost = () => {
                                     text='Xóa'
                                     bgColor='bg-orange-600'
                                     textColor='text-white'
+                                    onClick={() => handleDeletePost(post.id)}
                                     />
                                 </td>
                             </tr>

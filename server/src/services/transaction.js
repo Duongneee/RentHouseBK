@@ -251,3 +251,65 @@ export const getPaymentList = async (userId, page, limit) => {
     }
 };
 
+export const deductMoney = async (userId, amount) => {
+    try {
+        // Find the user by ID
+        const user = await db.User.findOne({ where: { id: userId } });
+        
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Check if the user has enough balance
+        if (user.balance < amount) {
+            return {
+                success: false,
+                message: "Insufficient balance",
+            };
+        }
+
+        // Deduct the amount from the user's balance
+        user.balance -= amount;
+        await user.save();
+
+        // Create a transaction record
+        await db.Transaction.create({
+            id: v4(),
+            userId: userId,
+            amount: amount,
+            type: 'deduction',
+            status: 'completed',
+        });
+
+        return { success: true, balance: user.balance };
+    } catch (error) {
+        throw new Error('Error deducting money: ' + error.message);
+    }
+};
+
+export const refundMoney = async (userId, amount) => {
+    try {
+        // Find the user by ID
+        const user = await db.User.findOne({ where: { id: userId } });
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        // Add the amount back to the user's balance
+        user.balance += amount;
+        await user.save();
+
+        // Create a transaction record for the refund
+        await db.Transaction.create({
+            id: v4(),
+            userId: userId,
+            amount: amount,
+            type: "refund",
+            status: "completed",
+        });
+
+        return { success: true, balance: user.balance };
+    } catch (error) {
+        console.error("Error during refund:", error.message);
+    }
+};

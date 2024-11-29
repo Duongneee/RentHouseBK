@@ -33,7 +33,7 @@ const RelatedPost = () => {
 
                 key={item.id}
                 title={item.title}
-                price={item?.price}
+                price={item?.price }
                 createdAt={item.createdAt}
                 image={JSON.parse(item.images)}
                 id={item?.id}
