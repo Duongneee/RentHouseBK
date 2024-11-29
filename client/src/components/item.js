@@ -3,6 +3,7 @@ import icons from '../untils/icon'
 import { Link } from 'react-router-dom'
 import { path } from '../untils/constant'
 import { shortenMoneyAmount } from '../untils/moneyShorten'
+import anonAvatar from '../asset/anon-avatar.png'
 
 
 const indexs = [0, 1, 2, 3]
@@ -56,7 +57,7 @@ const Item = ({ images, owner, title, star, description, price, size, city, dist
                 </p>
                 <div className="flex items center my-5 justify-between">
                     <div className=" flex items-center gap-1">
-                        <img src="https://img.favpng.com/15/23/18/computer-icons-anonymous-anonymity-png-favpng-xjSdB3CKmqCSGUUqCxESbEFm0.jpg" alt="avatar" className='w-[30px] h-[30px]
+                        <img src={owner?.avatar || anonAvatar} alt="avatar" className='w-[30px] h-[30px]
                         object-cover rounded-full' />
                         <p>{owner?.name}</p>
                     </div>
