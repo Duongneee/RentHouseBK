@@ -1,5 +1,6 @@
 import { raw } from 'express'
 import db from '../models'
+const { sequelize } = db
 import { v4 as generateId } from 'uuid'
 
 export const getPostsService = () => new Promise(async (resolve, reject) => {
@@ -32,8 +33,8 @@ export const getPostsLimitService = (offset) => new Promise(async (resolve, reje
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description']
-
+            attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description'],
+            order: [['createdAt', 'DESC']],
         })
         resolve({
             err: response ? 0 : 1,
@@ -55,7 +56,8 @@ export const getPostByIdService = (postId) => new Promise(async (resolve, reject
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes: ['id', 'title',  'images', 'price', 'size', 'city', 'district', 'description', 'ward', 'street', 'createdAt', 'expiryDate']
+            attributes: ['id', 'title', 'images', 'price', 'size', 'city', 'district', 'description', 'ward', 'street', 'createdAt', 'expiryDate',
+                [sequelize.literal('(SELECT COUNT(*) FROM Bookmarks WHERE Bookmarks.postId = Post.id)'), 'bookmarkCount']]
         })
         resolve({
             err: response ? 0 : 1,
@@ -68,8 +70,8 @@ export const getPostByIdService = (postId) => new Promise(async (resolve, reject
 });
 
 
-export const getNewPostService = () => new Promise(async(resolve, reject) => {
-    try{
+export const getNewPostService = () => new Promise(async (resolve, reject) => {
+    try {
         const response = await db.Post.findAll({
             raw: true,
             nest: true,
@@ -79,7 +81,7 @@ export const getNewPostService = () => new Promise(async(resolve, reject) => {
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes: ['id', 'title', 'star', 'price', 'createdAt','images']
+            attributes: ['id', 'title', 'star', 'price', 'createdAt', 'images']
 
         })
         resolve({
@@ -106,7 +108,8 @@ export const postFilterService = (filter, page) => new Promise(async (resolve, r
             where: { ...filter },
             attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description'],
             limit: +process.env.LIMIT,
-            offset: (page - 1) * +process.env.LIMIT || 0
+            offset: (page - 1) * +process.env.LIMIT || 0,
+            order: [['createdAt', 'DESC']]
         })
         resolve({
             err: response ? 0 : 1,
@@ -118,12 +121,12 @@ export const postFilterService = (filter, page) => new Promise(async (resolve, r
         console.log('Service.PostFilter.Error: ', error)
     }
 })
-    
-export const createNewPostService = (body, userId) => new Promise(async(resolve, reject) => {
-    try{
+
+export const createNewPostService = (body, userId) => new Promise(async (resolve, reject) => {
+    try {
         await db.Post.create({
             id: generateId(),
-            title: body.title ,
+            title: body.title,
             userId: userId,
             images: JSON.stringify(body.images) || null,
             categoryCode: body.categoryCode || null,
@@ -136,13 +139,12 @@ export const createNewPostService = (body, userId) => new Promise(async(resolve,
             size: body.size,
             expiryDate: new Date(new Date().setDate(new Date().getDate() + 90)),
         })
-            
+
         resolve({
-            err: 0 ,
-            msg: 'OK' ,
+            err: 0,
+            msg: 'OK',
         })
     } catch (error) {
         reject(error)
     }
 })
-       

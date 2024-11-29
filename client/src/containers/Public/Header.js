@@ -62,7 +62,7 @@ const Header = () => {
             onClick={() => goLogin(true)} />
         </div>}
 
-        {isLoggedIn && <div className='flex items-center gap-1 relative'>
+        {isLoggedIn && <div className='flex items-center gap-1 relative z-10'>
           <User/>
           <Button
             text={'Quản lí tài khoản'}

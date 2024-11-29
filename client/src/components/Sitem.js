@@ -1,8 +1,10 @@
 import React, { memo } from 'react'
 import moment from 'moment'
 import 'moment/locale/vi'
+import { Link } from 'react-router-dom'
+import { path } from '../untils/constant'
 
-const Sitem = ({title, price, image, createdAt}) => {
+const Sitem = ({title, price, image, createdAt, id}) => {
 
   const formatTime = (createdAt) => {
     return moment(createdAt).fromNow()
@@ -16,7 +18,7 @@ const Sitem = ({title, price, image, createdAt}) => {
       className='w-[65px] h-[65px] object-cover flex-none rounded-md'
       />
       <div className='w-full flex-auto flex flex-col justify-between gap-1'>
-        <h4 className='text-blue-600 text-[14px]'>{`${title?.slice(0,45)}...`}</h4>
+        <Link to={`${path.DETAIL}${id}`} className='text-blue-600 text-[14px]'>{`${title?.slice(0,45)}...`}</Link>
         <div className='flex items-center justify-between w-full'>
             <span className='text-sm font-medium text-green-500'>{price}</span>
             <span className='text-sm text-gray-500'>{formatTime(createdAt)}</span>
