@@ -19,7 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       Post.hasMany(models.Payment, {
         foreignKey: 'postId',
         as: 'paidFor'
-      })
+      });
+      Post.belongsToMany(models.User, {
+        through: models.Bookmark,
+        foreignKey: 'postId',
+        as: 'bookmarkedBy'
+      });
     }
   }
   Post.init({
@@ -41,6 +46,15 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.STRING,
     expiryDate: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
+    bookmarkCount: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.getDataValue('bookmarkCount')
+      },
+      set(value) {
+        throw new Error('Do not try to set the `bookmarkCount` value!');
+      }
+    }
   }, {
     sequelize,
     modelName: 'Post'
