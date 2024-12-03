@@ -86,13 +86,13 @@ const CreatePost = ({isUpdate}) => {
 }
 
 const handleDeleteImage = (image) => {
-  if (isUpdate && dataUpdate) setImagesPreview(prev => prev?.filter(item => item !== image));
-  else setImagesPreview(prev => prev.images?.filter(item => item !== image)); 
-  
+  setImagesPreview(prev => prev.filter(item => item !== image));
+
+  // Update the payload state
   setPayload(prev => ({
-            ...prev,
-            images: prev.images?.filter(item => item !== image)
-        }))
+    ...prev,
+    images: prev.images.filter(item => item !== image)
+  }))
 }
 
 
@@ -130,7 +130,7 @@ const handleSubmit = async () => {
           if (isUpdate) {
             dispatch(resetData());
           }
-        });
+        })
           } else {
             Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
           }
@@ -155,6 +155,7 @@ const handleSubmit = async () => {
       ward: '',
       street: ''
     });
+    setImagesPreview([]);
   }
 
 

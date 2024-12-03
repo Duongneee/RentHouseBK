@@ -273,7 +273,7 @@ export const deductMoney = async (userId, amount) => {
         await user.save();
 
         // Create a transaction record
-        await db.Transaction.create({
+        await db.Payment.create({
             id: v4(),
             userId: userId,
             amount: amount,
@@ -300,7 +300,7 @@ export const refundMoney = async (userId, amount) => {
         await user.save();
 
         // Create a transaction record for the refund
-        await db.Transaction.create({
+        await db.Payment.create({
             id: v4(),
             userId: userId,
             amount: amount,
