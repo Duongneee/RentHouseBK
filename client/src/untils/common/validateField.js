@@ -29,7 +29,7 @@ const validate = (payload, setInvalidFields) => {
             }])
             invalids++
           }
-          break
+          break;
           // case 'price':
           //   if (+item[1] === 0) {
           //     setInvalidFields(prev => [...prev, {

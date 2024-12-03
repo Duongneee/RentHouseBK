@@ -8,7 +8,7 @@ const {BsDot, BsTelephoneFill, SiZalo} = icons
 const BoxInfo = ({userData}) => {
   return (
     <div className='w-full bg-yellow-500 rounded-md flex flex-col items-center p-4 gap-4'>
-        <img src={anonAvatar} alt='avatar' className='w-16 h-16 object-contain rounded-full' />
+        <img src={userData?.avatar || anonAvatar} alt='avatar' className='w-16 h-16 object-contain rounded-full' />
         <h3 className='font-medium text-xl'>{userData?.name}</h3>
         <span className='flex items-center'>
             <BsDot color='green' size={28} />

@@ -31,7 +31,7 @@ export const getPostsLimitService = (offset) => new Promise(async (resolve, reje
             offset: offset * (+process.env.LIMIT) || 0,
             limit: +process.env.LIMIT,
             include: [
-                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+                { model: db.User, as: 'owner', attributes: ['name', 'phone', 'avatar'] },
             ],
             attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description'],
             order: [['createdAt', 'DESC']],
@@ -54,7 +54,7 @@ export const getPostByIdService = (postId) => new Promise(async (resolve, reject
             raw: true,
             nest: true,
             include: [
-                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+                { model: db.User, as: 'owner', attributes: ['name', 'phone', 'avatar'] },
             ],
             attributes: ['id', 'title', 'images', 'price', 'size', 'city', 'district', 'description', 'ward', 'street', 'createdAt', 'expiryDate']
         })
