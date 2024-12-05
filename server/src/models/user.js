@@ -41,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     // using phone nummer instead of zalo
     balance: DataTypes.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
     avatar: DataTypes.STRING,     // avatar URL
+    isAdmin: DataTypes.BOOLEAN,   // 1: admin, 0: user
 
   }, {
     sequelize,

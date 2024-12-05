@@ -28,6 +28,10 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING,
       },
+      isAdmin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
