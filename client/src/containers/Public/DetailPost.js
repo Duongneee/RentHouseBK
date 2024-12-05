@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import { useParams } from 'react-router-dom'
 import { SliderCustom, BoxInfo, RelatedPost, GoogleMapEmbed } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
 import { getPostById } from '../../store/actions/post'
 import icons from '../../untils/icon'
 import moment from 'moment'
 import { shortenMoneyAmount } from '../../untils/moneyShorten'
+import { createBookmark, deleteBookmark } from '../../store/actions/user'
 
 
-const { HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch } = icons
+const { HiLocationMarker, TbReportMoney, RiCrop2Line, BsStopwatch, BsBookmarkStarFill } = icons
 
 const DetailPost = () => {
   const { id } = useParams()
@@ -18,11 +20,28 @@ const DetailPost = () => {
   const images = posts?.images ? JSON.parse(posts.images) : [];
   const address = `${posts?.street}, ${posts?.ward}, ${posts?.district}, ${posts?.city}`
   const formattedAddress = encodeURIComponent(address)
+  const { isLoggedIn } = useSelector(state => state.auth)
+  const isBookmarked = posts?.isBookmarked
   // console.log('DetailPost.Posts: ', posts)
-
+  const [bookmarkStatus, setBookmarkStatus] = useState(isBookmarked);
+  const bookmarkHandler = () => {
+    if (!isLoggedIn) {
+      alert("Vui lòng đăng nhập để thực hiện chức năng này");
+    } else {
+      if (bookmarkStatus) {
+        dispatch(deleteBookmark(id));
+      } else {
+        dispatch(createBookmark(id));
+      }
+      setBookmarkStatus(!bookmarkStatus);
+    }
+  };
+  useEffect(() => {
+    setBookmarkStatus(isBookmarked);
+  }, [isBookmarked]);
   useEffect(() => {
     if (id) {
-      dispatch(getPostById(id))
+      dispatch(getPostById(id, isLoggedIn))
     }
   }, [id]);
 
@@ -32,7 +51,19 @@ const DetailPost = () => {
         <SliderCustom images={images} />
         <div className='bg-white rounded-md shadow-md p-4'>
           <div className='flex flex-col gap-2 '>
-            <h2 className='text-xl font-bold text-red-600 my-4'>{posts?.title}</h2>
+            <div className='flex items-center gap-2 justify-between'>
+              <h2 className='text-xl font-bold text-red-600 my-4'>{posts?.title}</h2>
+              <div className='w-[10%] flex justify-end'>
+                <BsBookmarkStarFill title="Lưu bài đăng"
+                  size={24}
+                  color={bookmarkStatus ? "orange" : "gray"}
+                  onClick={() => {
+                    bookmarkHandler();
+                  }}
+                />
+                <p style={{ marginLeft: '10px' }}> {posts?.bookmarkCount}</p>
+              </div>
+            </div>
             <div className='flex items-center gap-2'>
               <HiLocationMarker color='#2563eb' />
               <span>{`Địa chỉ: ${posts?.street}, ${posts?.ward}, ${posts?.district}, ${posts?.city}.`}</span>
@@ -97,4 +128,4 @@ const DetailPost = () => {
   )
 }
 
-export default DetailPost
+export default memo(DetailPost)

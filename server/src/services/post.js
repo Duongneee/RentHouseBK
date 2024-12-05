@@ -68,7 +68,34 @@ export const getPostByIdService = (postId) => new Promise(async (resolve, reject
         reject(error)
     }
 });
-
+export const getPostByIdPrivateService = (postId, userId) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Post.findOne({
+            where: { id: postId },
+            raw: true,
+            nest: true,
+            include: [
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+            ],
+            attributes: ['id', 'title', 'images', 'price', 'size', 'city', 'district', 'description', 'ward', 'street', 'createdAt', 'expiryDate',
+                [sequelize.literal('(SELECT COUNT(*) FROM Bookmarks WHERE Bookmarks.postId = Post.id)'), 'bookmarkCount'],
+                [sequelize.literal(`(
+                    SELECT COUNT(*)
+                    FROM Bookmarks AS bookmark
+                    WHERE
+                        bookmark.postId = '${postId}'
+                        AND bookmark.userId = '${userId}'
+                )`), 'isBookmarked']]
+        })
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Post not found.',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+});
 
 export const getNewPostService = () => new Promise(async (resolve, reject) => {
     try {
@@ -121,6 +148,42 @@ export const postFilterService = (filter, page) => new Promise(async (resolve, r
         console.log('Service.PostFilter.Error: ', error)
     }
 })
+
+export const postFilterWithBookmarkService = (filter, page, userId) => new Promise(async (resolve, reject) => {
+    console.log('Service.PostFilterBookmark.Filter: ', filter);
+    console.log('Service.PostFilterBookmark.Page: ', page);
+    try {
+        const response = await db.Post.findAndCountAll({
+            raw: true,
+            nest: true,
+            include: [
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+            ],
+            where: { ...filter },
+            attributes: [
+                'id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description',
+                [sequelize.literal(`(
+                    SELECT COUNT(*)
+                    FROM Bookmarks AS bookmark
+                    WHERE
+                        bookmark.postId = Post.id
+                        AND bookmark.userId = '${userId}'
+                )`), 'isBookmarked']
+            ],
+            limit: +process.env.LIMIT,
+            offset: (page - 1) * +process.env.LIMIT || 0,
+            order: [['createdAt', 'DESC']]
+        });
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Failed to get posts.',
+            response
+        });
+    } catch (error) {
+        console.log('Service.PostFilter.Error: ', error);
+        reject(error);
+    }
+});
 
 export const createNewPostService = (body, userId) => new Promise(async (resolve, reject) => {
     try {

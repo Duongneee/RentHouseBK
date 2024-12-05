@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 const ListFilter = ({ page, filters }) => {
-    console.log('ListFilter: ', filters, page)
+    // console.log('ListFilter: ', filters, page)
     const dispatch = useDispatch()
     const { posts } = useSelector(state => state.post)
     const [lastUpdated, setLastUpdated] = React.useState(new Date().toLocaleTimeString())
+    const { isLoggedIn } = useSelector(state => state.auth)
 
     useEffect(() => {
-        dispatch(getPostsFilter(page, filters))
+        dispatch(getPostsFilter(page, filters, isLoggedIn))
         setLastUpdated(new Date().toLocaleTimeString())
     }, [page, dispatch, filters])
     console.log('ListFilter: ', posts)
@@ -36,6 +37,8 @@ const ListFilter = ({ page, filters }) => {
                             title={item?.title}
                             owner={item?.owner}
                             id={item?.id}
+                            isBookmarked={item?.isBookmarked}
+                            isLoggedIn={isLoggedIn}
                         />
                     )
                 })}

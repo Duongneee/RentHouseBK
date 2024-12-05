@@ -63,7 +63,7 @@ export const findOneBookmark = (record) => new Promise(async (resolve, reject) =
 export const createBookmark = (record) => new Promise(async (resolve, reject) => {
     try {
         record.id = uuidv4()
-        console.log('Service.CreateBookmark.Record: ', record)
+        // console.log('Service.CreateBookmark.Record: ', record)
         const response = await db.Bookmark.create(record)
         resolve({
             err: response ? 0 : 1,
