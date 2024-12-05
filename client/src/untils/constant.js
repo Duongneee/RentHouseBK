@@ -21,7 +21,8 @@ export const path = {
     TRANSACTIONLIST: 'lich-su-nap-tien',
 
 
-    MANAGE_POST: 'quan-ly-bai-dang'
+    MANAGE_POST: 'quan-ly-bai-dang',
+    EDIT_ACCOUNT: 'thong-tin-tai-khoan'
 }
 
 export const text = {
