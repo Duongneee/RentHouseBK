@@ -21,9 +21,6 @@ const actionTypes = {
 
     DEPOSIT_SUCCESS: 'DEPOSIT_SUCCESS',
     DEPOSIT_FAIL: 'DEPOSIT_FAIL'
-
-
-
 }
 
 export default actionTypes

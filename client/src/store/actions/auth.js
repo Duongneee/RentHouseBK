@@ -31,12 +31,12 @@ export const login = (payload) => async (dispatch) => {
         console.log(response)
         if (response?.data.err === 0) {
             dispatch({
-                type: actionTypes.REGISTER_SUCCESS,
+                type: actionTypes.LOGIN_SUCCESS,
                 data: response.data.token
             })
         } else {
             dispatch({
-                type: actionTypes.REGISTER_FAIL,
+                type: actionTypes.LOGIN_FAIL,
                 data: response.data.msg
             })
         }
