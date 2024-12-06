@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Item } from '../../components'
+import { Item } from '../../components'
 import { getPostsFilter } from '../../store/actions/post'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -14,7 +14,7 @@ const ListFilter = ({ page, filters }) => {
     useEffect(() => {
         dispatch(getPostsFilter(page, filters, isLoggedIn))
         setLastUpdated(new Date().toLocaleTimeString())
-    }, [page, dispatch, filters])
+    }, [page, dispatch, filters, isLoggedIn])
     console.log('ListFilter: ', posts)
     return (
         <div className='w-full p-2 bg-white shadow-md rounded-md px-6'>

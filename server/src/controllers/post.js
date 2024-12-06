@@ -134,13 +134,13 @@ export const createNewPost = async (req, res) => {
         const { title, price, size } = req.body
         const { id } = req.user
         const postCost = 5000
-        if (!title || !id|| !price || !size)
+        if (!title || !id || !price || !size)
             return res.status(400).json({
                 err: -1,
                 msg: 'Missing input'
             })
 
-             // Deduct money
+        // Deduct money
         const deductionResult = await transaction.deductMoney(id, postCost);
         if (!deductionResult.success) {
             return res.status(400).json({
@@ -194,9 +194,9 @@ export const getPostsLimitAdmin = async (req, res) => {
 }
 
 export const updatePost = async (req, res) => {
-    const { id, ...payload} = req.body
+    const { id, ...payload } = req.body
     try {
-        if (!id ) {
+        if (!id) {
             return res.status(400).json({
                 err: -1,
                 msg: 'Missing inputs'
@@ -215,7 +215,7 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
     const { id } = req.query
     try {
-        if (!id ) {
+        if (!id) {
             return res.status(400).json({
                 err: -1,
                 msg: 'Missing inputs'
