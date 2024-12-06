@@ -8,7 +8,25 @@ export const getCurrent = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1, // LỖI SERVER 
-            msg: `Fail at auth controller: ${error.message}`
+            msg: `Fail at user controller: ${error.message}`
+        })
+    }
+}
+
+export const updateUser = async (req, res) => {
+    const {id} = req.user
+    const payload = req.body 
+    try {
+        if(!payload) return res.status(400).json({
+            err: 1,
+            msg: 'Payload required'
+        })
+        const response = await services.updateUser(payload, id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1, // LỖI SERVER 
+            msg: `Fail at user controller: ${error.message}`
         })
     }
 }

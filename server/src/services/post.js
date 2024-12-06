@@ -2,6 +2,7 @@ import { raw } from 'express'
 import db from '../models'
 const { sequelize } = db
 import { v4 as generateId } from 'uuid'
+import { where } from 'sequelize'
 
 export const getPostsService = () => new Promise(async (resolve, reject) => {
     try {
@@ -31,7 +32,7 @@ export const getPostsLimitService = (offset) => new Promise(async (resolve, reje
             offset: offset * (+process.env.LIMIT) || 0,
             limit: +process.env.LIMIT,
             include: [
-                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+                { model: db.User, as: 'owner', attributes: ['name', 'phone', 'avatar'] },
             ],
             attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description'],
             order: [['createdAt', 'DESC']],
@@ -54,7 +55,7 @@ export const getPostByIdService = (postId) => new Promise(async (resolve, reject
             raw: true,
             nest: true,
             include: [
-                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+                { model: db.User, as: 'owner', attributes: ['name', 'phone', 'avatar'] },
             ],
             attributes: ['id', 'title', 'images', 'price', 'size', 'city', 'district', 'description', 'ward', 'street', 'createdAt', 'expiryDate',
                 [sequelize.literal('(SELECT COUNT(*) FROM Bookmarks WHERE Bookmarks.postId = Post.id)'), 'bookmarkCount']]
@@ -190,7 +191,7 @@ export const createNewPostService = (body, userId) => new Promise(async (resolve
         await db.Post.create({
             id: generateId(),
             title: body.title,
-            userId: userId,
+            userId,
             images: JSON.stringify(body.images) || null,
             categoryCode: body.categoryCode || null,
             city: body.city || null,
@@ -200,12 +201,77 @@ export const createNewPostService = (body, userId) => new Promise(async (resolve
             price: body.price,
             description: JSON.stringify(body.description) || null,
             size: body.size,
-            expiryDate: new Date(new Date().setDate(new Date().getDate() + 90)),
+            expiryDate: new Date(new Date().setDate(new Date().getDate() + 90)),  
         })
-
         resolve({
             err: 0,
             msg: 'OK',
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const getPostsLimitAdminService = ( offset, id, query) => new Promise(async(resolve, reject) => {
+    try{
+        const queries = { ...query, userId: id}
+        const response = await db.Post.findAndCountAll({
+            where: queries,
+            raw : true,
+            nest: true,
+            offset: offset * (+process.env.LIMIT) || 0,
+            limit: +process.env.LIMIT,
+            include: [
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+            ],
+            attributes : ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'ward', 'street' , 'description', 'createdAt', 'updatedAt', 'expiryDate' ]
+
+        })
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Failed to get posts.',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const updatePost = ({id, ...body}) => new Promise(async(resolve, reject) => {
+    try{
+        await db.Post.update({
+            id: id,
+            title: body.title,
+            images: JSON.stringify(body.images) || null,
+            categoryCode: body.categoryCode || null,
+            city: body.city || null,
+            district: body.district || null,
+            ward: body.ward || null,
+            street: body.street || null,
+            price: body.price,
+            description: JSON.stringify(body.description) || null,
+            size: body.size,
+            updatedAt: new Date(),
+        }, {
+            where: { id : id }
+        })
+        resolve({
+            err: 0,
+            msg: 'Updated' ,
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const deletePost = ( id ) => new Promise(async(resolve, reject) => {
+    try{
+        const response = await db.Post.destroy({
+            where: { id : id }
+        })
+        resolve({
+            err: response > 0 ? 0 : 1,
+            msg: response > 0 ? 'Deleted' : 'Failed to delete post.',
         })
     } catch (error) {
         reject(error)

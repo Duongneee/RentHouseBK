@@ -20,7 +20,7 @@ const Sitem = ({title, price, image, createdAt, id}) => {
       <div className='w-full flex-auto flex flex-col justify-between gap-1'>
         <Link to={`${path.DETAIL}${id}`} className='text-blue-600 text-[14px]'>{`${title?.slice(0,45)}...`}</Link>
         <div className='flex items-center justify-between w-full'>
-            <span className='text-sm font-medium text-green-500'>{price}</span>
+            <span className='text-sm font-medium text-green-500'>{price} triệu/tháng</span>
             <span className='text-sm text-gray-500'>{formatTime(createdAt)}</span>
         </div>
      </div>

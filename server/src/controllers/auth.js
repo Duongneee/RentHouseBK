@@ -27,7 +27,7 @@ export const login = async (req, res) => {
             });
         }
 
-        console.log('Login input:', { phone, password }); // Kiểm tra đầu vào
+        console.log('Login input:', { phone, password }); 
 
         const response = await authService.loginService(phone, password);
         return res.status(200).json(response);

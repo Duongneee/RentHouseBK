@@ -10,10 +10,17 @@ router.get('/new-post', postController.getNewPosts)
 router.get('/filter', postController.postFilter)
 router.get('/id/:id', postController.getPostById)
 
+
 router.use(verifyToken)
+router.post('/limit-admin', postController.getPostsLimitAdmin)
 router.post('/create-new', postController.createNewPost)
 router.get('/filter-w-bookmark', postController.postFilterWithBookmark)
 router.get('/id-private/:id', postController.getPostByIdPrivate)
+router.put('/update', postController.updatePost)
+router.delete('/delete', postController.deletePost)
+
+
+
 
 
 

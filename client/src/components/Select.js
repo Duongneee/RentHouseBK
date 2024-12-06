@@ -1,7 +1,6 @@
-import React, { memo } from 'react'
+import React, { memo } from 'react';
 
 const Select = ({ label, options, value, setValue, type, reset, name }) => {
-
     return (
         <div className='flex flex-col gap-2 flex-1'>
             <label className='font-medium' htmlFor="select-address">{label}</label>
@@ -12,19 +11,18 @@ const Select = ({ label, options, value, setValue, type, reset, name }) => {
                 className='outline-none border border-gray-300 p-2 rounded-md w-full'
             >
                 <option value="">{`--Chọn ${label}--`}</option>
-                {options?.map(item => {
+                {options?.map((item, index) => {
+                    const key = `${type}-${index}-${item?.province_id || item?.district_id || item?.code}`;
+                    const displayValue = type === 'province' ? item?.province_name : type === 'district' ? item?.district_name : item?.value;
                     return (
-                        <option
-                            key={type === 'province' ? item?.province_id : type === 'district' ? item?.district_id : item?.code}
-                            value={type === 'province' ? item?.province_id : type === 'district' ? item?.district_id : item?.code}
-                        >
-                            {type === 'province' ? item?.province_name : type === 'district' ? item?.district_name : item?.value}
+                        <option key={key} value={key}>
+                            {displayValue}
                         </option>
-                    )
+                    );
                 })}
             </select>
         </div>
-    )
-}
+    );
+};
 
-export default memo(Select)
+export default memo(Select);

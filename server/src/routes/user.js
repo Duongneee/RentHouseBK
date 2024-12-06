@@ -9,6 +9,7 @@ router.get('/get-current', userController.getCurrent)
 router.get('/get-bookmarks', userController.getBookmarkedPosts)
 router.post('/create-bookmark', userController.createBookmark)
 router.delete('/delete-bookmark', userController.deleteBookmark)
+router.put('/', userController.updateUser)
 
 
 export default router
