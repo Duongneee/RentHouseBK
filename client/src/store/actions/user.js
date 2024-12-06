@@ -51,6 +51,18 @@ export const getBookmarks = () => async (dispatch) => {
     try {
         // TODO: define action type
         const response = await apis.apiGetBookmarks()
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.GET_BOOKMARKED_POSTS,
+                bookmarks: response.data.response
+            })
+        } else {
+            dispatch({
+                type: actionTypes.GET_BOOKMARKED_POSTS,
+                msg: response.data.msg,
+                bookmarks: {}
+            })
+        }
         console.log('Action.GetBookmarks: ', response)
     } catch (error) {
         console.log('Action.GetBookmarks.Error: ', error)

@@ -24,8 +24,8 @@ export const getOne = (id) => new Promise(async (resolve, reject) => {
 
 export const updateUser = (payload, id) => new Promise(async (resolve, reject) => {
     try {
-        const response = await db.User.update(payload,{
-            where: {id}
+        const response = await db.User.update(payload, {
+            where: { id }
         })
         resolve({
             err: response[0] > 0 ? 0 : 1,
@@ -47,7 +47,7 @@ export const getBookmarkedPosts = (id) => new Promise(async (resolve, reject) =>
                 {
                     model: db.Post,
                     as: 'post',
-                    attributes: ['id', 'title', 'images', 'price', 'size', 'city', 'district', 'ward', 'street'],
+                    attributes: ['id', 'title', 'images', 'price', 'size', 'city', 'district', 'ward', 'street', 'createdAt'],
                 }
             ],
             attributes: ['id', 'postId']

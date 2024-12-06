@@ -4,7 +4,7 @@ import { DepositMoney, Return, TransList } from './containers/system'
 import { path } from './untils/constant';
 import { Home, Login, Categories, Homepage, DetailPost, FilterResult } from './containers/Public';
 
-import {CreatePost, System, ManagePost, EditAccount} from './containers/system'
+import { CreatePost, System, ManagePost, EditAccount, Bookmark } from './containers/system'
 
 import * as actions from './store/actions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -41,9 +41,10 @@ function App() {
           <Route path={path.CREATE_POST} element={< CreatePost />} />
           <Route path={path.TRANSACTION} element={<DepositMoney />} />
           <Route path={path.RETURNTRANSACTION} element={<Return />} />
-          <Route path={path.TRANSACTIONLIST} element={< TransList/>} />
-          <Route path={path.MANAGE_POST} element={< ManagePost/>} />
-          <Route path={path.EDIT_ACCOUNT} element={< EditAccount/>} />
+          <Route path={path.TRANSACTIONLIST} element={< TransList />} />
+          <Route path={path.MANAGE_POST} element={< ManagePost />} />
+          <Route path={path.BOOKMARK} element={< Bookmark />} />
+          <Route path={path.EDIT_ACCOUNT} element={< EditAccount />} />
         </Route>
 
       </Routes>
