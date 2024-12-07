@@ -10,7 +10,7 @@ const Login = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isLoggedIn, msg, update } = useSelector(state => state.auth)
+  const { isLoggedIn, msg, update, isAdmin } = useSelector(state => state.auth)
   const [isRegister, setIsRegister] = useState(location.state?.flag)
   const [invalidFields, setInvalidFields] = useState([])
   const [payload, setPayload] = useState({
@@ -25,6 +25,19 @@ const Login = () => {
   useEffect(() => {
     isLoggedIn && navigate('/')
   }, [isLoggedIn])
+
+  useEffect(() => {
+    // Kiểm tra trạng thái đăng nhập và quyền admin
+    if (isLoggedIn) {
+      if (isAdmin) {
+        // Điều hướng đến trang admin nếu là admin
+        navigate('/admin');
+      } else {
+        // Điều hướng đến trang chính nếu không phải admin
+        navigate('/');
+      }
+    }
+  }, [isLoggedIn, isAdmin, navigate]);
 
   useEffect(() => {
     msg && Swal.fire('Oops !', msg, 'error')
