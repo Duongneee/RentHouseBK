@@ -48,15 +48,6 @@ const AdminDashboard = () => {
             hoverColor="hover:bg-green-600"
           />
 
-          {/* Product Management */}
-          <FeatureCard
-            title="Quản lý sản phẩm"
-            description="Quản lý các sản phẩm được đăng tải."
-            buttonLabel="Xem sản phẩm"
-            bgColor="bg-purple-500"
-            hoverColor="hover:bg-purple-600"
-          />
-
           {/* Statistics */}
           <FeatureCard
             title="Thống kê"
@@ -66,23 +57,12 @@ const AdminDashboard = () => {
             hoverColor="hover:bg-yellow-600"
           />
 
-          {/* Customer Support */}
-          <FeatureCard
-            title="Hỗ trợ khách hàng"
-            description="Quản lý yêu cầu và hỗ trợ khách hàng."
-            buttonLabel="Xem hỗ trợ"
-            bgColor="bg-teal-500"
-            hoverColor="hover:bg-teal-600"
-          />
         </div>
       </div>
     </div>
   );
 };
 
-/**
- * FeatureCard - Component for displaying individual features in the admin dashboard.
- */
 const FeatureCard = ({ title, description, buttonLabel, bgColor, hoverColor }) => {
   return (
     <div className={`${bgColor} text-white p-6 rounded-lg shadow-md ${hoverColor}`}>
