@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import icons from "../untils/icon";
 import data from "../untils/data.json";
 import { categories } from "../untils/constant";
+import { shortenMoneyAmount } from "../untils/moneyShorten";
 import ReactSlider from "react-slider";
 
 const { GrLinkPrevious } = icons;
@@ -70,7 +71,8 @@ const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
     };
 
     const handlePriceChange = (values) => {
-        setPriceRange(values);
+        // setPriceRange(values);
+        console.log(values);
     };
 
     const handleSizeChange = (values) => {
@@ -194,31 +196,31 @@ const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
                                 ariaValuetext={state => `Thumb value ${state.valueNow}`}
                             />
                             <div className="flex justify-between mt-2">
-                                <span>{sizeRange[0].toLocaleString()} </span>
-                                <span>{sizeRange[1].toLocaleString()} </span>
+                                <span>{sizeRange[0].toLocaleString()} m²</span>
+                                <span>{sizeRange[1].toLocaleString()} m²</span>
                             </div>
                         </div>
                     )}
                     {content === 2 && (
                         <div>
-                            <label className="block mb-2">Chọn khoảng giá:</label>
+                            <label className="block mb-2">Chọn khoảng giá thuê theo tháng:</label>
                             <ReactSlider
                                 className="horizontal-slider"
                                 thumbClassName="example-thumb"
                                 trackClassName="example-track"
-                                defaultValue={[0, 50000000]}
+                                defaultValue={[0, 2]}
                                 min={0}
-                                max={50000000}
-                                step={100000}
-                                value={priceRange}
+                                max={2}
+                                step={0.1}
+                                value={[Math.log10(priceRange[0] / 100000), Math.log10(priceRange[1] / 100000)]}
                                 onChange={handlePriceChange}
                                 ariaLabel={['Lower thumb', 'Upper thumb']}
                                 ariaValuetext={state => `Thumb value ${state.valueNow}`}
                             />
                             <div className="flex justify-between mt-2">
                                 {/* TODO:  Format number to currency */}
-                                <span>{priceRange[0].toLocaleString()} </span>
-                                <span>{priceRange[1].toLocaleString()} </span>
+                                <span>{shortenMoneyAmount(priceRange[0])}</span>
+                                <span>{shortenMoneyAmount(priceRange[1])}</span>
                             </div>
                         </div>
                     )}

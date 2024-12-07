@@ -3,6 +3,7 @@ const actionTypes = {
     GET_POSTS: "GET_POSTS",
     GET_POSTS_LIMIT: "GET_POSTS_LIMIT",
     GET_POSTS_ADMIN: "GET_POSTS_ADMIN",
+    GET_BOOKMARKED_POSTS: "GET_BOOKMARKED_POSTS",
     GET_NEW_POST: 'GET-NEW-POST',
     GET_POST_BY_ID: 'GET_POST_BY_ID',
     UPDATE_DATA: 'UPDATE_DATA',
@@ -21,9 +22,6 @@ const actionTypes = {
 
     DEPOSIT_SUCCESS: 'DEPOSIT_SUCCESS',
     DEPOSIT_FAIL: 'DEPOSIT_FAIL'
-
-
-
 }
 
 export default actionTypes

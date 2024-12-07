@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'transactions',
       })
+      User.belongsToMany(models.Post, {
+        through: models.Bookmark,
+        foreignKey: 'userId',
+        as: 'bookmarkedPosts',
+      })
     }
   }
   User.init({
@@ -35,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
     // zalo: DataTypes.STRING,
     // using phone nummer instead of zalo
     balance: DataTypes.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
-    avatar: DataTypes.BLOB('medium'),     // Upto 16MB, for image should be less than 1MB for performance
+    avatar: DataTypes.STRING,     // avatar URL
+    isAdmin: DataTypes.BOOLEAN,   // 1: admin, 0: user
 
   }, {
     sequelize,

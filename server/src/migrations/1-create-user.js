@@ -26,7 +26,11 @@ module.exports = {
         defaultValue: 0
       },
       avatar: {
-        type: Sequelize.BLOB('medium'),
+        type: Sequelize.STRING,
+      },
+      isAdmin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       updatedAt: {
         allowNull: false,

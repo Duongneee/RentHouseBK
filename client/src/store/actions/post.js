@@ -24,10 +24,10 @@ export const getPosts = () => async (dispatch) => {
     }
 }
 
-export const getPostById = (id) => async (dispatch) => {
+export const getPostById = (id, isLoggedIn) => async (dispatch) => {
     try {
-        const response = await apiGetPostById(id);
-        
+        const response = await apiGetPostById(id, isLoggedIn);
+
         if (response?.data.err === 0) {
             dispatch({
                 type: actionTypes.GET_POST_BY_ID,
@@ -96,10 +96,10 @@ export const getNewPosts = () => async (dispatch) => {
         })
     }
 }
-export const getPostsFilter = (page, filters) => async (dispatch) => {
+export const getPostsFilter = (page, filters, isLoggedIn) => async (dispatch) => {
     // dispatch({ type: actionTypes.GET_POSTS_FILTER });
     try {
-        const response = await apiGetPostsFilter(page, filters)
+        const response = await apiGetPostsFilter(page, filters, isLoggedIn)
         console.log('Action.GetPostsFilter: ', response)
         if (response?.data.err === 0) {
             dispatch({

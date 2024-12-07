@@ -7,4 +7,5 @@ export { default as Sidebar } from './Sidebar'
 export { default as TransList } from './TransList'
 export { default as ManagePost } from './ManagePost'
 export { default as EditAccount } from './EditAccount'
+export { default as Bookmark } from './Bookmark'
 
