@@ -37,7 +37,7 @@ const CreatePost = ({isUpdate}) => {
         return {
           ...initData,
           ...dataUpdate,
-          price: dataUpdate.price * 1000000,
+          price: dataUpdate.price ,
           images: JSON.parse(dataUpdate.images || ''),
           description: JSON.parse(dataUpdate.description)
         };
@@ -99,7 +99,7 @@ const handleSubmit = async () => {
   
   let finalPayload = {
     ...payload,
-    price: +payload.price / 1000000,
+    price: +payload.price ,
     size: payload.size.toString(),
     userId: currentData.id,    
   }

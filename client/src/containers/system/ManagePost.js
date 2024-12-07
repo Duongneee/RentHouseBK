@@ -83,7 +83,7 @@ const ManagePost = () => {
             <tbody>
             {!posts ?
                 <tr>
-                        <td> aaa </td>
+                        <td> Error! </td>
                         </tr> 
                         : posts?.map(post => {
                             return (
@@ -93,7 +93,7 @@ const ManagePost = () => {
                                     <img src={JSON.parse(post?.images)[0] || '' } alt='avatar-post' className='w-10 h-10 object-cover rounded-md'></img>
                                 </td>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>{`${post?.title?.slice(0,40)}...`}</td>
-                                <td className='border px-2 flex-1 h-full flex justify-center items-center '>{post?.price } triệu/tháng</td>
+                                <td className='border px-2 flex-1 h-full flex justify-center items-center '>{post?.price/ 1000000 } triệu/tháng</td>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>{moment(post.createdAt).format('DD/MM/YYYY')}</td>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>{moment(post.expiryDate).format('DD/MM/YYYY')}</td>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center '>{checkStatus(post.expiryDate)}</td>
