@@ -3,14 +3,30 @@ import icons from '../untils/icon'
 import { Link } from 'react-router-dom'
 import { path } from '../untils/constant'
 import { shortenMoneyAmount } from '../untils/moneyShorten'
+import { useDispatch } from 'react-redux'
+import { deleteBookmark, createBookmark } from '../store/actions/user'
 import anonAvatar from '../asset/anon-avatar.png'
 
 
 const indexs = [0, 1, 2, 3]
-const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons
+const { GrStar, BsBookmarkStarFill } = icons
 
-const Item = ({ images, owner, title, star, description, price, size, city, district, id }) => {
-    const [isHoverHeart, setIsHoverHeart] = useState(false)
+const Item = ({ images, owner, title, star, description, price, size, city, district, id, isBookmarked, isLoggedIn }) => {
+    const dispatch = useDispatch()
+    const [bookmarkStatus, setBookmarkStatus] = useState(isBookmarked)
+    const bookmarkHandler = () => {
+        if (!isLoggedIn) {
+            alert('Vui lòng đăng nhập để thực hiện chức năng này')
+        } else {
+            setBookmarkStatus(!bookmarkStatus)
+            if (bookmarkStatus) {
+                dispatch(deleteBookmark(id))
+
+            } else {
+                dispatch(createBookmark(id))
+            }
+        }
+    }
     const handleStar = (star) => {
         let stars = []
         for (let i = 1; i <= +star; i++) stars.push(<GrStar className='star-item' size={18} color='yellow' />)
@@ -25,13 +41,7 @@ const Item = ({ images, owner, title, star, description, price, size, city, dist
                     )
                 })}
                 <span className='bg-overlay-70 rounded-md absolute bottom-1 left-1 text-white px-2'>{`${images.length} ảnh`}</span>
-                <span
-                    onMouseEnter={() => setIsHoverHeart(true)}
-                    onMouseLeave={() => setIsHoverHeart(false)}
-                    className=' absolute bottom-1 right-5 text-white'
-                >
-                    {isHoverHeart ? <RiHeartFill size={26} color='red' /> : <RiHeartLine size={26} />}
-                </span>
+
             </Link>
             <div className='w-3/5'>
                 <div className='flex justify-between gap-4 w-full'>
@@ -41,10 +51,10 @@ const Item = ({ images, owner, title, star, description, price, size, city, dist
                                 <span key={number}>{star}</span>
                             )
                         })}
-                    <Link to={`${path.DETAIL}${id}`}>{title}</Link>            
+                        <Link to={`${path.DETAIL}${id}`}>{title}</Link>
                     </div>
                     <div className='w-[10%] flex justify-end'>
-                        <BsBookmarkStarFill size={24} color='orange' />
+                        <BsBookmarkStarFill size={24} color={bookmarkStatus ? 'orange' : 'gray'} onClick={() => { bookmarkHandler() }} />
                     </div>
                 </div>
                 <div className='my-2 flex items-center justify-between gap-1'>

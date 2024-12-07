@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react'
-import { Button, Item } from '../../components'
+import { Item } from '../../components'
 import { getPostsFilter } from '../../store/actions/post'
 import { useDispatch, useSelector } from 'react-redux'
 
 
 const ListFilter = ({ page, filters }) => {
-    console.log('ListFilter: ', filters, page)
+    // console.log('ListFilter: ', filters, page)
     const dispatch = useDispatch()
     const { posts } = useSelector(state => state.post)
     const [lastUpdated, setLastUpdated] = React.useState(new Date().toLocaleTimeString())
+    const { isLoggedIn } = useSelector(state => state.auth)
 
     useEffect(() => {
-        dispatch(getPostsFilter(page, filters))
+        dispatch(getPostsFilter(page, filters, isLoggedIn))
         setLastUpdated(new Date().toLocaleTimeString())
-    }, [page, dispatch, filters])
+    }, [page, dispatch, filters, isLoggedIn])
     console.log('ListFilter: ', posts)
     return (
         <div className='w-full p-2 bg-white shadow-md rounded-md px-6'>
@@ -36,6 +37,8 @@ const ListFilter = ({ page, filters }) => {
                             title={item?.title}
                             owner={item?.owner}
                             id={item?.id}
+                            isBookmarked={item?.isBookmarked}
+                            isLoggedIn={isLoggedIn}
                         />
                     )
                 })}
