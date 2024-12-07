@@ -35,6 +35,7 @@ const Bookmark = () => {
     };
 
     const sortedPosts = React.useMemo(() => {
+        if (!posts) return [];
         let sortablePosts = [...posts];
         if (sortConfig.key) {
             sortablePosts.sort((a, b) => {
