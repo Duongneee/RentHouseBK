@@ -2,8 +2,9 @@ import React, { memo, useEffect, useState } from 'react'
 import { InputFormV2, InputReadOnly} from '../components'
 import data from "../untils/data.json";
 import { useDispatch, useSelector } from 'react-redux'
+import Select from './Select'
 
-const Address = ({ setPayload}) => {
+const Address = ({ setPayload, invalidFields, setInvalidFields}) => {
 
     const { dataUpdate } = useSelector(state => state.post)
     const [cities, setCities] = useState([]);
@@ -113,33 +114,36 @@ const Address = ({ setPayload}) => {
     <div>
       <h2 className='font-semibold text-xl py-4 '>Địa chỉ cho thuê</h2>
         <div className='flex items-center gap-4'>
-          <div className='flex flex-col gap-2 flex-1'>
-            <label className='font-medium' htmlFor='select-address'>Tỉnh/TP</label>
-            <select className='outline-none border border-gray-300 p-2 rounded-md w-full ' value={selectedCity} onChange={handleCityChange}>
-              <option value="">{`--Chọn Tỉnh/TP--`}</option>
-              {cities.map(city => (
-                        <option key={city.Id} value={city.Id}>{city.Name}</option>
-                    ))}
-            </select>
-          </div>
-          <div className='flex flex-col gap-2 flex-1'>
-            <label className='font-medium' htmlFor='select-address'>Quận/Huyện</label>
-            <select className='outline-none border border-gray-300 p-2 rounded-md w-full' value={selectedDistrict} onChange={handleDistrictChange}>
-              <option value="">{`--Chọn Quận/Huyện--`}</option>
-              {districts.map(district => (
-                        <option key={district.Id} value={district.Id}>{district.Name}</option>
-                    ))}
-            </select>
-          </div>
-          <div className='flex flex-col gap-2 flex-1'>
-            <label className='font-medium' htmlFor='select-address'>Phường/Xã</label>
-            <select className='outline-none border border-gray-300 p-2 rounded-md w-full' value={selectedWard} onChange={handleWardChange}>
-              <option value="">{`--Chọn Phường/Xã--`}</option>
-              {wards.map(ward => (
-                        <option key={ward.Id} value={ward.Id}>{ward.Name}</option>
-                    ))}
-            </select>
-          </div>
+        <Select
+          value={selectedCity}
+          setValue={setSelectedCity}
+          label="Tỉnh/TP"
+          options={cities || []}
+          onChange={handleCityChange}
+          name="city"
+          invalidFields={invalidFields}
+          setInvalidFields={setInvalidFields}
+        />
+        <Select
+          value={selectedDistrict}
+          setValue={setSelectedDistrict}
+          label="Quận/Huyện"
+          options={districts || []}
+          onChange={handleDistrictChange}
+          name="district"
+          invalidFields={invalidFields}
+          setInvalidFields={setInvalidFields}
+        />
+        <Select
+          value={selectedWard}
+          setValue={setSelectedWard}
+          label="Phường/Xã"
+          options={wards || []}
+          onChange={handleWardChange}
+          name="ward"
+          invalidFields={invalidFields}
+          setInvalidFields={setInvalidFields}
+        />
       </div>
       
     </div>

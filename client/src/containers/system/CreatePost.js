@@ -95,12 +95,7 @@ const handleDeleteImage = (image) => {
   }))
 }
 
-
 const handleSubmit = async () => {
-  if(payload.title === '' || payload.price === 0 || payload.size === 0 || payload.description === ''  || payload.city === '' || payload.street === '' || payload.images === '', payload.district === '', payload.ward === '') {
-    alert('Vui lòng điền đầy đủ thông tin');
-    return;
-  } 
   
   let finalPayload = {
     ...payload,
@@ -110,12 +105,11 @@ const handleSubmit = async () => {
   }
   // let invalids = validate(finalPayload, setInvalidFields)
   // if (invalids === 0) {
-  //   console.log(payload);
-  //   console.log(invalidFields);
-  // const result = 
-  // if ( result === 0) {
+  const result = validate(payload, setInvalidFields);
+ 
+  if ( result === 0) {
 
-  // }
+  }
     try {
       let response;
       if (isUpdate) {
@@ -164,8 +158,8 @@ const handleSubmit = async () => {
       <h1 className='text-3xl font-medium py-4 border-b border-gray-200'>{isUpdate ? 'Chỉnh sửa tin đăng' : 'Đăng tin mới'}</h1>
       <div className='flex gap-4'>
         <div className='py-4 flex flex-col gap-8 flex-auto'>
-          <Address invalidFields={invalidFields} payload={payload} setPayload={setPayload}/>
-          <Overview invalidFields={invalidFields} payload={payload} setPayload={setPayload}/>
+          <Address invalidFields={invalidFields} setInvalidFields={setInvalidFields} payload={ payload} setPayload={setPayload}/>
+          <Overview invalidFields={invalidFields} setInvalidFields={setInvalidFields} payload={payload} setPayload={setPayload}/>
           <div className='w-full'>
             <h2 className='font-semibold text-xl py-4'>Hình ảnh</h2>
             <small>Cập nhật hình ảnh rõ ràng sẽ giúp cho thuê nhanh hơn</small>
@@ -207,9 +201,6 @@ const handleSubmit = async () => {
           <div className='h-[500px]'>
 
           </div>
-        </div>
-        <div className='w-[30%] flex-none'>
-          
         </div>
       </div>
     </div>
