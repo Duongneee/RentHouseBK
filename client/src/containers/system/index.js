@@ -9,4 +9,6 @@ export { default as ManagePost } from './ManagePost'
 export { default as EditAccount } from './EditAccount'
 export { default as Admin } from './Admin'
 export { default as Bookmark } from './Bookmark'
+export { default as AdminManagePost } from './AdminManagePost'
 
+export { default as HeaderAdmin } from './HeaderAdmin'
