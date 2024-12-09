@@ -16,9 +16,11 @@ const InputFormV2 = ({ label, unit, value, setValue, name, small, invalidFields,
                 />
                 {unit && <span className='p-2 border flex-none w-16 flex items-center justify-center rounded-tr-md rounded-br-md bg-gray-200'>{unit}</span>}
                 </div>
-                {invalidFields?.some(item => item.name === name) && <small className='text-red-500 block w-full' >{invalidFields?.find(item => item.name === name)?.message}</small>}
             </div>
             {small && <small className='opacity-70'>{small}</small>}
+            <small className='text-red-500'>
+                {invalidFields?.some(item => item.name === name) && invalidFields?.find(item => item.name === name)?.message}
+            </small>
         </div>
     )
 }

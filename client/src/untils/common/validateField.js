@@ -30,22 +30,23 @@ const validate = (payload, setInvalidFields) => {
             invalids++
           }
           break;
-          // case 'price':
-          //   if (+item[1] === 0) {
-          //     setInvalidFields(prev => [...prev, {
-          //       name: item[0],
-          //       message: 'Chưa đặt giá trị.'
-          //     }])
-          //     invalids++
-          //   }
-          //     if (!+item[1]) {
-          //       setInvalidFields(prev => [...prev, {
-          //         name: item[0],
-          //         message: 'Giá trị phải là số.'
-          //       }])
-          //     invalids++
-          //   }
-          //   break
+          case 'price':
+            case 'size':
+            if (+item[1] === 0) {
+              setInvalidFields(prev => [...prev, {
+                name: item[0],
+                message: 'Chưa đặt giá trị.'
+              }])
+              invalids++
+            }
+              if (!+item[1]) {
+                setInvalidFields(prev => [...prev, {
+                  name: item[0],
+                  message: 'Giá trị phải là số.'
+                }])
+              invalids++
+            }
+            break
 
         default:
           break;
