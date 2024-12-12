@@ -19,7 +19,7 @@ const ManagePost = () => {
     useEffect(() => {
         setPosts(currentPost)
     }, [currentPost])
-
+    console.log(currentPost)
     useEffect(() => {
         !dataUpdate && dispatch(actions.getPostsLimitAdmin())
     }, [dataUpdate, updateData])

@@ -280,3 +280,24 @@ export const deletePost = (id) => new Promise(async (resolve, reject) => {
         reject(error)
     }
 })
+
+export const getAllPostsService = async (page, limit) => {
+    try {
+        const offset = page * limit;
+        const posts = await db.Post.findAndCountAll({
+            raw: true,
+            nest: true,
+            offset,
+            limit,
+            order: [['createdAt', 'DESC']],
+        });
+
+        return {
+            rows: posts.rows,
+            count: posts.count,
+            totalPages: Math.ceil(posts.count / limit),
+        };
+    } catch (error) {
+        throw new Error('Error fetching posts: ' + error.message);
+    }
+};
