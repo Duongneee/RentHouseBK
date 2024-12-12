@@ -1,10 +1,11 @@
-const configVnpay = require('../config/configVnpay');
-const crypto = require("crypto");
-const qs = require('qs');
-const dateFormat = require('dateformat');
-import db from '../models/index'
-import { v4 } from 'uuid'
-require('dotenv').config()
+import configVnpay from '../config/configVnpay.js';
+import crypto from "crypto";
+import qs from 'qs';
+import dateFormat from 'dateformat';
+import db from '../models/index.js';
+import { v4 } from 'uuid';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 function sortObject(obj) {
@@ -311,5 +312,32 @@ export const refundMoney = async (userId, amount) => {
         return { success: true, balance: user.balance };
     } catch (error) {
         console.error("Error during refund:", error.message);
+    }
+};
+
+export const getPaymentHistoryList = async (userId, page, limit) => {
+    try {
+        // Tính toán offset và limit cho truy vấn
+        const offset = page * limit;
+
+        // Truy vấn dữ liệu từ database
+        const payments = await db.Payment.findAndCountAll({
+            raw: true,
+            nest: true,
+            offset,  // Tính toán offset
+            limit,   // Giới hạn số bản ghi mỗi trang
+            where: { userId },  // Lọc theo userId
+            attributes: ['amount', 'createdAt', 'updatedAt'], 
+            order: [['createdAt', 'DESC']], 
+        });
+
+        // Trả về dữ liệu dưới dạng một đối tượng
+        return {
+            rows: payments.rows,  
+            count: payments.count, 
+            totalPages: Math.ceil(payments.count / limit), // Tổng số trang
+        };
+    } catch (error) {
+        throw new Error('Error fetching payment data: ' + error.message);
     }
 };

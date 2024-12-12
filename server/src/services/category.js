@@ -1,4 +1,4 @@
-import db from '../models'
+import db from '../models/index.js'
 
 //GET ALL  CATEGORY
 export const getCategoriesService = () => new Promise(async(resolve, reject) => {

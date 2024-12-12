@@ -1,6 +1,6 @@
 import express from 'express'
-import * as postController from '../controllers/post'
-import verifyToken from '../middlewares/verifyToken'
+import * as postController from '../controllers/post.js'
+import verifyToken from '../middlewares/verifyToken.js'
 
 const router = express.Router()
 
@@ -9,6 +9,7 @@ router.get('/limit', postController.getPostsLimit)
 router.get('/new-post', postController.getNewPosts)
 router.get('/filter', postController.postFilter)
 router.get('/id/:id', postController.getPostById)
+router.get('/admin-all', postController.getAllPostsAdmin)
 
 
 router.use(verifyToken)

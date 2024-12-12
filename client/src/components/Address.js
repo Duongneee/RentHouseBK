@@ -10,9 +10,9 @@ const Address = ({ setPayload, invalidFields, setInvalidFields}) => {
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
-    const [selectedCity, setSelectedCity] = useState("");
-    const [selectedDistrict, setSelectedDistrict] = useState("");
-    const [selectedWard, setSelectedWard] = useState("");
+    const [selectedCity, setSelectedCity] = useState(dataUpdate?.city || "");
+    const [selectedDistrict, setSelectedDistrict] = useState(dataUpdate?.district || "");
+    const [selectedWard, setSelectedWard] = useState(dataUpdate?.ward || "");
 
     useEffect(() => {
       if (cities.length === 0) {
@@ -22,31 +22,28 @@ const Address = ({ setPayload, invalidFields, setInvalidFields}) => {
   
     useEffect(() => {
       if (dataUpdate?.city) {
-        const city = data.find((city) => city.Name === dataUpdate.city);
+        const city = data.find((city) => city.Name === dataUpdate.city); // Tìm city theo Name
         if (city) {
-          setSelectedCity(city.Id);
+          setSelectedCity(city.Id); // Lưu Id vào selectedCity
           setDistricts(city.Districts || []);
-        }
-  
-        if (dataUpdate?.district) {
-          const district = city?.Districts.find(
-            (district) => district.Name === dataUpdate.district
-          );
-          if (district) {
-            setSelectedDistrict(district.Id);
-            setWards(district.Wards || []);
-          }
-        }
-  
-        if (dataUpdate?.ward) {
-          const district = city?.Districts.find(
-            (district) => district.Name === dataUpdate.district
-          );
-          const ward = district?.Wards.find(
-            (ward) => ward.Name === dataUpdate.ward
-          );
-          if (ward) {
-            setSelectedWard(ward.Id);
+    
+          if (dataUpdate?.district) {
+            const district = city.Districts.find(
+              (district) => district.Name === dataUpdate.district // Tìm district theo Name
+            );
+            if (district) {
+              setSelectedDistrict(district.Id); // Lưu Id vào selectedDistrict
+              setWards(district.Wards || []);
+    
+              if (dataUpdate?.ward) {
+                const ward = district.Wards.find(
+                  (ward) => ward.Name === dataUpdate.ward // Tìm ward theo Name
+                );
+                if (ward) {
+                  setSelectedWard(ward.Id); // Lưu Id vào selectedWard
+                }
+              }
+            }
           }
         }
       }
@@ -96,15 +93,18 @@ const Address = ({ setPayload, invalidFields, setInvalidFields}) => {
       (district) => district.Id === selectedDistrict
     );
     const selectedWardData = wards.find((ward) => ward.Id === selectedWard);
-
+  
     setPayload((prev) => ({
       ...prev,
       address: `${selectedWardData ? selectedWardData.Name + ', ' : ''}${
         selectedDistrictData ? selectedDistrictData.Name + ', ' : ''
       }${selectedCityData ? selectedCityData.Name : ''}`,
       city: selectedCityData ? selectedCityData.Name : '',
+      cityId: selectedCityData ? selectedCityData.Id : '', // Thêm cityId
       district: selectedDistrictData ? selectedDistrictData.Name : '',
+      districtId: selectedDistrictData ? selectedDistrictData.Id : '', // Thêm districtId
       ward: selectedWardData ? selectedWardData.Name : '',
+      wardId: selectedWardData ? selectedWardData.Id : '' // Thêm wardId
     }));
   }, [selectedCity, selectedDistrict, selectedWard, wards, districts, cities, setPayload]);
 

@@ -1,4 +1,4 @@
-import { Bookmark } from "../../containers/system";
+import { Bookmark } from "../../containers/System";
 import actionTypes from "../actions/actionTypes";
 
 const initState = {

@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes'
-import { apiGetNewPosts, apiGetPosts, apiGetPostsFilter, apiGetPostsLimit, apiGetPostById, apiGetPostsLimitAdmin} from '../../services/post'
+import { apiGetNewPosts, apiGetPosts, apiGetPostsFilter, apiGetPostsLimit, apiGetPostById, apiGetPostsLimitAdmin, apiGetAllPosts} from '../../services/post'
 
 export const getPosts = () => async (dispatch) => {
     try {
@@ -155,3 +155,30 @@ export const updateData = (dataUpdate) => ({
 export const resetData = () => ({
     type: actionTypes.RESET_DATA,
 })
+
+export const getAllPosts = (query) => async (dispatch) => {
+    try {
+        const response = await apiGetAllPosts(query);
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.GET_ALL_POSTS,
+                posts: response.data.response?.rows,
+                count: response.data.response?.count,
+                totalPages: response.data.response?.totalPages,
+            });
+        } else {
+            dispatch({
+                type: actionTypes.GET_ALL_POSTS,
+                msg: response.data.msg,
+                posts: [],
+                totalPages: 0,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_ALL_POSTS,
+            posts: [],
+            totalPages: 0,
+        });
+    }
+};
