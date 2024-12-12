@@ -24,8 +24,9 @@ export const path = {
     MANAGE_POST: 'quan-ly-bai-dang',
     EDIT_ACCOUNT: 'thong-tin-tai-khoan',
 
-    ADMIN:'/admin/*',
-    ADMIN_MANAGE_POST:'quan-ly-bai-dang',
+    ADMIN: '/admin/*',
+    ADMIN_MANAGE_POST: 'quan-ly-bai-dang',
+    ADMIN_STATISTIC: 'thong-ke',
 
 
     BOOKMARK: 'bai-dang-da-luu',

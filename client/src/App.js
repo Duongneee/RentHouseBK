@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { DepositMoney, Return, TransList } from './containers/system';
 import { path } from './untils/constant';
 import { Home, Login, Categories, Homepage, DetailPost, FilterResult } from './containers/Public';
-import { CreatePost, System, ManagePost, EditAccount, Bookmark, Admin, AdminManagePost } from './containers/system';
+import { CreatePost, System, ManagePost, EditAccount, Bookmark, Admin, AdminManagePost, AdminStatistic } from './containers/system';
 import AdminRoute from "./untils/AdminRoute";
 import UserRoute from './untils/UserRoute';
 import SystemUserRoute from './untils/SystemUserRoute';
@@ -64,6 +64,7 @@ function App() {
           </AdminRoute>
         }>
           <Route path={path.ADMIN_MANAGE_POST} element={<AdminManagePost />} />
+          <Route path={path.ADMIN_STATISTIC} element={<AdminStatistic />} />
         </Route>
       </Routes>
     </div>

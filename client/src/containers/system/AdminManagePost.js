@@ -45,9 +45,8 @@ const AdminManagePost = () => {
                             posts.map((post, index) => (
                                 <tr
                                     key={post.id}
-                                    className={`${
-                                        index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                                    } hover:bg-gray-100`}
+                                    className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                                        } hover:bg-gray-100`}
                                 >
                                     <td className="border border-gray-300 px-4 py-2">{post.id}</td>
                                     <td className="border border-gray-300 px-4 py-2">{post.title}</td>

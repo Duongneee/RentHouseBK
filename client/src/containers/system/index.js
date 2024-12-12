@@ -12,3 +12,4 @@ export { default as Bookmark } from './Bookmark'
 export { default as AdminManagePost } from './AdminManagePost'
 
 export { default as HeaderAdmin } from './HeaderAdmin'
+export { default as AdminStatistic } from './AdminStatistic'
