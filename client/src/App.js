@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { DepositMoney, Return, TransList } from './containers/System';
+import { DepositMoney, Return, TransList } from './containers/system';
 import { path } from './untils/constant';
 import { Home, Login, Categories, Homepage, DetailPost, FilterResult } from './containers/Public';
-import { CreatePost, System, ManagePost, EditAccount, Bookmark, Admin, AdminManagePost, AdminManageUser } from './containers/System';
+import { CreatePost, System, ManagePost, EditAccount, Bookmark, Admin, AdminManagePost, AdminManageUser } from './containers/system';
 import AdminRoute from "./untils/AdminRoute";
 import UserRoute from './untils/UserRoute';
 import SystemUserRoute from './untils/SystemUserRoute';
