@@ -1,5 +1,6 @@
 import * as postService from '../services/post'
 import * as transaction from "../services/transaction"
+
 const { Op } = require('sequelize')
 
 export const getPosts = async (req, res) => {
@@ -219,7 +220,7 @@ export const deletePost = async (req, res) => {
             return res.status(400).json({
                 err: -1,
                 msg: 'Missing inputs'
-            })
+            })  
         }
         const response = await postService.deletePost(id)
         return res.status(200).json(response)

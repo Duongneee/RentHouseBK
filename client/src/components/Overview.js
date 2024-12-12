@@ -11,10 +11,14 @@ const Overview = ({payload, setPayload, invalidFields, setInvalidFields}) => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
-    if (dataUpdate) {
-      setSelectedCategory(dataUpdate.categoryCode || "");
+    if (dataUpdate?.categoryCode) {
+      setSelectedCategory(dataUpdate.categoryCode); // Thiết lập giá trị mặc định
+      setPayload((prev) => ({
+        ...prev,
+        categoryCode: dataUpdate.categoryCode // Đồng bộ categoryCode với payload
+      }));
     }
-  }, [dataUpdate]);
+  }, [dataUpdate, setPayload]);
 
   const handleCategoryChange = (event) => {
     const categoryCode = event.target.value;
@@ -24,7 +28,7 @@ const Overview = ({payload, setPayload, invalidFields, setInvalidFields}) => {
       categoryCode
     }));
   };
-
+  console.log(dataUpdate)
   return (
     <div>
       <InputFormV2  
