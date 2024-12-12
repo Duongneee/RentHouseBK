@@ -1,4 +1,4 @@
-import * as services from '../services/category'
+import * as services from '../services/category.js'
 
 export const getCategories = async (req, res) => {
     try {

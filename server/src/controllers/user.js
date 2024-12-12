@@ -1,4 +1,4 @@
-import * as services from "../services/user"
+import * as services from "../services/user.js"
 
 export const getCurrent = async (req, res) => {
     const { id } = req.user
