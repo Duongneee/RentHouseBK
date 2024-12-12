@@ -1,5 +1,5 @@
 import { where } from 'sequelize'
-import db from '../models/index.js'
+import db from '../models/index'
 import { v4 as uuidv4 } from 'uuid';
 const { Op, fn, col } = require('sequelize');
 

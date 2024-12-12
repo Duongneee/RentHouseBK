@@ -1,8 +1,8 @@
-import configVnpay from '../config/configVnpay.js';
+import configVnpay from '../config/configVnpay';
 import crypto from "crypto";
 import qs from 'qs';
 import dateFormat from 'dateformat';
-import db from '../models/index.js';
+import db from '../models/index';
 import { v4 } from 'uuid';
 import dotenv from 'dotenv';
 dotenv.config();

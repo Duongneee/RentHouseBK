@@ -23,7 +23,7 @@ function App() {
   }, [isLoggedIn, dispatch]);
 
   return (
-    <div className="bg-[#c0c0c0] overflow-hidden">
+    <div className="bg-[#DEFFFF] overflow-hidden">
       <Routes>
         <Route path={path.HOME} element={
           <UserRoute isAuthenticated={isLoggedIn} role={isAdmin ? "Admin" : "User"} dispatch={dispatch}>

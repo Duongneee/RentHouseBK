@@ -1,9 +1,9 @@
-import authRouter from "./auth.js"
-import categoryRouter from './category.js'
-import postRouter from './post.js'
-import insertRoute from './data-insert.js';
-import userRouter from './user.js'
-import paymentRouter from './payment.js'
+import authRouter from "./auth"
+import categoryRouter from './category'
+import postRouter from './post'
+import insertRoute from './data-insert';
+import userRouter from './user'
+import paymentRouter from './payment'
 
 const initRoutes = (app) => {
 

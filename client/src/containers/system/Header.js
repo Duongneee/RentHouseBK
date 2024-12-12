@@ -3,11 +3,11 @@ import { Navigation } from '../Public'
 
 const Header = () => {
     return (
-        <div className='w-full flex flex-none h-[40px]'>
-            <div className='flex justify-center items-center font-bold bg-secondary1 text-white w-[256px] flex-none'>
+        <div className='w-full flex h-[80px]'>
+            <div className='flex justify-center items-center font-bold bg-secondary1 text-white w-[256px]'>
                 Phòng Trọ BK
             </div>
-            <div className='flex-auto'>
+            <div className='flex-1'>
                 <Navigation isAdmin={true} />
             </div>
         </div>
