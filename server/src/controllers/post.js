@@ -231,3 +231,14 @@ export const deletePost = async (req, res) => {
         })
     }
 }
+
+export const getAllPostsAdmin = async (req, res) => {
+    const { page = 0, limit = 10 } = req.query;
+
+    try {
+        const posts = await postService.getAllPostsService(parseInt(page), parseInt(limit));
+        res.status(200).json({ err: 0, response: posts });
+    } catch (error) {
+        res.status(500).json({ err: -1, msg: 'Failed to get posts: ' + error.message });
+    }
+};
