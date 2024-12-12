@@ -63,49 +63,61 @@ const Bookmark = () => {
     };
 
     return (
-        <div className='flex flex-col gap-6 '>
-            <h1 className='text-3xl font-medium py-4 border-b border-gray-200'>Bài đăng đã lưu: {bookmarkCount}</h1>
-            <p>Tip: sắp xếp danh sách sách bằng cách click vào trường dữ liệu tương ứng.</p>
+        <div className="flex flex-col gap-8 p-6 bg-gray-50 rounded-lg shadow-md">
+            <h1 className="text-3xl font-semibold py-4 border-b border-gray-200 text-gray-800">Bài đăng đã lưu: {bookmarkCount}</h1>
+            <p className="text-sm text-gray-600">Tip: Sắp xếp danh sách bài đăng bằng cách nhấp vào các tiêu đề cột.</p>
 
-            <table className='w-full table-auto'>
-                <thead>
-                    <tr className='flex w-full bg-gray-200'>
-                        <th className='border flex-[1] p-2'>Ảnh</th>
-                        <th className='border flex-[3] p-2 cursor-pointer' onClick={() => handleSort('title')}>Tiêu đề</th>
-                        <th className='border flex-[1] p-2 cursor-pointer' onClick={() => handleSort('price')}>Giá/tháng</th>
-                        <th className='border flex-[1] p-2 cursor-pointer' onClick={() => handleSort('size')}>Kích thước</th>
-                        <th className='border flex-[1] p-2 cursor-pointer' onClick={() => handleSort('createdAt')}>Ngày đăng</th>
-                        <th className='border flex-[1] p-2'>Tùy chọn</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedPosts.length === 0 ?
-                        <tr>
-                            <td colSpan="6">Bạn chưa lưu bài đăng nào.</td>
+            <div className="overflow-x-auto"> {/* Thêm cuộn ngang cho bảng */}
+                <table className="w-full table-auto text-sm">
+                    <thead>
+                        <tr className="bg-gray-100 text-gray-700 hover:bg-gray-200">
+                            <th className="border p-3 text-left">Ảnh</th>
+                            <th className="border p-3 text-left cursor-pointer" onClick={() => handleSort('title')}>Tiêu đề</th>
+                            <th className="border p-3 text-left cursor-pointer" onClick={() => handleSort('price')}>Giá/tháng</th>
+                            <th className="border p-3 text-left cursor-pointer" onClick={() => handleSort('size')}>Kích thước</th>
+                            <th className="border p-3 text-left cursor-pointer" onClick={() => handleSort('createdAt')}>Ngày đăng</th>
+                            <th className="border p-3 text-center">Tùy chọn</th>
                         </tr>
-                        : sortedPosts.map(bookmark => {
-                            return (
-                                <tr className='flex items-center h-20' key={bookmark.post.id} onClick={() => { navigate(`/chi-tiet/${bookmark.post?.id}`) }}>
-                                    <td className='border px-2 flex-[1] h-full flex items-center justify-center '>
-                                        <img src={JSON.parse(bookmark.post?.images)[0] || ''} alt='avatar-post' className='w-35 h-20 object-cover rounded-md'></img>
-                                    </td>
-                                    <td className='border px-2 flex-[3] h-full flex '>{`${bookmark.post?.title}`}</td>
-                                    <td className='border px-2 flex-[1] h-full flex justify-center items-center '>{shortenMoneyAmount(bookmark.post?.price)}</td>
-                                    <td className='border px-2 flex-[1] h-full flex justify-center items-center '>{bookmark.post?.size}m²</td>
-                                    <td className='border px-2 flex-[1] h-full flex justify-center items-center '>{moment(bookmark.post.createdAt).format('DD/MM/YYYY')}</td>
-                                    <td className='border px-2 flex-[1] h-full flex justify-center items-center gap-4'>
-                                        <Button
-                                            text='Bỏ lưu'
-                                            bgColor='bg-orange-600'
-                                            textColor='text-white'
-                                            onClick={() => handleDeleteBookmark(bookmark.post?.id)}
-                                        />
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {sortedPosts.length === 0 ? (
+                            <tr>
+                                <td colSpan="6" className="p-4 text-center text-gray-600">Bạn chưa lưu bài đăng nào.</td>
+                            </tr>
+                        ) : sortedPosts.map(bookmark => (
+                            <tr
+                                key={bookmark.post.id}
+                                className="border-b hover:bg-gray-50 cursor-pointer"
+                                onClick={() => navigate(`/chi-tiet/${bookmark.post?.id}`)}
+                            >
+                                <td className="p-3 flex items-center justify-center">
+                                    <img
+                                        src={JSON.parse(bookmark.post?.images)[0] || ''}
+                                        alt="avatar-post"
+                                        className="w-20 h-12 object-cover rounded-md shadow-sm"
+                                    />
+                                </td>
+                                <td className="p-3">{bookmark.post?.title}</td>
+                                <td className="p-3 text-center">{shortenMoneyAmount(bookmark.post?.price)}</td>
+                                <td className="p-3 text-center">{bookmark.post?.size}m²</td>
+                                <td className="p-3 text-center">{moment(bookmark.post.createdAt).format('DD/MM/YYYY')}</td>
+                                <td className="p-3 text-center">
+                                    <Button
+                                        text="Bỏ lưu"
+                                        bgColor="bg-orange-600"
+                                        textColor="text-white"
+                                        onClick={(e) => {
+                                            e.stopPropagation();  // Prevent triggering row click event
+                                            handleDeleteBookmark(bookmark.post?.id);
+                                        }}
+                                        className="px-4 py-2 rounded-md hover:bg-orange-700 transition-colors"
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

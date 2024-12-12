@@ -1,5 +1,5 @@
 import { raw } from 'express'
-import db from '../models'
+import db from '../models/index'
 const { sequelize } = db
 import { v4 as generateId } from 'uuid'
 import { where } from 'sequelize'

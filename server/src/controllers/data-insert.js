@@ -1,4 +1,4 @@
-import * as dataInsertService from '../services/data-insert.js';
+import * as dataInsertService from '../services/data-insert';
 export const dataInsert = async (req, res) => {
     try {
         const response = await dataInsertService.insertService();

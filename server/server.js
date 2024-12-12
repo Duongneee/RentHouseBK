@@ -2,7 +2,7 @@ import express from 'express'
 require('dotenv').config()
 import cors from 'cors'
 import connectDatabase from './src/config/connectDatabase'
-import initRoutes from './src/routes'
+import initRoutes from './src/routes/index'
 
 const app = express()
 app.use(cors({

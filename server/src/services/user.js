@@ -1,5 +1,5 @@
 import { where } from 'sequelize'
-import db from '../models'
+import db from '../models/index'
 import { v4 as uuidv4 } from 'uuid';
 
 // GET CURRENT

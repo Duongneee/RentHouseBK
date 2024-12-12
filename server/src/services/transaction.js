@@ -1,10 +1,11 @@
-const configVnpay = require('../config/configVnpay');
-const crypto = require("crypto");
-const qs = require('qs');
-const dateFormat = require('dateformat');
-import db from '../models/index'
-import { v4 } from 'uuid'
-require('dotenv').config()
+import configVnpay from '../config/configVnpay';
+import crypto from "crypto";
+import qs from 'qs';
+import dateFormat from 'dateformat';
+import db from '../models/index';
+import { v4 } from 'uuid';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 function sortObject(obj) {
