@@ -6,6 +6,7 @@ import 'moment/locale/vi'
 import { Button , UpdatePost} from '../../components'
 import { apiDeletePost } from '../../services'
 import Swal from 'sweetalert2'
+import { HisPayment } from '../../components'
 
 
 const ManagePost = () => {
@@ -18,7 +19,7 @@ const ManagePost = () => {
     useEffect(() => {
         setPosts(currentPost)
     }, [currentPost])
-
+    console.log(currentPost)
     useEffect(() => {
         !dataUpdate && dispatch(actions.getPostsLimitAdmin())
     }, [dataUpdate, updateData])
@@ -121,6 +122,7 @@ const ManagePost = () => {
             </tbody>
         </table>
         {isUpdate && <UpdatePost setIsUpdate={setIsUpdate}/>}
+        {/* <HisPayment/> */}
     </div>
   )
 }

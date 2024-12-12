@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import * as actions from '../store/actions';
-import { Admin } from '../containers/system';
+import { Admin } from '../containers/System';
 
 const AdminRoute = ({ isAuthenticated, role, dispatch }) => {
   useEffect(() => {

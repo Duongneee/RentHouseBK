@@ -7,6 +7,7 @@ const initialState = {
     posts: [],
     msg: null,
     count: 0,
+    totalPages: 0,
     newPosts: [],
     currentPost: [],
     dataUpdate: null
@@ -28,6 +29,14 @@ const postsReducer = (state = initialState, action) => {
             msg:action.msg || null, 
             currentPost: action.posts || []
         }
+        case actionTypes.GET_ALL_POSTS:
+            return {
+                ...state,
+                posts: action.posts,
+                count: action.count,
+                totalPages: action.totalPages,
+                msg: action.msg || null,
+            };
         case actionTypes.UPDATE_DATA:
             return{ ...state, 
                 dataUpdate: action.dataUpdate || null

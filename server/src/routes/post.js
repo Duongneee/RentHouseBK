@@ -9,6 +9,7 @@ router.get('/limit', postController.getPostsLimit)
 router.get('/new-post', postController.getNewPosts)
 router.get('/filter', postController.postFilter)
 router.get('/id/:id', postController.getPostById)
+router.get('/admin-all', postController.getAllPostsAdmin)
 
 
 router.use(verifyToken)

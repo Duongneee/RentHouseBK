@@ -32,12 +32,16 @@ const CreatePost = ({isUpdate}) => {
       street: ''
     };
 
-    if (isUpdate && dataUpdate) {
+    if (isUpdate ) {
       try {
         return {
           ...initData,
           ...dataUpdate,
+          categoryCode: dataUpdate.categoryCode || '',
           price: dataUpdate.price ,
+          city: dataUpdate.city || '',
+          district: dataUpdate.district || '',
+          ward: dataUpdate.ward || '',
           images: JSON.parse(dataUpdate.images || ''),
           description: JSON.parse(dataUpdate.description)
         };
@@ -46,9 +50,10 @@ const CreatePost = ({isUpdate}) => {
         return initData;
       }
     }
-
     return initData;
   });
+  
+
 
 
 
