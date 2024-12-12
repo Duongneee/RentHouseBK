@@ -38,12 +38,6 @@ const menuManage = [
         text: 'Thông tin tài khoản',
         path: '/he-thong/thong-tin-tai-khoan',
         icon: <BiUserPin />
-    },
-    {
-        id: 7,
-        text: 'Liên hệ',
-        path: '/he-thong/lien-he',
-        icon: <BiUserPin />
     }
 ]
 

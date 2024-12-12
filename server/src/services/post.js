@@ -266,6 +266,9 @@ export const updatePost = ({ id, ...body }) => new Promise(async (resolve, rejec
 
 export const deletePost = (id) => new Promise(async (resolve, reject) => {
     try {
+        await db.Bookmark.destroy({
+            where: { PostId: id }
+        })
         const response = await db.Post.destroy({
             where: { id: id }
         })
