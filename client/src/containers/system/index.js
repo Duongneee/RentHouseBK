@@ -9,6 +9,7 @@ export { default as EditAccount } from './EditAccount'
 export { default as Admin } from './Admin'
 export { default as Bookmark } from './Bookmark'
 export { default as AdminManagePost } from './AdminManagePost'
+export { default as AdminManageUser } from './AdminManageUser'
 export { default as CreatePost } from './CreatePost'
 
 export { default as HeaderAdmin } from './HeaderAdmin'

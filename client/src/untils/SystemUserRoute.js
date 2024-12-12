@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { System } from '../containers/system';
+import { System } from '../containers/System';
 
 const UserRoute = ({ isAuthenticated, role, dispatch }) => {
 

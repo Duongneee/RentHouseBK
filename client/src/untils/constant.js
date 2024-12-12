@@ -26,6 +26,7 @@ export const path = {
 
     ADMIN:'/admin/*',
     ADMIN_MANAGE_POST:'quan-ly-bai-dang',
+    ADMIN_MANAGE_USER:'quan-ly-nguoi-dung',
 
 
     BOOKMARK: 'bai-dang-da-luu',
