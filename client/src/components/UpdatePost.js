@@ -1,5 +1,5 @@
 import React from 'react'
-import { CreatePost } from '../containers/system'
+import { CreatePost } from '../containers/System'
 
 const UpdatePost = ({ setIsUpdate }) => {
 
