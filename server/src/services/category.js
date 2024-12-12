@@ -12,5 +12,5 @@ export const getCategoriesService = () => new Promise(async(resolve, reject) => 
     } catch (error) {
         reject(error)
     };
-    
+
 })

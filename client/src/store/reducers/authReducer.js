@@ -4,7 +4,8 @@ import actionTypes from "../actions/actionTypes";
 const initState = {
     isLoggedIn: false,
     token: null,
-    msg: ''
+    msg: '', 
+    isAdmin: false
 };
 
 const authReducer = (state = initState, action) => {
@@ -14,6 +15,7 @@ const authReducer = (state = initState, action) => {
             return {
                 ...state ,
                 isLoggedIn: true,
+                isAdmin: action.isAdmin,
                 token : action.data
             }
             
@@ -22,6 +24,7 @@ const authReducer = (state = initState, action) => {
             return {
                 ...state ,
                 isLoggedIn: false,
+                isAdmin : false,
                 msg : action.data,
                 token : null
             }
@@ -29,6 +32,7 @@ const authReducer = (state = initState, action) => {
             return {
                 ...state ,
                 isLoggedIn: false,
+                isAdmin : false,
                 msg : action.data,
                 token : null
             }

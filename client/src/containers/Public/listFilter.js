@@ -12,7 +12,9 @@ const ListFilter = ({ page, filters }) => {
     const { isLoggedIn } = useSelector(state => state.auth)
 
     useEffect(() => {
-        dispatch(getPostsFilter(page, filters, isLoggedIn))
+        setTimeout(() => {
+            dispatch(getPostsFilter(page, filters, isLoggedIn))
+        }, 500)
         setLastUpdated(new Date().toLocaleTimeString())
     }, [page, dispatch, filters, isLoggedIn])
     console.log('ListFilter: ', posts)

@@ -1,6 +1,8 @@
 import actionTypes from './actionTypes'
 import {apiRegister, apiLogin} from '../../services/auth'
 
+import { jwtDecode } from 'jwt-decode';
+
 export const register = (payload) => async (dispatch) => {
     try {
         const response = await apiRegister(payload)
@@ -30,9 +32,11 @@ export const login = (payload) => async (dispatch) => {
         const response = await apiLogin(payload)
         console.log(response)
         if (response?.data.err === 0) {
+            const decodedToken = jwtDecode(response.data.token);
             dispatch({
                 type: actionTypes.LOGIN_SUCCESS,
-                data: response.data.token
+                data: response.data.token, 
+                isAdmin: decodedToken.isAdmin 
             })
         } else {
             dispatch({

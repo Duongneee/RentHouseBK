@@ -1,31 +1,36 @@
-import { Routes, Route } from 'react-router-dom'
-//import { Home, Login, RentalApartment, RentalHouse, RentalRoom, RentalSpace, Homepage, DetailPost } from './containers/Public';
-import { DepositMoney, Return, TransList } from './containers/system'
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { DepositMoney, Return, TransList } from './containers/system';
 import { path } from './untils/constant';
 import { Home, Login, Categories, Homepage, DetailPost, FilterResult } from './containers/Public';
-
-import { CreatePost, System, ManagePost, EditAccount, Bookmark } from './containers/system'
-
-import * as actions from './store/actions'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-
+import { CreatePost, System, ManagePost, EditAccount, Bookmark, Admin, AdminManagePost } from './containers/system';
+import AdminRoute from "./untils/AdminRoute";
+import UserRoute from './untils/UserRoute';
+import SystemUserRoute from './untils/SystemUserRoute';
+import * as actions from './store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 function App() {
-  const dispatch = useDispatch()
-  const { isLoggedIn } = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+  const { isLoggedIn, isAdmin } = useSelector((state) => state.auth);  // Assuming state.auth contains isLoggedIn and isAdmin
+
   useEffect(() => {
     setTimeout(() => {
-      isLoggedIn && dispatch(actions.getCurrent())
-    }, 500)
-  }, [isLoggedIn])
-
+      if (isLoggedIn) {
+        dispatch(actions.getCurrent());  // Fetch current user info
+      }
+    }, 500);
+  }, [isLoggedIn, dispatch]);
 
   return (
-    <div className=" bg-[#c0c0c0] overflow-hidden">
+    <div className="bg-[#c0c0c0] overflow-hidden">
       <Routes>
-        <Route path={path.HOME} element={< Home />}>
-          <Route path='*' element={<Homepage />} />
+        <Route path={path.HOME} element={
+          <UserRoute isAuthenticated={isLoggedIn} role={isAdmin ? "Admin" : "User"} dispatch={dispatch}>
+            <Home />
+          </UserRoute>
+        }>
+          <Route path="*" element={<Homepage />} />
           <Route path={path.HOME__PAGE} element={<Homepage />} />
           <Route path={path.LOGIN} element={<Login />} />
           <Route path={path.CHO_THUE_CAN_HO} element={<Categories categoryCode={"CTCH"} />} />
@@ -37,16 +42,29 @@ function App() {
           <Route path={path.FILTER} element={<FilterResult />} />
         </Route>
 
-        <Route path={path.SYSTEM} element={< System />}>
-          <Route path={path.CREATE_POST} element={< CreatePost />} />
+        {/* System Routes (User Route) */}
+        <Route path={path.SYSTEM} element={
+          <SystemUserRoute isAuthenticated={isLoggedIn} role={isAdmin ? "Admin" : "User"} dispatch={dispatch}>
+            <System />
+          </SystemUserRoute>
+        }>
+          <Route path={path.CREATE_POST} element={<CreatePost />} />
           <Route path={path.TRANSACTION} element={<DepositMoney />} />
           <Route path={path.RETURNTRANSACTION} element={<Return />} />
-          <Route path={path.TRANSACTIONLIST} element={< TransList />} />
-          <Route path={path.MANAGE_POST} element={< ManagePost />} />
-          <Route path={path.BOOKMARK} element={< Bookmark />} />
-          <Route path={path.EDIT_ACCOUNT} element={< EditAccount />} />
+          <Route path={path.TRANSACTIONLIST} element={<TransList />} />
+          <Route path={path.MANAGE_POST} element={<ManagePost />} />
+          <Route path={path.BOOKMARK} element={<Bookmark />} />
+          <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />
         </Route>
 
+        {/* Admin Routes */}
+        <Route path={path.ADMIN} element={
+          <AdminRoute isAuthenticated={isLoggedIn} role={isAdmin ? "Admin" : "User"} dispatch={dispatch}>
+            <Admin />
+          </AdminRoute>
+        }>
+          <Route path={path.ADMIN_MANAGE_POST} element={<AdminManagePost />} />
+        </Route>
       </Routes>
     </div>
   );

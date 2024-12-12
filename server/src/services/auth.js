@@ -38,7 +38,7 @@ export const loginService = (phone, password) => new Promise(async (resolve, rej
 
         const isCorrectPassWord = response && bcrypt.compareSync(password, response.password)
 
-        const token = isCorrectPassWord && jwt.sign({ id: response.id, phone: response.phone }, process.env.SECRET_KEY, { expiresIn: '2d' })
+        const token = isCorrectPassWord && jwt.sign({ id: response.id, phone: response.phone, isAdmin: response.isAdmin}, process.env.SECRET_KEY, { expiresIn: '2d' })
         resolve({
             err: token ? 0 : 2,
             msg: token ? 'Login is successfully' : response ? 'Password is wrong.' : 'Phone number not found .',
