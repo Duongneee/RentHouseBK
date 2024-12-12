@@ -4,11 +4,17 @@ import { useSelector } from 'react-redux'
 import { categories } from "../untils/categories";
 
 
-const Overview = ({payload, setPayload, invalidFields, setInvalidFields}) => {
+const Overview = ({payload, setPayload, invalidFields, setInvalidFields, resetTrigger}) => {
 
   const {currentData} = useSelector(state => state.user)
   const { dataUpdate } = useSelector(state => state.post)
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(payload.categoryCode || '');
+
+  useEffect(() => {
+    if (resetTrigger) {
+      setSelectedCategory('');
+    }
+  }, [resetTrigger]);
 
   useEffect(() => {
     if (dataUpdate?.categoryCode) {
