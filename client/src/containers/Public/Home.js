@@ -24,7 +24,7 @@ const Home = () => {
       <Header />
       <Navigation />
       {isLoggedIn && !location.pathname?.includes(path.DETAIL) && <Search />}
-      <div className='w-full max-w-[1130px] flex flex-col items-start justify-start mt-3'>
+      <div className='w-full max-w-[1250px] flex flex-col items-start justify-start mt-3'>
         <Outlet />
       </div>
       <Intro />

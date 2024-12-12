@@ -65,7 +65,7 @@ const DepositMoney = () => {
 
     return (
         <div className="flex-auto bg-gradient-to-r from-indigo-50 to-blue-50 flex justify-center items-center h-screen">
-            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 ease-in-out">
                 <h3 className="font-bold text-2xl text-center text-gray-800 mb-6">
                     Nạp tiền vào tài khoản
                 </h3>
@@ -89,13 +89,13 @@ const DepositMoney = () => {
                         textColor="text-white"
                         fullWidth
                         onClick={handleSubmit}
-                        className="shadow-lg hover:shadow-xl transition-shadow"
+                        className="shadow-lg hover:shadow-xl transition-shadow duration-300"
                     />
                 </div>
 
                 {/* Hiển thị lỗi */}
                 {invalidFields.length > 0 && (
-                    <div className="mt-4 text-red-500 text-sm bg-red-100 p-3 rounded-md shadow-sm">
+                    <div className="mt-4 text-red-500 text-sm bg-red-100 p-3 rounded-md shadow-md">
                         {invalidFields.map((field, index) => (
                             <div key={index} className="flex items-center gap-2">
                                 <span className="font-bold">•</span> {field.message}
