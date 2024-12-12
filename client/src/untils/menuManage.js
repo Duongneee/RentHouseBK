@@ -1,6 +1,6 @@
 import icons from './icon'
 
-const { ImPencil2, MdOutlineLibraryBooks, BiUserPin,LiaMoneyBillWaveSolid, GiMoneyStack } = icons
+const { ImPencil2, MdOutlineLibraryBooks, BiUserPin, LiaMoneyBillWaveSolid, GiMoneyStack, BsBookmarkStarFill } = icons
 
 const menuManage = [
     {
@@ -17,18 +17,24 @@ const menuManage = [
     },
     {
         id: 3,
+        text: 'Bài đăng đã lưu',
+        path: '/he-thong/bai-dang-da-luu',
+        icon: <BsBookmarkStarFill />
+    },
+    {
+        id: 4,
         text: 'Nạp tiền',
         path: '/he-thong/nap-tien',
         icon: <LiaMoneyBillWaveSolid />
     },
     {
-        id: 4,
+        id: 5,
         text: 'Lịch sử nạp tiền',
         path: '/he-thong/lich-su-nap-tien',
         icon: <GiMoneyStack />
     },
     {
-        id: 5,
+        id: 6,
         text: 'Thông tin tài khoản',
         path: '/he-thong/thong-tin-tai-khoan',
         icon: <BiUserPin />

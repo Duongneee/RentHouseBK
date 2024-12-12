@@ -2,17 +2,18 @@ import { FaRegNewspaper } from "react-icons/fa6";
 import { IoLogIn } from "react-icons/io5";
 import { GiArchiveRegister } from "react-icons/gi";
 import { GrNext, GrStar, GrLinkNext, GrLinkPrevious } from 'react-icons/gr'
-import { HiOutlineLocationMarker } from 'react-icons/hi'
+import { HiOutlineLocationMarker, HiLocationMarker } from 'react-icons/hi'
 import { TbReportMoney } from 'react-icons/tb'
 import { RiCrop2Line, RiHeartFill, RiHeartLine } from 'react-icons/ri'
 import { MdOutlineHouseSiding } from 'react-icons/md'
 import { FiSearch } from 'react-icons/fi'
-import { BsBookmarkStarFill } from 'react-icons/bs'
-import { ImPencil2 } from 'react-icons/im'
+import { BsBookmarkStarFill, BsCameraFill, BsStopwatch,BsDot,BsTelephoneFill} from 'react-icons/bs'
+import { ImPencil2, ImBin } from 'react-icons/im'
 import { MdOutlineLibraryBooks } from "react-icons/md";
 import { BiUserPin } from "react-icons/bi";
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import { GiMoneyStack } from "react-icons/gi";
+import {SiZalo} from 'react-icons/si'
 
 
 
@@ -36,7 +37,14 @@ const icons = {
     MdOutlineLibraryBooks,
     BiUserPin,
     LiaMoneyBillWaveSolid,
-    GiMoneyStack
+    GiMoneyStack,
+    ImBin,
+    BsCameraFill,
+    HiLocationMarker,
+    BsStopwatch,
+    BsDot,
+    BsTelephoneFill,
+    SiZalo
 }
 
 export default icons

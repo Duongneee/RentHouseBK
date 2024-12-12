@@ -18,9 +18,7 @@ module.exports = {
       amount: {
         type: Sequelize.INTEGER.UNSIGNED,   // in VND,  0 to 4,294,967,295
       },
-      // zalo: {
-      //   type: Sequelize.STRING
-      // },
+
       // timestamp: {
       //   type: Sequelize.DATETIME,
       // },

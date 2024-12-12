@@ -25,6 +25,13 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED,
         defaultValue: 0
       },
+      avatar: {
+        type: Sequelize.STRING,
+      },
+      isAdmin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE

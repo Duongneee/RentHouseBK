@@ -1,11 +1,11 @@
 import React from 'react'
-import {text} from '../../untils/constant'
-import {Province, ItemSidebar} from '../../components'
-import {List, Pagination} from './index'
-import {  useSearchParams } from 'react-router-dom'
+import { text } from '../../untils/constant'
+import { Province, ItemSidebar, RelatedPost } from '../../components'
+import { ListFilter, Pagination, NewPost } from './index'
+import { useSearchParams } from 'react-router-dom'
 
 const Homepage = () => {
-  const [params] = useSearchParams()  
+  const [params] = useSearchParams()
   return (
     <div className='w-full flex flex-col gap-3'>
       <div>
@@ -14,15 +14,14 @@ const Homepage = () => {
       </div>
       <Province />
       <div className='w-full flex gap-4'>
-      <div className='w-[70%]'>
-        <List page={params.get('page')} />
-        <Pagination page={params.get('page')} />
-      </div>
-      <div className='w-[30%] flex flex-col gap-4 justify-start items-center'>
-        <ItemSidebar />
-        <ItemSidebar />
-        <ItemSidebar />
-      </div>
+        <div className='w-[70%]'>
+          <ListFilter page={params.get('page')} />
+          <Pagination page={params.get('page')} />
+        </div>
+        <div className='w-[30%] flex flex-col gap-4'>
+          <ItemSidebar />
+          <RelatedPost />
+        </div>
       </div>
     </div>
   )

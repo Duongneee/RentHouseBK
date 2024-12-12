@@ -1,4 +1,4 @@
-import db from '../models'
+import db from '../models/index'
 
 //GET ALL  CATEGORY
 export const getCategoriesService = () => new Promise(async(resolve, reject) => {
@@ -12,5 +12,5 @@ export const getCategoriesService = () => new Promise(async(resolve, reject) => 
     } catch (error) {
         reject(error)
     };
-    
+
 })

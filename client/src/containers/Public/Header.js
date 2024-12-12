@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import logo from '../../asset/bkrm.png'
-import {Button, User } from '../../components'
+import { Button, User } from '../../components'
 import icons from '../../untils/icon'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { path } from '../../untils/constant'
@@ -20,12 +20,15 @@ const Header = () => {
   const { isLoggedIn } = useSelector(state => state.auth)
   const { currentData } = useSelector(state => state.user)
   const [isShowMenu, setIsShowMenu] = useState(false)
-  console.log(currentData)
   const [searchParams] = useSearchParams()
   const headerRef = useRef()
 
   const goLogin = useCallback((flag) => {
     navigate(path.LOGIN, { state: { flag } })
+  }, [])
+
+  const newPost = useCallback(() => {
+    navigate('he-thong/tao-moi-bai-dang')
   }, [])
 
   useEffect(() => {
@@ -37,16 +40,16 @@ const Header = () => {
   }, [isLoggedIn]);
 
   return (
-    <div ref={headerRef} className='w-1100 px-5 flex items-center justify-between'>
+    <div ref={headerRef} className='w-full px-10 flex items-center justify-between'>
       <Link to='/'>
         <img src={logo}
           alt="logo"
-          className='w-[270px] h-[100px] object-constant'
+          className='w-[230px] h-[70px] object-constant'
         />
       </Link>
 
 
-      <div className='flex items-center gap-1'>
+      <div className='flex items-center gap-3'>
         {!isLoggedIn && <div className='flex items-center gap-1'>
           <small>Phòng Trọ BK xin chào ! ! !</small>
           <Button
@@ -63,8 +66,8 @@ const Header = () => {
             onClick={() => goLogin(true)} />
         </div>}
 
-        {isLoggedIn && <div className='flex items-center gap-1 relative'>
-          <User/>
+        {isLoggedIn && <div className='flex items-center gap-1 relative z-10'>
+          <User />
           <Button
             text={'Quản lí tài khoản'}
             textColor='text-white'
@@ -76,17 +79,18 @@ const Header = () => {
             <div className='absolute min-w-200 top-full bg-white shadow-md rounded-md p-4 right-0 flex flex-col gap-2'>
               {menuManage.map(item => {
                 return (
-                  <Link className='hover:text-orange-500 text-blue-500 flex items-center gap-1 border-b border-gray-200 py-2' key={item.id} to={item?.path}>
+                  <Link className='hover:text-orange-500 text-blue-500 flex items-center hover:scale-110 transition-transform duration-200 gap-1 border-b border-gray-200 py-2' key={item.id} to={item?.path}>
                     {item?.icon}
                     {item.text}
                   </Link>
                 )
               })}
-              <span className='cursor-pointer hover:text-orange-500 text-blue-500 flex items-center gap-1 border-b border-gray-200 py-2 '
+              <span className='cursor-pointer hover:text-orange-500 text-blue-500 flex items-center gap-1 border-b border-gray-200 py-2 hover:scale-110 transition-transform duration-200  '
                 onClick={() => {
-                  dispatch(actions.logout())}
+                  dispatch(actions.logout())
                 }
-                >
+                }
+              >
                 <IoLogOut />
                 Đăng xuất
               </span>
@@ -95,7 +99,7 @@ const Header = () => {
 
         </div>}
 
-        <Button text={'Đăng tin mới'} textColor='text-white' bgColor='bg-secondary2' IcAfter={FaRegNewspaper} />
+        <Button text={'Đăng tin mới'} textColor='text-white' bgColor='bg-secondary2' IcAfter={FaRegNewspaper} onClick={() => newPost()} />
       </div>
     </div>
   )

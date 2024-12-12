@@ -2,7 +2,7 @@
   "development": {
     "username": "avnadmin",
     "password": "please_enter_your_password",
-    "database": "renthousebk_db",
+    "database": "renthousebk_db2",
     "host": "mysql-renthousebk-duong-9e8d.j.aivencloud.com",
     "port": 27240,
     "dialect": "mysql"

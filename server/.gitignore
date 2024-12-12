@@ -8,3 +8,5 @@
 
 /src/config/config.json
 /server/package-lock.json
+/src/config/configVnpay.js
+/build
