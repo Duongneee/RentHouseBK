@@ -1,5 +1,5 @@
 import express from 'express'
-import verifyToken from '../middlewares/verifyToken'
+import verifyToken from '../middlewares/verifyToken.js'
 const router = express.Router();
 const paymentController = require('../controllers/paymentController');
 
@@ -16,3 +16,4 @@ router.get('/history-payment',verifyToken ,paymentController.handlePaymentHistor
 
 
 module.exports = router;
+export default paymentRouter

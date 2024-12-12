@@ -1,5 +1,5 @@
-import * as postService from '../services/post'
-import * as transaction from "../services/transaction"
+import * as postService from '../services/post.js'
+import * as transaction from "../services/transaction.js"
 
 const { Op } = require('sequelize')
 

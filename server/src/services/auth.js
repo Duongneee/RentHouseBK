@@ -1,4 +1,4 @@
-import db from '../models/index'
+import db from '../models/index.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { v4 } from 'uuid'
