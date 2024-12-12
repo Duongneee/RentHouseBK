@@ -40,11 +40,11 @@ const Header = () => {
   }, [isLoggedIn]);
 
   return (
-    <div ref={headerRef} className='w-1100 px-5 flex items-center justify-between'>
+    <div ref={headerRef} className='w-full px-10 flex items-center justify-between'>
       <Link to='/'>
         <img src={logo}
           alt="logo"
-          className='w-[270px] h-[100px] object-constant'
+          className='w-[230px] h-[70px] object-constant'
         />
       </Link>
 

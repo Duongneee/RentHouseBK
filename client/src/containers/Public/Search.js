@@ -7,6 +7,7 @@ import { categories } from '../../untils/constant'
 import { shortenMoneyAmount } from '../../untils/moneyShorten'
 
 const { GrNext, HiOutlineLocationMarker, TbReportMoney, RiCrop2Line, MdOutlineHouseSiding, FiSearch } = icons
+
 const Search = () => {
   const [params] = useSearchParams()
   const filtersInit = {}
@@ -28,6 +29,7 @@ const Search = () => {
   if (params.get('sizeFrom') !== null & params.get('sizeTo') !== null) {
     filtersInit.sizeRange = [Number(params.get('sizeFrom')), Number(params.get('sizeTo'))]
   }
+  
   const navigate = useNavigate()
   const [isDisplayPopup, setIsDisplayPopup] = React.useState(false)
   const [popupContent, setPopupContent] = React.useState(0)
@@ -37,11 +39,12 @@ const Search = () => {
     setIsDisplayPopup(true)
     setPopupContent(value)
   }
+
   useEffect(() => {
-    console.log('Search.js: filteres', filters)
+    console.log('Search.js: filters', filters)
   }, [filters])
+
   const searchHandler = () => {
-    // TODO: Call navigate to search route
     const filterParams = {}
     if (filters.categoryCode !== undefined) {
       filterParams.categoryCode = filters.categoryCode
@@ -66,9 +69,10 @@ const Search = () => {
     const query = new URLSearchParams(filterParams).toString()
     navigate(`/filter?${query}`)
   }
+
+  // Display functions for each filter
   function categoryDisplay() {
     if (filters.categoryCode !== undefined) {
-      console.log('Search.js: filters.categoryCode', filters.categoryCode)
       return (
         <span onClick={() => popupEvent(0)} className='cursor-pointer flex-1'>
           <SearchItem Text={categories.find(category => category.id === filters.categoryCode).name} IconAfter={<GrNext />} IconBefore={<MdOutlineHouseSiding />} fontWeight />
@@ -82,6 +86,7 @@ const Search = () => {
       )
     }
   }
+
   function addressDisplay() {
     if (filters.city !== undefined) {
       return (
@@ -97,6 +102,7 @@ const Search = () => {
       )
     }
   }
+
   function priceDisplay() {
     if (filters.priceRange !== undefined) {
       return (
@@ -112,6 +118,7 @@ const Search = () => {
       )
     }
   }
+
   function sizeDisplay() {
     if (filters.sizeRange !== undefined) {
       return (
@@ -127,17 +134,17 @@ const Search = () => {
       )
     }
   }
+
   return (
     <>
-      <div className='p-[10px] w-full max-w-[1130px] my-3 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2'>
+      <div className='p-[15px] w-full max-w-[1130px] my-4 bg-[#febb02] rounded-lg flex flex-col lg:flex-row items-center justify-between gap-4'>
         {categoryDisplay()}
         {addressDisplay()}
         {priceDisplay()}
-
         {sizeDisplay()}
         <button
           type='button'
-          className='cursor-pointer outline-none py-2 px-4 bg-secondary1 text-[13px] flex items-center justify-center gap-2 text-white rounded-md font-medium'
+          className='cursor-pointer outline-none py-2 px-6 bg-secondary1 text-[14px] flex items-center justify-center gap-2 text-white rounded-md font-semibold hover:bg-secondary2 transition-all'
           onClick={searchHandler}
         >
           <FiSearch />
