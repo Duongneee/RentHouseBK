@@ -5,4 +5,3 @@ module.exports = {
     vnp_ReturnUrl: 'http://localhost:5000/api/v1/payment/payment-return',         // URL trả về sau khi thanh toán
 };
 
-export default configVnpay
