@@ -3,12 +3,15 @@ require('dotenv').config()
 import cors from 'cors'
 import connectDatabase from './src/config/connectDatabase'
 import initRoutes from './src/routes/index'
+const path = require('path');
 
 const app = express()
 app.use(cors({
     origin: process.env.REACT_APP_CLIENT_URL,
     methods: ["POST", 'GET', 'PUT', "DELETE"]
 }))
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
