@@ -10,6 +10,10 @@ app.use(cors({
     methods: ["POST", 'GET', 'PUT', "DELETE"]
 }))
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+})
+
 // server có thể đọc được dữ liệu API từ client gửi lên
 app.use(express.json())
 app.use(express.urlencoded({ extends: true }))
