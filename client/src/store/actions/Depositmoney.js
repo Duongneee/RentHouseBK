@@ -3,10 +3,7 @@ import { apiDeposit } from '../../services/Depositmoney';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
-
-
 export const deposit = (payload) => async (dispatch) => {
-    const navigate = useNavigate();
     try {
         // Gọi API nạp tiền
         const response = await apiDeposit(payload);
@@ -16,7 +13,7 @@ export const deposit = (payload) => async (dispatch) => {
         // Xử lý phản hồi API: Giả sử response có chứa URL thanh toán
         if (response.paymentUrl) {
             // Chuyển hướng đến URL thanh toán (nếu có)
-            navigate(response.paymentUrl);
+            window.location.href = response.paymentUrl;
         } else {
             // Nếu không có paymentUrl, thông báo lỗi từ API
             Swal.fire('Lỗi', 'Không có URL thanh toán trả về.', 'error');
