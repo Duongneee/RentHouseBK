@@ -11,13 +11,18 @@ app.use(cors({
     methods: ["POST", 'GET', 'PUT', "DELETE"]
 }))
 
-// Cấu hình để phục vụ các file tĩnh từ thư mục build của React
-app.use(express.static(path.join(__dirname, '../client/build')))
+// // Cấu hình để phục vụ các file tĩnh từ thư mục build của React
+// app.use(express.static(path.join(__dirname, '../client/build')))
 
-// Đảm bảo tất cả các route không tìm thấy đều trả về file index.html của React
+// // Đảm bảo tất cả các route không tìm thấy đều trả về file index.html của React
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
+// })
+
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
-})
+    // Chuyển hướng tất cả yêu cầu tới ứng dụng React trên Render
+    res.redirect('https://duongquach.id.vn');
+});
 
 // server có thể đọc được dữ liệu API từ client gửi lên
 app.use(express.json())
