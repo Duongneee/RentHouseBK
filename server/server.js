@@ -11,10 +11,12 @@ app.use(cors({
     methods: ["POST", 'GET', 'PUT', "DELETE"]
 }))
 
-app.use(express.static(path.join(__dirname, 'build')));
+// Cấu hình để phục vụ các file tĩnh từ thư mục build của React
+app.use(express.static(path.join(__dirname, '../client/build')))
 
+// Đảm bảo tất cả các route không tìm thấy đều trả về file index.html của React
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
 })
 
 // server có thể đọc được dữ liệu API từ client gửi lên
