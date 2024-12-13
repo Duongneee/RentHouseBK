@@ -50,7 +50,7 @@ function App() {
         }>
           <Route path={path.CREATE_POST} element={<CreatePost />} />
           <Route path={path.TRANSACTION} element={<DepositMoney />} />
-          <Route path={path.RETURNTRANSACTION} element={<Return />} />
+       
           <Route path={path.TRANSACTIONLIST} element={<TransList />} />
           <Route path={path.MANAGE_POST} element={<ManagePost />} />
           <Route path={path.BOOKMARK} element={<Bookmark />} />
@@ -66,6 +66,8 @@ function App() {
           <Route path={path.ADMIN_MANAGE_POST} element={<AdminManagePost />} />
           <Route path={path.ADMIN_MANAGE_USER} element={<AdminManageUser />} />
         </Route>
+
+        <Route path={"he-thong/nap-tien/return"} element={<Return />} />
       </Routes>
     </div>
   );

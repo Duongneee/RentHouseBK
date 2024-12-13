@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extends: true }))
 initRoutes(app) 
 connectDatabase()
 
+
 const port = process.env.PORT || 8888
 const listener = app.listen(port, () => {
     console.log(`Server is running on the port ${listener.address().port}`)
