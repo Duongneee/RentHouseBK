@@ -6,7 +6,7 @@ import initRoutes from './src/routes/index'
 
 const app = express()
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.REACT_APP_CLIENT_URL,
     methods: ["POST", 'GET', 'PUT', "DELETE"]
 }))
 
