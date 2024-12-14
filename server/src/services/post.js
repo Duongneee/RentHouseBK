@@ -224,7 +224,7 @@ export const getPostsLimitAdminService = (offset, id, query) => new Promise(asyn
             include: [
                 { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
             ],
-            attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'ward', 'street', 'description', 'createdAt', 'updatedAt', 'expiryDate']
+            attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'ward', 'street', 'description', 'createdAt', 'updatedAt', 'expiryDate', 'categoryCode']
 
         })
         resolve({
