@@ -1,6 +1,5 @@
 import db from '../models/index'
 
-//GET ALL  CATEGORY
 export const getCategoriesService = () => new Promise(async(resolve, reject) => {
     try {
         const response = await db.Post.findAll({raw : true, attributes: ['categoryCode']})

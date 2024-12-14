@@ -28,7 +28,10 @@ module.exports = {
       },
       flex: {
         '3': '3 3 0%'
-      }
+      },
+      screens: {
+        'xl-custom': '1380px', 
+      },
     },
   },
   plugins: [],
