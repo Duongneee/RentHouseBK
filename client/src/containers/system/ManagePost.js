@@ -69,7 +69,7 @@ const ManagePost = () => {
         </div>
         <table className='w-full table-auto'>
             <thead >
-                <tr className='flex w-full bg-gray-200'>
+                <tr className='flex w-full bg-blue-200'>
                     <th className='border flex-1 p-2' >Mã tin</th>
                     <th className='border flex-1 p-2' >Ảnh đại diện</th>
                     <th className='border flex-1 p-2' >Tiêu đề</th>
