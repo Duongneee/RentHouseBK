@@ -16,6 +16,7 @@ const CreatePost = ({isUpdate}) => {
   const dispatch = useDispatch()
   const { dataUpdate } = useSelector(state => state.post)
   const { currentData } = useSelector(state => state.user)
+  const [resetTrigger, setResetTrigger] = useState(false);
 
   const [payload, setPayload] = useState(() => {
     const initData = {
@@ -31,19 +32,19 @@ const CreatePost = ({isUpdate}) => {
       ward: '',
       street: ''
     };
-
-    if (isUpdate ) {
+  
+    if (isUpdate) {
       try {
         return {
           ...initData,
           ...dataUpdate,
           categoryCode: dataUpdate.categoryCode || '',
-          price: dataUpdate.price ,
+          price: dataUpdate.price || 0,
           city: dataUpdate.city || '',
           district: dataUpdate.district || '',
           ward: dataUpdate.ward || '',
-          images: JSON.parse(dataUpdate.images || ''),
-          description: JSON.parse(dataUpdate.description)
+          images: JSON.parse(dataUpdate.images || '[]'),
+          description: JSON.parse(dataUpdate.description || '""')
         };
       } catch (error) {
         console.error('Error parsing JSON:', error);
@@ -124,8 +125,12 @@ const handleSubmit = async () => {
       }
 
       if (response?.data.err === 0) {
-        Swal.fire('Thành công', isUpdate ? 'Đã chỉnh sửa bài đăng' : 'Đã thêm bài đăng mới', 'success').then(() => {
-          resetPayload();
+        Swal.fire(
+          'Thành công',
+          isUpdate ? 'Đã chỉnh sửa bài đăng' : 'Đã thêm bài đăng mới',
+          'success'
+        ).then(() => {
+          resetPayload(); // Reset toàn bộ payload
           if (isUpdate) {
             dispatch(resetData());
           }
@@ -152,9 +157,11 @@ const handleSubmit = async () => {
       city: '',
       district: '',
       ward: '',
-      street: ''
+      street: '',
+      categoryCode: ''
     });
     setImagesPreview([]);
+    setResetTrigger(true);
   }
 
 
@@ -163,8 +170,20 @@ const handleSubmit = async () => {
       <h1 className='text-3xl font-medium py-4 border-b border-gray-200'>{isUpdate ? 'Chỉnh sửa tin đăng' : 'Đăng tin mới'}</h1>
       <div className='flex gap-4'>
         <div className='py-4 flex flex-col gap-8 flex-auto'>
-          <Address invalidFields={invalidFields} setInvalidFields={setInvalidFields} payload={ payload} setPayload={setPayload}/>
-          <Overview invalidFields={invalidFields} setInvalidFields={setInvalidFields} payload={payload} setPayload={setPayload}/>
+          <Address 
+          invalidFields={invalidFields} 
+          setInvalidFields={setInvalidFields} 
+          payload={ payload} 
+          setPayload={setPayload}
+          resetTrigger={resetTrigger}
+          />
+          <Overview 
+          invalidFields={invalidFields} 
+          setInvalidFields={setInvalidFields} 
+          payload={payload} 
+          setPayload={setPayload}
+          resetTrigger={resetTrigger}
+          />
           <div className='w-full'>
             <h2 className='font-semibold text-xl py-4'>Hình ảnh</h2>
             <small>Cập nhật hình ảnh rõ ràng sẽ giúp cho thuê nhanh hơn</small>
@@ -202,7 +221,8 @@ const handleSubmit = async () => {
           onClick={handleSubmit} 
           text={isUpdate ? 'Chỉnh sửa' : 'Đăng tin'} 
           bgColor='bg-green-600' 
-          textColor='text-white' />
+          textColor='text-white' 
+          />
           <div className='h-[500px]'>
 
           </div>

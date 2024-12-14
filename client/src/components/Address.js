@@ -4,43 +4,51 @@ import data from "../untils/data.json";
 import { useDispatch, useSelector } from 'react-redux'
 import Select from './Select'
 
-const Address = ({ setPayload, invalidFields, setInvalidFields}) => {
+const Address = ({ setPayload, invalidFields, setInvalidFields, resetTrigger}) => {
 
     const { dataUpdate } = useSelector(state => state.post)
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
-    const [selectedCity, setSelectedCity] = useState(dataUpdate?.city || "");
-    const [selectedDistrict, setSelectedDistrict] = useState(dataUpdate?.district || "");
-    const [selectedWard, setSelectedWard] = useState(dataUpdate?.ward || "");
+    const [selectedCity, setSelectedCity] = useState(dataUpdate?.city || '');
+    const [selectedDistrict, setSelectedDistrict] = useState(dataUpdate?.district || '');
+    const [selectedWard, setSelectedWard] = useState(dataUpdate?.ward || '');
 
     useEffect(() => {
       if (cities.length === 0) {
         setCities(data);
       }
     }, [data, cities]);
+
+    useEffect(() => {
+      if (resetTrigger) {
+        setSelectedCity('');
+        setSelectedDistrict('');
+        setSelectedWard('');
+      }
+    }, [resetTrigger]);
   
     useEffect(() => {
       if (dataUpdate?.city) {
-        const city = data.find((city) => city.Name === dataUpdate.city); // Tìm city theo Name
+        const city = data.find((city) => city.Name === dataUpdate.city);
         if (city) {
-          setSelectedCity(city.Id); // Lưu Id vào selectedCity
+          setSelectedCity(city.Id);
           setDistricts(city.Districts || []);
     
           if (dataUpdate?.district) {
             const district = city.Districts.find(
-              (district) => district.Name === dataUpdate.district // Tìm district theo Name
+              (district) => district.Name === dataUpdate.district
             );
             if (district) {
-              setSelectedDistrict(district.Id); // Lưu Id vào selectedDistrict
+              setSelectedDistrict(district.Id);
               setWards(district.Wards || []);
     
               if (dataUpdate?.ward) {
                 const ward = district.Wards.find(
-                  (ward) => ward.Name === dataUpdate.ward // Tìm ward theo Name
+                  (ward) => ward.Name === dataUpdate.ward
                 );
                 if (ward) {
-                  setSelectedWard(ward.Id); // Lưu Id vào selectedWard
+                  setSelectedWard(ward.Id);
                 }
               }
             }
