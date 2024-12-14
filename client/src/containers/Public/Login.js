@@ -51,18 +51,27 @@ const Login = () => {
 
   return (
     <div className='w-full bg-gradient-to-r flex items-center justify-center'>
+<div
+  className={`absolute left-[-90px] top-[54%] transform -translate-y-[50%] transition-transform duration-5000 ease-out ${showImages ? 'translate-x-[200px]' : 'translate-x-[-200px]'}`}
+>
+  <img
+    src={img}
+    alt="Image 1"
+    className="w-[400px] h-auto hidden xl-custom:block"
+  />
+</div>
 
-      <div
-        className={`absolute left-[-90px] top-[54%] transform -translate-y-[50%] transition-transform duration-5000 ease-out ${showImages ? 'translate-x-[200px]' : 'translate-x-[-200px]'}`}
-      >
-        <img src={img} alt="Image 1" className="w-[400px] h-auto" />
-      </div>
+<div
+  className={`absolute right-[-90px] top-[50%] transform -translate-y-[50%] transition-transform duration-5000 ease-out ${showImages ? 'translate-x-[-200px]' : 'translate-x-[200px]'}`}
+>
+  <img
+    src={image}
+    alt="Image 2"
+    className="w-[400px] h-autoauto hidden xl-custom:block"
+  />
+</div>
 
-      <div
-        className={`absolute right-[-90px] top-[50%] transform -translate-y-[50%] transition-transform duration-5000 ease-out ${showImages ? 'translate-x-[-200px]' : 'translate-x-[200px]'}`}
-      >
-        <img src={image} alt="Image 2" className="w-[400px] h-auto" />
-      </div>
+
 
       <div className='bg-white w-[400px] sm:w-[500px] p-[30px] rounded-xl shadow-lg'>
         <h3 className='font-semibold text-3xl text-center mb-6'>{isRegister ? 'Đăng ký tài khoản' : 'Đăng nhập'}</h3>
