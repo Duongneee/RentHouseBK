@@ -6,7 +6,6 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
-// const env = process.env.NODE_ENV || 'development';
 import config from '../config/config.js';
 const db = {};
 require('dotenv').config(); 
