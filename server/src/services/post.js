@@ -290,6 +290,9 @@ export const getAllPostsService = async (page, limit) => {
             offset,
             limit,
             order: [['createdAt', 'DESC']],
+            include: [
+                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+            ],
         });
 
         return {
