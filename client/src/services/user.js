@@ -1,4 +1,5 @@
 import axios from '../axiosConfig'
+import axiosConfig from '../axiosConfig'
 
 export const apiGetCurrent = () => new Promise(async (resolve, reject) => {
     try {
@@ -59,3 +60,40 @@ export const apiGetBookmarks = () => new Promise(async (resolve, reject) => {
         reject(error)
     }
 })
+
+export const apiGetUserLimit = (page) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/user/limit?page=${page}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const apiGetUsers = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/user/all',
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const apiDeleteUser =  (id) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'delete',
+            url: `/api/v1/user/delete`,
+            params: { id }
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+}) 

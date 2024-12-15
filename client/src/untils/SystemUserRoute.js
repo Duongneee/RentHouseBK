@@ -5,7 +5,7 @@ const UserRoute = ({ isAuthenticated, role, dispatch }) => {
 
   // Nếu người dùng là Admin, chuyển hướng đến trang /admin
   if (role === "Admin") {
-    return <Navigate to='/admin' />;
+    return <Navigate to='/admin/thong-ke' />;
   }
 
   return (

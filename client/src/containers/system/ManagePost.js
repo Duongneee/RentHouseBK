@@ -36,12 +36,25 @@ const ManagePost = () => {
     }
 
     const handleDeletePost = async(id) => {
-        const response = await apiDeletePost(id)
-        if (response?.data.err === 0) {
-            setUpdateData(prev => !prev)
-            Swal.fire('Thành công!', 'Xóa tin đăng thành công', 'success')
-        } else{
-            Swal.fire('Lỗi!', 'Xóa tin đăng thất bại', 'error')
+        const result = await Swal.fire({
+                    title: 'Bạn có chắc chắn muốn xóa bài đăng này không?',
+                    text: "Bạn sẽ không thể hoàn tác hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Có, xóa nó!',
+                    cancelButtonText: 'Hủy'
+                });
+        
+        if (result.isConfirmed) {
+            const response = await apiDeletePost(id)
+            if (response?.data.err === 0) {
+                setUpdateData(prev => !prev)
+                Swal.fire('Thành công!', 'Xóa tin đăng thành công', 'success')
+            } else{
+                Swal.fire('Lỗi!', 'Xóa tin đăng thất bại', 'error')
+            }
         }
     }
 
