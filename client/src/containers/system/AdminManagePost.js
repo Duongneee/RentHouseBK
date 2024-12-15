@@ -6,6 +6,9 @@ import 'moment/locale/vi';
 import { Button } from '../../components';
 import { apiDeletePost } from '../../services';
 import Swal from 'sweetalert2';
+import icons from '../../untils/icon'
+
+const {FiSearch} = icons
 
 const AdminManagePost = () => {
     const dispatch = useDispatch();
@@ -72,7 +75,7 @@ const AdminManagePost = () => {
             <h1 className='text-3xl font-medium py-4 border-b border-gray-200'>Quản lý tin đăng</h1>
             <div className='flex justify-between mb-4'>
                 <div className='flex items-center'>
-                    <label htmlFor="search" className='mr-2'>Tìm kiếm:</label>
+                    <label htmlFor="search" className='mr-2'><FiSearch /></label>
                     <input
                         id="search"
                         type="text"
