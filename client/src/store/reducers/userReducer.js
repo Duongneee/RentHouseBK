@@ -15,6 +15,7 @@ const userReducer = (state = initState, action) => {
                 bookmarks: action.bookmarks || {}
             }
         case actionTypes.GET_CURRENT:
+        case actionTypes.GET_USERS:
             return {
                 ...state,
                 currentData: action.currentData || {}

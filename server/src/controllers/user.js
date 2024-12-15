@@ -106,16 +106,37 @@ export const deleteBookmark = async (req, res) => {
     }
 }
 
-// export const getAllUser = async (req, res) => {
-//     const { page = 0, limit = 10 } = req.query;
+export const getUsers = async (req, res) => {
+    try {
+        const response = await services.getUsersService()
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to get post controller: ' + error
+        })
+    }
+}
 
-//     try {
-//         const posts = await services.getAllUserService(parseInt(page), parseInt(limit));
-//         res.status(200).json({ err: 0, response: posts });
-//     } catch (error) {
-//         res.status(500).json({ err: -1, msg: 'Failed to get users: ' + error.message });
-//     }
-// };
+export const deleteUser = async (req, res) => {
+    const { id } = req.query
+    try {
+        if (!id) {
+            return res.status(400).json({
+                err: -1,
+                msg: 'Missing inputs'
+            })  
+        }
+        const response = await services.deleteUserService(id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed to get user controller: ' + error
+        })
+    }
+}
+
 export const getPostStatistic = async (req, res) => {
     try {
         const response = await services.getPostStatistics(req.query.days || 7)

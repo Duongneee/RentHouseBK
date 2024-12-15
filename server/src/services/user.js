@@ -108,26 +108,25 @@ export const deleteBookmark = (record) => new Promise(async (resolve, reject) =>
     }
 })
 
-// export const getAllUserService = async (page, limit) => {
-//     try {
-//         const offset = page * limit;
-//         const posts = await db.User.findAndCountAll({
-//             raw: true,
-//             nest: true,
-//             offset,
-//             limit,
-//             order: [['createdAt', 'DESC']],
-//         });
-
-//         return {
-//             rows: posts.rows,
-//             count: posts.count,
-//             totalPages: Math.ceil(posts.count / limit),
-//         };
-//     } catch (error) {
-//         throw new Error('Error fetching users: ' + error.message);
-//     }
-// };
+export const getUsersService = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.User.findAll({
+            raw: true,
+            nest: true,
+            attributes: ['id', 'name', 'phone', 'avatar','isAdmin'],
+            where: {
+                isAdmin: { [Op.ne]: 1 } 
+            }
+        })
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Failed to get users.',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
 
 export const getPostStatistics = async (days = 7) => {
     const DaysAgo = new Date();
@@ -201,3 +200,23 @@ export const getTransactionStatistics = async (days = 7) => {
         count: stat.get('count')
     }));
 };
+
+export const deleteUserService = (id) => new Promise(async (resolve, reject) => {
+    try {
+        await db.Bookmark.destroy({
+            where: { UserId: id }
+        })
+        await db.Post.destroy({
+            where: { UserId: id }
+        })
+        const response = await db.User.destroy({
+            where: { id: id }
+        })
+        resolve({
+            err: response > 0 ? 0 : 1,
+            msg: response > 0 ? 'Deleted' : 'Failed to delete user.',
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
