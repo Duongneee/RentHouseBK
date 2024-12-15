@@ -11,7 +11,6 @@ const PaymentResult = () => {
     const orderId = queryParams.get('orderId');
     const amount = queryParams.get('amount');
     const newBalance = queryParams.get('newBalance');
-    const message = queryParams.get('message');
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-50 to-indigo-100">
