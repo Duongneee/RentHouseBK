@@ -1,153 +1,118 @@
-import React, { memo, useEffect, useState } from 'react'
-import { InputFormV2, InputReadOnly} from '../components'
-import data from "../untils/data.json";
-import { useDispatch, useSelector } from 'react-redux'
-import Select from './Select'
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import data from '../untils/data.json'; // Assuming you have a data.json file with city, district, and ward information
 
-const Address = ({ setPayload, invalidFields, setInvalidFields}) => {
-
-    const { dataUpdate } = useSelector(state => state.post)
+const Address = ({ setPayload, invalidFields, payload, resetTrigger }) => {
+    const { dataUpdate } = useSelector(state => state.post);
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
-    const [selectedCity, setSelectedCity] = useState(dataUpdate?.city || "");
-    const [selectedDistrict, setSelectedDistrict] = useState(dataUpdate?.district || "");
-    const [selectedWard, setSelectedWard] = useState(dataUpdate?.ward || "");
+    const [selectedCity, setSelectedCity] = useState('');
+    const [selectedDistrict, setSelectedDistrict] = useState('');
+    const [selectedWard, setSelectedWard] = useState('');
 
     useEffect(() => {
-      if (cities.length === 0) {
         setCities(data);
-      }
-    }, [data, cities]);
-  
+    }, []);
+
     useEffect(() => {
-      if (dataUpdate?.city) {
-        const city = data.find((city) => city.Name === dataUpdate.city); // Tìm city theo Name
-        if (city) {
-          setSelectedCity(city.Id); // Lưu Id vào selectedCity
-          setDistricts(city.Districts || []);
-    
-          if (dataUpdate?.district) {
-            const district = city.Districts.find(
-              (district) => district.Name === dataUpdate.district // Tìm district theo Name
-            );
-            if (district) {
-              setSelectedDistrict(district.Id); // Lưu Id vào selectedDistrict
-              setWards(district.Wards || []);
-    
-              if (dataUpdate?.ward) {
-                const ward = district.Wards.find(
-                  (ward) => ward.Name === dataUpdate.ward // Tìm ward theo Name
-                );
-                if (ward) {
-                  setSelectedWard(ward.Id); // Lưu Id vào selectedWard
-                }
-              }
-            }
-          }
+        if (resetTrigger) {
+            setSelectedCity('');
+            setSelectedDistrict('');
+            setSelectedWard('');
         }
-      }
-    }, [dataUpdate, data]);
+    }, [resetTrigger]);
 
     useEffect(() => {
-      if (selectedCity) {
-        const selectedCityData = cities.find((city) => city.Id === selectedCity);
-        setDistricts(selectedCityData?.Districts || []);
-        setSelectedDistrict(''); // Reset district when city changes
-        setSelectedWard(''); // Reset ward when city changes
-      }
-    }, [selectedCity, cities]);
-  
-    useEffect(() => {
-      if (selectedDistrict) {
-        const selectedDistrictData = districts.find(
-          (district) => district.Id === selectedDistrict
-        );
-        setWards(selectedDistrictData?.Wards || []);
-        setSelectedWard(''); // Reset ward when district changes
-      }
-    }, [selectedDistrict, districts]);
+        if (dataUpdate?.city) {
+            const city = data.find((city) => city.Name === dataUpdate.city);
+            if (city) {
+                setSelectedCity(city.Id);
+                setDistricts(city.Districts || []);
 
-  const handleCityChange = (event) => {
-      const cityId = event.target.value;
-      setSelectedCity(cityId);
-      setPayload(prev => ({ ...prev, city: cityId, district: '', ward: '' }));
-  };
+                if (dataUpdate?.district) {
+                    const district = city.Districts.find(
+                        (district) => district.Name === dataUpdate.district
+                    );
+                    if (district) {
+                        setSelectedDistrict(district.Id);
+                        setWards(district.Wards || []);
 
-  const handleDistrictChange = (event) => {
-      const districtId = event.target.value;
-      setSelectedDistrict(districtId);
-      setPayload(prev => ({ ...prev, district: districtId, ward: '' }));
-  };
+                        if (dataUpdate?.ward) {
+                            const ward = district.Wards.find(
+                                (ward) => ward.Name === dataUpdate.ward
+                            );
+                            if (ward) {
+                                setSelectedWard(ward.Id);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }, [dataUpdate]);
 
-  const handleWardChange = (event) => {
-      const wardId = event.target.value;
-      setSelectedWard(wardId);
-      setPayload(prev => ({ ...prev, ward: wardId }));
-  };
+    const handleCityChange = (event) => {
+        const cityId = event.target.value;
+        setSelectedCity(cityId);
+        const city = data.find((city) => city.Id === cityId);
+        setDistricts(city?.Districts || []);
+        setSelectedDistrict('');
+        setWards([]);
+        setSelectedWard('');
+        setPayload(prev => ({ ...prev, city: city?.Name || '', district: '', ward: '' }));
+    };
 
+    const handleDistrictChange = (event) => {
+        const districtId = event.target.value;
+        setSelectedDistrict(districtId);
+        const district = districts.find((district) => district.Id === districtId);
+        setWards(district?.Wards || []);
+        setSelectedWard('');
+        setPayload(prev => ({ ...prev, district: district?.Name || '', ward: '' }));
+    };
 
-  useEffect(() => {
-    const selectedCityData = cities.find((city) => city.Id === selectedCity);
-    const selectedDistrictData = districts.find(
-      (district) => district.Id === selectedDistrict
+    const handleWardChange = (event) => {
+        const wardId = event.target.value;
+        setSelectedWard(wardId);
+        const ward = wards.find((ward) => ward.Id === wardId);
+        setPayload(prev => ({ ...prev, ward: ward?.Name || '' }));
+    };
+
+    return (
+        <div>
+            <h2 className='font-semibold text-xl py-4'>Địa chỉ cho thuê</h2>
+            <div className='flex items-center gap-4'>
+                <div className='flex flex-col'>
+                    <label htmlFor="city">Tỉnh/Thành phố</label>
+                    <select id="city" value={selectedCity} onChange={handleCityChange} className='border p-2 rounded'>
+                        <option value="">Chọn Tỉnh/Thành phố</option>
+                        {cities.map(city => (
+                            <option key={city.Id} value={city.Id}>{city.Name}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className='flex flex-col'>
+                    <label htmlFor="district">Quận/Huyện</label>
+                    <select id="district" value={selectedDistrict} onChange={handleDistrictChange} className='border p-2 rounded'>
+                        <option value="">Chọn Quận/Huyện</option>
+                        {districts.map(district => (
+                            <option key={district.Id} value={district.Id}>{district.Name}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className='flex flex-col'>
+                    <label htmlFor="ward">Phường/Xã</label>
+                    <select id="ward" value={selectedWard} onChange={handleWardChange} className='border p-2 rounded'>
+                        <option value="">Chọn Phường/Xã</option>
+                        {wards.map(ward => (
+                            <option key={ward.Id} value={ward.Id}>{ward.Name}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+        </div>
     );
-    const selectedWardData = wards.find((ward) => ward.Id === selectedWard);
-  
-    setPayload((prev) => ({
-      ...prev,
-      address: `${selectedWardData ? selectedWardData.Name + ', ' : ''}${
-        selectedDistrictData ? selectedDistrictData.Name + ', ' : ''
-      }${selectedCityData ? selectedCityData.Name : ''}`,
-      city: selectedCityData ? selectedCityData.Name : '',
-      cityId: selectedCityData ? selectedCityData.Id : '', // Thêm cityId
-      district: selectedDistrictData ? selectedDistrictData.Name : '',
-      districtId: selectedDistrictData ? selectedDistrictData.Id : '', // Thêm districtId
-      ward: selectedWardData ? selectedWardData.Name : '',
-      wardId: selectedWardData ? selectedWardData.Id : '' // Thêm wardId
-    }));
-  }, [selectedCity, selectedDistrict, selectedWard, wards, districts, cities, setPayload]);
+};
 
-
-
-  return (
-    <div>
-      <h2 className='font-semibold text-xl py-4 '>Địa chỉ cho thuê</h2>
-        <div className='flex items-center gap-4'>
-        <Select
-          value={selectedCity}
-          setValue={setSelectedCity}
-          label="Tỉnh/TP"
-          options={cities || []}
-          onChange={handleCityChange}
-          name="city"
-          invalidFields={invalidFields}
-          setInvalidFields={setInvalidFields}
-        />
-        <Select
-          value={selectedDistrict}
-          setValue={setSelectedDistrict}
-          label="Quận/Huyện"
-          options={districts || []}
-          onChange={handleDistrictChange}
-          name="district"
-          invalidFields={invalidFields}
-          setInvalidFields={setInvalidFields}
-        />
-        <Select
-          value={selectedWard}
-          setValue={setSelectedWard}
-          label="Phường/Xã"
-          options={wards || []}
-          onChange={handleWardChange}
-          name="ward"
-          invalidFields={invalidFields}
-          setInvalidFields={setInvalidFields}
-        />
-      </div>
-      
-    </div>
-  )
-}
-
-export default memo(Address)
+export default Address;

@@ -17,14 +17,14 @@ const Admin = () => {
       <div className="flex-none">
         <HeaderAdmin />
       </div>
-      
+
       {/* Body */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <div className="w-[256px] bg-white shadow-md fixed top-0 bottom-0 left-0 z-10">
           <Sidebar />
         </div>
-        
+
         {/* Content Area */}
         <div className="flex-1 bg-gray-100 p-6 ml-[256px] overflow-y-auto">
           <Outlet />

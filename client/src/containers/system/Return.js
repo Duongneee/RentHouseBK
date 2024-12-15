@@ -14,43 +14,53 @@ const PaymentResult = () => {
     const message = queryParams.get('message');
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-            <div className="bg-white shadow-md p-8 rounded-md text-center">
+        <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-50 to-indigo-100">
+            <div className="bg-white shadow-2xl p-10 rounded-3xl text-center max-w-lg w-full">
                 {status === 'success' ? (
                     <>
-                        <h1 className="text-2xl font-bold mb-4 text-green-600">
+                        <h1 className="text-4xl font-extrabold text-green-600 mb-8">
                             Giao dịch thành công!
                         </h1>
-                        <p className="text-lg mb-2">Mã giao dịch: {orderId}</p>
-                        <p className="text-lg mb-2">Số tiền: {parseInt(amount).toLocaleString()} VNĐ</p>
-                        <p className="text-lg mb-2">
-                            Số dư mới: {parseInt(newBalance).toLocaleString()} VNĐ
+                        <p className="text-xl mb-4">Mã giao dịch: <span className="font-semibold">{orderId}</span></p>
+                        <p className="text-xl mb-4">Số tiền: <span className="font-semibold">{parseInt(amount).toLocaleString()} VNĐ</span></p>
+                        <p className="text-xl mb-8">
+                            Số dư mới: <span className="font-semibold">{parseInt(newBalance).toLocaleString()} VNĐ</span>
                         </p>
-                        <button
-                            onClick={() => navigate('/')}
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 mt-4"
-                        >
-                            Về trang chủ
-                        </button>
-                        <button
-                            onClick={() => navigate('/he-thong/nap-tien')}
-                            className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 mt-4"
-                        >
-                            Nạp tiền tiếp
-                        </button>
+                        <div className="flex justify-center gap-6">
+                            <button
+                                onClick={() => navigate('/')}
+                                className="px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 active:bg-blue-800 transition duration-300 transform hover:scale-105"
+                            >
+                                Về trang chủ
+                            </button>
+                            <button
+                                onClick={() => navigate('/he-thong/nap-tien')}
+                                className="px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 active:bg-green-800 transition duration-300 transform hover:scale-105"
+                            >
+                                Nạp tiền tiếp
+                            </button>
+                        </div>
                     </>
                 ) : (
                     <>
-                        <h1 className="text-2xl font-bold mb-4 text-red-600">
+                        <h1 className="text-4xl font-extrabold text-red-600 mb-8">
                             Giao dịch thất bại
                         </h1>
-                        <p className="text-lg mb-4">{decodeURIComponent(message)}</p>
-                        <button
-                            onClick={() => navigate('/')}
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                        >
-                            Về trang chủ
-                        </button>
+                        <p className="text-lg mb-6">Hãy thử lại !!!</p>
+                        <div className="flex justify-center gap-6">
+                            <button
+                                onClick={() => navigate('/')}
+                                className="px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 active:bg-blue-800 transition duration-300 transform hover:scale-105"
+                            >
+                                Về trang chủ
+                            </button>
+                            <button
+                                onClick={() => navigate('/he-thong/nap-tien')}
+                                className="px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 active:bg-green-800 transition duration-300 transform hover:scale-105"
+                            >
+                                Nạp tiền tiếp
+                            </button>
+                        </div>
                     </>
                 )}
             </div>

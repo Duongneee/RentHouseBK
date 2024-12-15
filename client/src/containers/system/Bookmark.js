@@ -67,10 +67,10 @@ const Bookmark = () => {
             <h1 className="text-3xl font-semibold py-4 border-b border-gray-200 text-gray-800">Bài đăng đã lưu: {bookmarkCount}</h1>
             <p className="text-sm text-gray-600">Tip: Sắp xếp danh sách bài đăng bằng cách nhấp vào các tiêu đề cột.</p>
 
-            <div className="overflow-x-auto"> {/* Thêm cuộn ngang cho bảng */}
+            <div className="overflow-x-auto">
                 <table className="w-full table-auto text-sm">
                     <thead>
-                        <tr className="bg-gray-100 text-gray-700 hover:bg-gray-200">
+                    <tr className="bg-gradient-to-r from-blue-200 to-indigo-300 text-black">
                             <th className="border p-3 text-left">Ảnh</th>
                             <th className="border p-3 text-left cursor-pointer" onClick={() => handleSort('title')}>Tiêu đề</th>
                             <th className="border p-3 text-left cursor-pointer" onClick={() => handleSort('price')}>Giá/tháng</th>
@@ -87,7 +87,7 @@ const Bookmark = () => {
                         ) : sortedPosts.map(bookmark => (
                             <tr
                                 key={bookmark.post.id}
-                                className="border-b hover:bg-gray-50 cursor-pointer"
+                                className="border-b hover:bg-gray-100 cursor-pointer transition-colors"
                                 onClick={() => navigate(`/chi-tiet/${bookmark.post?.id}`)}
                             >
                                 <td className="p-3 flex items-center justify-center">
@@ -104,13 +104,13 @@ const Bookmark = () => {
                                 <td className="p-3 text-center">
                                     <Button
                                         text="Bỏ lưu"
-                                        bgColor="bg-orange-600"
+                                        bgColor="bg-red-600"
                                         textColor="text-white"
                                         onClick={(e) => {
                                             e.stopPropagation();  // Prevent triggering row click event
                                             handleDeleteBookmark(bookmark.post?.id);
                                         }}
-                                        className="px-4 py-2 rounded-md hover:bg-orange-700 transition-colors"
+                                        className="px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
                                     />
                                 </td>
                             </tr>

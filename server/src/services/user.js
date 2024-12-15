@@ -3,6 +3,7 @@ import db from '../models/index'
 const { sequelize } = db
 import { v4 as generateId } from 'uuid'
 import { where } from 'sequelize'
+const { Op, fn, col } = require('sequelize');
 
 // GET CURRENT
 export const getOne = (id) => new Promise(async (resolve, reject) => {
@@ -127,3 +128,76 @@ export const deleteBookmark = (record) => new Promise(async (resolve, reject) =>
 //         throw new Error('Error fetching users: ' + error.message);
 //     }
 // };
+
+export const getPostStatistics = async (days = 7) => {
+    const DaysAgo = new Date();
+    DaysAgo.setDate(DaysAgo.getDate() - days);
+
+    const statistics = await db.Post.findAll({
+        attributes: [
+            [fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00')), 'date'],
+            [fn('COUNT', col('id')), 'count']
+        ],
+        where: {
+            createdAt: {
+                [Op.gte]: DaysAgo
+            }
+        },
+        group: [fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00'))],
+        order: [[fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00')), 'ASC']]
+    });
+
+    return statistics.map(stat => ({
+        date: stat.get('date'),
+        count: stat.get('count')
+    }));
+};
+export const getUserStatistic = async (days = 7) => {
+    const DaysAgo = new Date();
+    DaysAgo.setDate(DaysAgo.getDate() - days);
+
+    const statistics = await db.User.findAll({
+        attributes: [
+            [fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00')), 'date'],
+            [fn('COUNT', col('id')), 'count']
+        ],
+        where: {
+            createdAt: {
+                [Op.gte]: DaysAgo
+            }
+        },
+        group: [fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00'))],
+        order: [[fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00')), 'ASC']]
+    });
+
+    return statistics.map(stat => ({
+        date: stat.get('date'),
+        count: stat.get('count')
+    }));
+}
+export const getTransactionStatistics = async (days = 7) => {
+    const daysAgo = new Date();
+    daysAgo.setDate(daysAgo.getDate() - days);
+
+    const statistics = await db.Transaction.findAll({
+        attributes: [
+            [fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00')), 'date'],
+            [fn('SUM', col('amount')), 'totalAmount'],
+            [fn('COUNT', col('id')), 'count']
+        ],
+        where: {
+            createdAt: {
+                [Op.gte]: daysAgo
+            },
+            status: 'success'
+        },
+        group: [fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00'))],
+        order: [[fn('DATE', fn('CONVERT_TZ', col('createdAt'), '+00:00', '+07:00')), 'ASC']]
+    });
+
+    return statistics.map(stat => ({
+        date: stat.get('date'),
+        totalAmount: stat.get('totalAmount'),
+        count: stat.get('count')
+    }));
+};

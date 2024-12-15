@@ -4,8 +4,8 @@ import qs from 'qs';
 import dateFormat from 'dateformat';
 import db from '../models/index';
 import { v4 } from 'uuid';
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config()
+
 
 
 function sortObject(obj) {
@@ -201,7 +201,7 @@ export const handlePaymentReturn = async (vnp_Params, secureHash, userId) => {
                     status: 200,
                     message: 'Payment successful',
                     data: { orderId, amount, newBalance },
-                    redirectUrl: `${process.env.CLIENT_URL}/he-thong/nap-tien/return?status=success&orderId=${orderId}&amount=${amount}&newBalance=${newBalance}`,
+                    redirectUrl: `${process.env.REACT_APP_CLIENT_URL}/he-thong/nap-tien/return?status=success&orderId=${orderId}&amount=${amount}&newBalance=${newBalance}`,
                 }
             } else {
                 throw new Error(msg);
@@ -213,7 +213,7 @@ export const handlePaymentReturn = async (vnp_Params, secureHash, userId) => {
                 status: 400,
                 message: 'Payment failed',
                 data: { orderId, amount },
-                redirectUrl: `${process.env.CLIENT_URL}/he-thong/nap-tien/return?status=failed&orderId=${orderId}&amount=${amount}&message=Payment%20failed`,
+                redirectUrl: `${process.env.REACT_APP_CLIENT_URL}/he-thong/nap-tien/return?status=failed&orderId=${orderId}&amount=${amount}&message=Payment%20failed`,
             };
         }
     } catch (error) {

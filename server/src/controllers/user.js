@@ -14,10 +14,10 @@ export const getCurrent = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
-    const {id} = req.user
-    const payload = req.body 
+    const { id } = req.user
+    const payload = req.body
     try {
-        if(!payload) return res.status(400).json({
+        if (!payload) return res.status(400).json({
             err: 1,
             msg: 'Payload required'
         })
@@ -116,3 +116,37 @@ export const deleteBookmark = async (req, res) => {
 //         res.status(500).json({ err: -1, msg: 'Failed to get users: ' + error.message });
 //     }
 // };
+export const getPostStatistic = async (req, res) => {
+    try {
+        const response = await services.getPostStatistics(req.query.days || 7)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1, // LỖI SERVER 
+            msg: `Fail at controller.user.getAdminStistic: ${error.message}`
+        })
+    }
+}
+export const getUserStatistic = async (req, res) => {
+    try {
+        const response = await services.getUserStatistic(req.query.days || 7)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1, // LỖI SERVER 
+            msg: `Fail at controller.user.getAdminStistic: ${error.message}`
+        })
+    }
+}
+
+export const getTransactionStatistic = async (req, res) => {
+    try {
+        const response = await services.getTransactionStatistics(req.query.days || 7)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1, // LỖI SERVER 
+            msg: `Fail at controller.user.getAdminStistic: ${error.message}`
+        })
+    }
+}

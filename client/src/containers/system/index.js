@@ -13,3 +13,4 @@ export { default as AdminManageUser } from './AdminManageUser'
 export { default as CreatePost } from './CreatePost'
 
 export { default as HeaderAdmin } from './HeaderAdmin'
+export { default as AdminStatistic } from './AdminStatistic'
