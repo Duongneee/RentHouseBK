@@ -1,4 +1,5 @@
 import axios from '../axiosConfig'
+import axiosConfig from '../axiosConfig'
 
 export const apiGetCurrent = () => new Promise(async (resolve, reject) => {
     try {
@@ -53,6 +54,18 @@ export const apiGetBookmarks = () => new Promise(async (resolve, reject) => {
         const response = await axios({
             method: 'get',
             url: '/api/v1/user/get-bookmarks',
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const apiGetUserLimit = (page) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/user/limit?page=${page}`,
         })
         resolve(response)
     } catch (error) {

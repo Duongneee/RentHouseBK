@@ -1,6 +1,8 @@
-import { where } from 'sequelize'
+import { raw } from 'express'
 import db from '../models/index'
-import { v4 as uuidv4 } from 'uuid';
+const { sequelize } = db
+import { v4 as generateId } from 'uuid'
+import { where } from 'sequelize'
 
 // GET CURRENT
 export const getOne = (id) => new Promise(async (resolve, reject) => {
@@ -104,3 +106,24 @@ export const deleteBookmark = (record) => new Promise(async (resolve, reject) =>
         reject(error)
     }
 })
+
+// export const getAllUserService = async (page, limit) => {
+//     try {
+//         const offset = page * limit;
+//         const posts = await db.User.findAndCountAll({
+//             raw: true,
+//             nest: true,
+//             offset,
+//             limit,
+//             order: [['createdAt', 'DESC']],
+//         });
+
+//         return {
+//             rows: posts.rows,
+//             count: posts.count,
+//             totalPages: Math.ceil(posts.count / limit),
+//         };
+//     } catch (error) {
+//         throw new Error('Error fetching users: ' + error.message);
+//     }
+// };
