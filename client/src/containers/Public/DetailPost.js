@@ -86,7 +86,12 @@ const DetailPost = () => {
           <div className='mt-8'>
             <h3 className='font-semibold text-xl my-[4px]'>Thông tin mô tả</h3>
             <div className='flex flex-col gap-3'>
-              <span>{posts?.description}</span>
+              <span>{posts?.description?.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}</span>
             </div>
           </div>
 

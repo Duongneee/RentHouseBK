@@ -71,12 +71,23 @@ const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
     };
 
     const handlePriceChange = (values) => {
-        // setPriceRange(values);
-        console.log(values);
+        var start
+        var end
+        start = (100000 * Math.pow(10, values[0]));
+        end = (100000 * Math.pow(10, values[1]));
+        setPriceRange([parseInt(start), parseInt(end)]);
+        // console.log(values);
+        // console.log([parseInt(start), parseInt(end)]);
+        // console.log(Math.log10(end / 100000));
     };
 
     const handleSizeChange = (values) => {
-        setSizeRange(values);
+        var start
+        var end
+        start = (5 * Math.pow(10, values[0]));
+        end = (5 * Math.pow(10, values[1]));
+        // console.log([parseInt(start), parseInt(end)]);
+        setSizeRange([parseInt(start), parseInt(end)]);
     };
 
     return (
@@ -186,11 +197,11 @@ const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
                                 className="horizontal-slider"
                                 thumbClassName="example-thumb"
                                 trackClassName="example-track"
-                                defaultValue={[0, 1000]}
+                                defaultValue={[0, 3]}
                                 min={0}
-                                max={1000}
-                                step={5}
-                                value={sizeRange}
+                                max={3}
+                                step={0.1}
+                                value={[Math.log10((sizeRange[0] + 0.1) / 5), Math.log10((sizeRange[1] + 1) / 5)]}
                                 onChange={handleSizeChange}
                                 ariaLabel={['Lower thumb', 'Upper thumb']}
                                 ariaValuetext={state => `Thumb value ${state.valueNow}`}
@@ -210,9 +221,9 @@ const Popup = ({ setIsDisplayPopup, content, setFilters, filters }) => {
                                 trackClassName="example-track"
                                 defaultValue={[0, 2]}
                                 min={0}
-                                max={2}
-                                step={0.1}
-                                value={[Math.log10(priceRange[0] / 100000), Math.log10(priceRange[1] / 100000)]}
+                                max={3}
+                                step={0.05}
+                                value={[Math.log10((priceRange[0] + 1) / 100000), Math.log10((priceRange[1] + 1) / 100000)]}
                                 onChange={handlePriceChange}
                                 ariaLabel={['Lower thumb', 'Upper thumb']}
                                 ariaValuetext={state => `Thumb value ${state.valueNow}`}
