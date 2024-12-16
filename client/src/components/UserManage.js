@@ -31,19 +31,8 @@ const UserManage = ({name, phone, id, avatar}) => {
             }
         };
   return (
-    <div className='flex flex-col gap-6'>
-            <table className='w-full table-auto'>
-                <thead>
-                    <tr className='flex w-full bg-gray-200'>
-                        <th className='border flex-1 p-2'>ID người dùng</th>
-                        <th className='border flex-1 p-2'>Ảnh đại diện</th>
-                        <th className='border flex-1 p-2'>Tên người dùng</th>
-                        <th className='border flex-1 p-2'>Số điện thoại</th>
-                        <th className='border flex-1 p-2'>Tùy chọn</th>
-                    </tr>
-                </thead>
-                <tbody>
-                            <tr className='flex items-center h-16'>
+    <div>
+         <tr className='flex items-center h-16'>
                                 <td className='border px-2 flex-1 h-full flex justify-center items-center'>
                                     {`#${id?.match(/\d/g).join('')?.slice(0, 6)}` || ''}
                                 </td>
@@ -65,20 +54,7 @@ const UserManage = ({name, phone, id, avatar}) => {
                                     >Xóa</Button>
                                 </td>
                             </tr>
-                </tbody>
-            </table>
-            {/* <div className='flex justify-center mt-4'>
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handlePageChange(index)}
-                        className={`px-4 py-2 mx-1 ${page === index ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
-            </div> */}
-        </div>
+    </div>
   )
 }
 
