@@ -1,6 +1,8 @@
-import { where } from 'sequelize'
+import { raw } from 'express'
 import db from '../models/index'
-import { v4 as uuidv4 } from 'uuid';
+const { sequelize } = db
+import { v4 as generateId } from 'uuid'
+import { where } from 'sequelize'
 const { Op, fn, col } = require('sequelize');
 
 // GET CURRENT
@@ -106,6 +108,26 @@ export const deleteBookmark = (record) => new Promise(async (resolve, reject) =>
     }
 })
 
+export const getUsersService = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.User.findAll({
+            raw: true,
+            nest: true,
+            attributes: ['id', 'name', 'phone', 'avatar','isAdmin'],
+            where: {
+                isAdmin: { [Op.ne]: 1 } 
+            }
+        })
+        resolve({
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'Failed to get users.',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
 export const getPostStatistics = async (days = 7) => {
     const DaysAgo = new Date();
     DaysAgo.setDate(DaysAgo.getDate() - days);
@@ -178,3 +200,23 @@ export const getTransactionStatistics = async (days = 7) => {
         count: stat.get('count')
     }));
 };
+
+export const deleteUserService = (id) => new Promise(async (resolve, reject) => {
+    try {
+        await db.Bookmark.destroy({
+            where: { UserId: id }
+        })
+        await db.Post.destroy({
+            where: { UserId: id }
+        })
+        const response = await db.User.destroy({
+            where: { id: id }
+        })
+        resolve({
+            err: response > 0 ? 0 : 1,
+            msg: response > 0 ? 'Deleted' : 'Failed to delete user.',
+        })
+    } catch (error) {
+        reject(error)
+    }
+})

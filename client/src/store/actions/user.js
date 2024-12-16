@@ -31,6 +31,32 @@ export const getCurrent = () => async (dispatch) => {
         })
     }
 }
+
+export const getUsers = () => async (dispatch) => {
+    try {
+        const response = await apis.apiGetUsers()
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.GET_USERS,
+                currentData: response.data.response
+            })
+        } else {
+            dispatch({
+                type: actionTypes.GET_USERS,
+                msg: response.data.msg,
+                currentData: null
+            })
+        }
+
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_USERS,
+            currentData: null,
+            msg: error,
+        })
+    }
+}
+
 export const createBookmark = (postId) => async (dispatch) => {
     try {
         const response = await apis.apiCreateBookmark(postId)
@@ -68,3 +94,4 @@ export const getBookmarks = () => async (dispatch) => {
         console.log('Action.GetBookmarks.Error: ', error)
     }
 }
+
