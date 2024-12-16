@@ -44,7 +44,7 @@ const CreatePost = ({isUpdate}) => {
           district: dataUpdate.district || '',
           ward: dataUpdate.ward || '',
           images: JSON.parse(dataUpdate.images || '[]'),
-          description: JSON.parse(dataUpdate.description || '""')
+          description: dataUpdate.description || '""'
         };
       } catch (error) {
         console.error('Error parsing JSON:', error);
