@@ -72,18 +72,22 @@ const Item = ({ images, owner, title, star, description, price, size, city, dist
                         <p>{owner?.name}</p>
                     </div>
                     <div className='flex items-center gap-1'>
-                        <button
-                            type='button'
-                            className='bg-blue-700 text-white p-1 rounded-md'
-                        >
-                            {`Gọi ${owner?.phone}`}
-                        </button>
-                        <button
-                            type='button'
-                            className='text-blue-700 px-1 rounded-md border border-blue-700'
-                        >
-                            Nhắn zalo
-                        </button>
+                        <a href={`tel:${owner?.phone}`}>
+                            <button
+                                type='button'
+                                className='bg-blue-700 text-white p-1 rounded-md'
+                            >
+                                {`Gọi ${owner?.phone}`}
+                            </button>
+                        </a>
+                        <a href={`https://zalo.me/${owner?.phone}`}>
+                            <button
+                                type='button'
+                                className='text-blue-700 px-1 rounded-md border border-blue-700'
+                            >
+                                Nhắn zalo
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
