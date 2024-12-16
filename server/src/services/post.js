@@ -200,7 +200,7 @@ export const createNewPostService = (body, userId) => new Promise(async (resolve
             ward: body.ward || null,
             street: body.street || null,
             price: body.price,
-            description: String(body.description) || null,
+            description: JSON.stringify(body.description) || null,
             size: body.size,
             expiryDate: new Date(new Date().setDate(new Date().getDate() + 90)),
         })
