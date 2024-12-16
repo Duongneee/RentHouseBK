@@ -188,6 +188,7 @@ export const postFilterWithBookmarkService = (filter, page, userId) => new Promi
 
 export const createNewPostService = (body, userId) => new Promise(async (resolve, reject) => {
     try {
+        // console.log('Service.CreateNewPost.Body: ', String(body.description))
         await db.Post.create({
             id: generateId(),
             title: body.title,

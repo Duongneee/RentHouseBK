@@ -34,7 +34,6 @@ const Overview = ({payload, setPayload, invalidFields, setInvalidFields, resetTr
       categoryCode
     }));
   };
-  console.log(dataUpdate)
   return (
     <div>
       <InputFormV2  
@@ -74,7 +73,9 @@ const Overview = ({payload, setPayload, invalidFields, setInvalidFields, resetTr
                       rows='10'  
                       className='w-full rounded-md outline-none border border-gray-300 p-2'
                       value={payload.description}
-                      onChange={(e) => setPayload(prev => ({...prev, description: e.target.value}))}
+                      onChange={(e) => setPayload(prev => ({
+                        ...prev, 
+                        description: e.target.value}))}
               ></textarea>
         </div>
         <div className='w-1/2 flex-col gap-4'>
