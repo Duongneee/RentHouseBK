@@ -4,7 +4,9 @@ import actionTypes from "../actions/actionTypes";
 const initState = {
     currentData: {},
     bookmarks: {},
-    msg: null
+    msg: null,
+    count: 0,
+    users: [],
 }
 
 const userReducer = (state = initState, action) => {
@@ -15,7 +17,6 @@ const userReducer = (state = initState, action) => {
                 bookmarks: action.bookmarks || {}
             }
         case actionTypes.GET_CURRENT:
-        case actionTypes.GET_USERS:
             return {
                 ...state,
                 currentData: action.currentData || {}
@@ -25,8 +26,13 @@ const userReducer = (state = initState, action) => {
                 ...state,
                 currentData: {}
             }
-
-
+        case actionTypes.GET_USERS:
+            return {
+                ...state,
+                users: action.users || [],
+                count: action.count || 0,
+                msg: action.msg || '',
+            }
         default:
             return state;
     }

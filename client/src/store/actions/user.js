@@ -32,27 +32,27 @@ export const getCurrent = () => async (dispatch) => {
     }
 }
 
-export const getUsers = () => async (dispatch) => {
+export const getUsers = (query) => async (dispatch) => {
     try {
-        const response = await apis.apiGetUsers()
+        const response = await apis.apiGetUsers(query)
         if (response?.data.err === 0) {
             dispatch({
                 type: actionTypes.GET_USERS,
-                currentData: response.data.response
+                users: response.data.response?.rows,
+                count: response.data.response?.count,
             })
         } else {
             dispatch({
                 type: actionTypes.GET_USERS,
                 msg: response.data.msg,
-                currentData: null
+                users: [],
             })
         }
 
     } catch (error) {
         dispatch({
             type: actionTypes.GET_USERS,
-            currentData: null,
-            msg: error,
+            users: null,
         })
     }
 }
