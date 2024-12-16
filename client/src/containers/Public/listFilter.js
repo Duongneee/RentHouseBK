@@ -26,6 +26,7 @@ const ListFilter = ({ page, filters }) => {
             </div>
             <div className='items'>
                 {posts?.length > 0 && posts.map(item => {
+
                     return (
                         <Item
                             key={item?.id}
