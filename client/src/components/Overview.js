@@ -34,7 +34,6 @@ const Overview = ({payload, setPayload, invalidFields, setInvalidFields, resetTr
       categoryCode
     }));
   };
-  console.log(dataUpdate)
   return (
     <div>
       <InputFormV2  
