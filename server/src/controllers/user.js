@@ -107,13 +107,14 @@ export const deleteBookmark = async (req, res) => {
 }
 
 export const getUsers = async (req, res) => {
+    const { page = 0 } = req.query
     try {
-        const response = await services.getUsersService()
+        const response = await services.getUsersService(parseInt(page))
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Failed to get post controller: ' + error
+            msg: 'Failed to get users ' + error
         })
     }
 }

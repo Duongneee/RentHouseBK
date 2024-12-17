@@ -108,19 +108,24 @@ export const deleteBookmark = (record) => new Promise(async (resolve, reject) =>
     }
 })
 
-export const getUsersService = () => new Promise(async (resolve, reject) => {
+export const getUsersService = (page) => new Promise(async (resolve, reject) => {
     try {
-        const response = await db.User.findAll({
+        const limit = 10
+        const offset = page * limit
+        const response = await db.User.findAndCountAll({
             raw: true,
             nest: true,
+            offset,
+            limit,
             attributes: ['id', 'name', 'phone', 'avatar','isAdmin'],
             where: {
                 isAdmin: { [Op.ne]: 1 } 
-            }
+            },
+            order: [['createdAt', 'DESC']],
         })
         resolve({
-            err: response ? 0 : 1,
-            msg: response ? 'OK' : 'Failed to get users.',
+            err: response.rows.length > 0 ? 0 : 1,
+            msg: response.rows.length > 0 ? 'OK' : 'No users found.',
             response
         })
     } catch (error) {
