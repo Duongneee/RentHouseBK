@@ -109,8 +109,6 @@ const handleSubmit = async () => {
     size: payload.size.toString(),
     userId: currentData.id, 
   }
-  // let invalids = validate(finalPayload, setInvalidFields)
-  // if (invalids === 0) {
   const result = validate(payload, setInvalidFields);
   console.log('result', result)
   if (result !== 1) {
@@ -119,7 +117,6 @@ const handleSubmit = async () => {
     try {
         let response;
 
-        // Gửi yêu cầu API
         if (isUpdate) {
             response = await apiUpdatePost(finalPayload);
         } else {
@@ -132,21 +129,28 @@ const handleSubmit = async () => {
                 isUpdate ? 'Đã chỉnh sửa bài đăng' : 'Đã thêm bài đăng mới',
                 'success'
             ).then(() => {
-                resetPayload(); // Reset dữ liệu form
+                resetPayload(); 
                 if (isUpdate) {
                     dispatch(resetData());
                 }
             });
-        } else if (response?.data?.err === 1 && response?.data?.msg === "Insufficient balance") {
-            Swal.fire('Thất bại', 'Tài khoản không đủ số dư để đăng bài', 'error');
-        } else {
+        } 
+      } catch (error) {
+          if (error.response) {
+            const { status, data } = error.response;
+    
+            if (status === 400 && data?.err === -1 && data?.msg === "Insufficient balance") {
+              Swal.fire('Thất bại', 'Tài khoản không đủ số dư để đăng bài', 'error');
+            } else {
+              Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+            }
+          } else {
+            console.error("Unexpected error:", error);
             Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+          }
         }
-    } catch (error) {
-        Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
       }
-  }
-}
+    };
   const resetPayload = () => {
     setPayload({
       title: '',
