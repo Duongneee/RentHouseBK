@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import data from '../untils/data.json'; // Assuming you have a data.json file with city, district, and ward information
+import { Select} from './';
 
-const Address = ({ setPayload, invalidFields, payload, resetTrigger }) => {
+const Address = ({ setPayload, invalidFields,setInvalidFields, payload, resetTrigger,  }) => {
     const { dataUpdate } = useSelector(state => state.post);
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
@@ -83,33 +84,37 @@ const Address = ({ setPayload, invalidFields, payload, resetTrigger }) => {
         <div>
             <h2 className='font-semibold text-xl py-4'>Địa chỉ cho thuê</h2>
             <div className='flex items-center gap-4'>
-                <div className='flex flex-col'>
-                    <label htmlFor="city">Tỉnh/Thành phố</label>
-                    <select id="city" value={selectedCity} onChange={handleCityChange} className='border p-2 rounded'>
-                        <option value="">Chọn Tỉnh/Thành phố</option>
-                        {cities.map(city => (
-                            <option key={city.Id} value={city.Id}>{city.Name}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className='flex flex-col'>
-                    <label htmlFor="district">Quận/Huyện</label>
-                    <select id="district" value={selectedDistrict} onChange={handleDistrictChange} className='border p-2 rounded'>
-                        <option value="">Chọn Quận/Huyện</option>
-                        {districts.map(district => (
-                            <option key={district.Id} value={district.Id}>{district.Name}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className='flex flex-col'>
-                    <label htmlFor="ward">Phường/Xã</label>
-                    <select id="ward" value={selectedWard} onChange={handleWardChange} className='border p-2 rounded'>
-                        <option value="">Chọn Phường/Xã</option>
-                        {wards.map(ward => (
-                            <option key={ward.Id} value={ward.Id}>{ward.Name}</option>
-                        ))}
-                    </select>
-                </div>
+                    <Select 
+                            value={selectedCity} 
+                            setValue={(value) => setSelectedCity(value)}
+                            onChange={handleCityChange}
+                            name='city' 
+                            options={cities || []} 
+                            label='Tỉnh/Thành phố' 
+                            invalidFields={invalidFields}
+                            setInvalidFields={setInvalidFields}
+                            />
+                <Select 
+                            value={selectedDistrict} 
+                            setValue={(value) => setSelectedDistrict(value)}
+                            onChange={handleDistrictChange}
+                            name='district' 
+                            options={districts || []} 
+                            label='Quận/Huyện' 
+                            invalidFields={invalidFields}
+                            setInvalidFields={setInvalidFields}
+                            />
+                <Select 
+                            value={selectedWard} 
+                            setValue={(value) => setSelectedWard(value)}
+                            onChange={handleWardChange}
+                            name='ward' 
+                            options={wards || []} 
+                            label='Phường/Xã' 
+                            invalidFields={invalidFields}
+                            setInvalidFields={setInvalidFields}
+                            />
+                      
             </div>
         </div>
     );
