@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom'
 
 const nav = [
     { name: "Trang chủ", path: '/' },
-    { name: "Cho thuê phòng trọ", path: 'cho-thue-phong-tro' },
-    { name: "Nhà cho thuê", path: 'nha-cho-thue' },
-    { name: "Cho thuê căn hộ", path: 'cho-thue-can-ho' },
-    { name: "Cho thuê mặt bằng", path: 'cho-thue-mat-bang' }
+    { name: "Cho thuê phòng trọ", path: '/cho-thue-phong-tro' },
+    { name: "Nhà cho thuê", path: '/nha-cho-thue' },
+    { name: "Cho thuê căn hộ", path: '/cho-thue-can-ho' },
+    { name: "Cho thuê mặt bằng", path: '/cho-thue-mat-bang' }
 ]
 
 const notActive = 'px-6 py-3 h-full flex items-center text-gray-200 hover:text-white hover:bg-indigo-400 transition-all duration-300 rounded-lg transform hover:scale-105 hover:shadow-lg'
