@@ -152,7 +152,7 @@ export const createNewPost = async (req, res) => {
         try {
             // Attempt to create the post
             const response = await postService.createNewPostService(req.body, id);
-
+            
             // If successful, return the response
             return res.status(200).json(response);
         } catch (postCreationError) {
