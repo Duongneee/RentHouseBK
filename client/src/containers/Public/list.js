@@ -25,6 +25,7 @@ const List = ({ page }) => {
             </div>
             <div className='items'>
                 {posts?.length > 0 && posts.map(item => {
+
                     return (
                         <Item
                             key={item?.id}
@@ -32,7 +33,7 @@ const List = ({ page }) => {
                             district={item?.district}
                             price={item?.price}
                             size={item?.size}
-                            description={item?.description}
+                            description={JSON.parse(item?.description)}
                             images={JSON.parse(item?.images)}
                             star={+item?.star}
                             title={item?.title}

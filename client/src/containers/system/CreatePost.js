@@ -44,7 +44,7 @@ const CreatePost = ({isUpdate}) => {
           district: dataUpdate.district || '',
           ward: dataUpdate.ward || '',
           images: JSON.parse(dataUpdate.images || '[]'),
-          description: dataUpdate.description || '""'
+          description: JSON.parse(dataUpdate.description || '[]')
         };
       } catch (error) {
         console.error('Error parsing JSON:', error);
@@ -107,7 +107,7 @@ const handleSubmit = async () => {
     ...payload,
     price: +payload.price ,
     size: payload.size.toString(),
-    userId: currentData.id,    
+    userId: currentData.id, 
   }
   // let invalids = validate(finalPayload, setInvalidFields)
   // if (invalids === 0) {

@@ -86,12 +86,22 @@ const DetailPost = () => {
           <div className='mt-8'>
             <h3 className='font-semibold text-xl my-[4px]'>Thông tin mô tả</h3>
             <div className='flex flex-col gap-3'>
-              <span>{posts?.description?.split('\n').map((line, index) => (
-                <React.Fragment key={index}>
-                  {line}
-                  <br />
-                </React.Fragment>
-              ))}</span>
+            <span>
+            {(() => {
+                let description;
+                try {
+                    description = JSON.parse(posts?.description);
+                } catch (error) {
+                    description = posts?.description; 
+                }
+                return description?.split('\n').map((line, index) => (
+                    <React.Fragment key={index}>
+                        {line}
+                        <br />
+                    </React.Fragment>
+                ));
+            })()}
+        </span>
             </div>
           </div>
 
