@@ -1,7 +1,7 @@
 import { raw } from 'express'
 import db from '../models/index'
 const { sequelize } = db
-import { v4 as generateId } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import { where } from 'sequelize'
 const { Op, fn, col } = require('sequelize');
 
@@ -115,6 +115,7 @@ export const getUsersService = (page) => new Promise(async (resolve, reject) => 
         const response = await db.User.findAndCountAll({
             raw: true,
             nest: true,
+
             offset,
             limit,
             attributes: ['id', 'name', 'phone', 'avatar','isAdmin'],
