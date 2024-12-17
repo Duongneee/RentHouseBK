@@ -1,7 +1,7 @@
 import { raw } from 'express'
 import db from '../models/index'
 const { sequelize } = db
-import { v4 as generateId } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import { where } from 'sequelize'
 const { Op, fn, col } = require('sequelize');
 
@@ -113,9 +113,9 @@ export const getUsersService = () => new Promise(async (resolve, reject) => {
         const response = await db.User.findAll({
             raw: true,
             nest: true,
-            attributes: ['id', 'name', 'phone', 'avatar','isAdmin'],
+            attributes: ['id', 'name', 'phone', 'avatar', 'isAdmin'],
             where: {
-                isAdmin: { [Op.ne]: 1 } 
+                isAdmin: { [Op.ne]: 1 }
             }
         })
         resolve({
