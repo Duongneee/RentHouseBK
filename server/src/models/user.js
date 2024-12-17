@@ -46,7 +46,10 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     sequelize,
-    modelName: 'User'
+    modelName: 'User',
+    timestamps: true, // Bật timestamps: createdAt, updatedAt
+    createdAt: 'createdAt', // Tên trường cho thời gian tạo
+    updatedAt: 'updatedAt', // Tên trường cho thời gian cập nhật
   });
   return User;
 };

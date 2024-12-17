@@ -26,6 +26,18 @@ const ListFilter = ({ page, filters }) => {
             </div>
             <div className='items'>
                 {posts?.length > 0 && posts.map(item => {
+                    let description = null;
+                    let images = null;
+                    try {
+                        description = typeof item?.description === "string" ? JSON.parse(item?.description) : item?.description;
+                    } catch (error) {
+                        description = item?.description; 
+                    }
+                    try {
+                        images = JSON.parse(item?.images);
+                    } catch (error) {
+                        images = item?.images; 
+                    }
                     return (
                         <Item
                             key={item?.id}
@@ -33,8 +45,8 @@ const ListFilter = ({ page, filters }) => {
                             district={item?.district}
                             price={item?.price}
                             size={item?.size}
-                            description={item?.description}
-                            images={JSON.parse(item?.images)}
+                            description={description || ''}
+                            images={images}
                             star={+item?.star}
                             title={item?.title}
                             owner={item?.owner}

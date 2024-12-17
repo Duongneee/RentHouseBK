@@ -22,7 +22,7 @@ const Sidebar = () => {
                 {/* Avatar */}
                 <div className="relative w-20 h-20">
                     <img
-                        src={anonAvatar}
+                        src={currentData.avatar || anonAvatar}
                         alt="avatar"
                         className="w-full h-full object-cover rounded-full border-4 border-indigo-500 shadow-lg"
                     />
