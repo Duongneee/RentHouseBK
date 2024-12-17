@@ -131,7 +131,7 @@ export const postFilterService = (filter, page) => new Promise(async (resolve, r
             raw: true,
             nest: true,
             include: [
-                { model: db.User, as: 'owner', attributes: ['name', 'phone'] },
+                { model: db.User, as: 'owner', attributes: ['name', 'phone', 'avatar'] },
             ],
             where: { ...filter },
             attributes: ['id', 'title', 'star', 'images', 'price', 'size', 'city', 'district', 'description'],
