@@ -112,40 +112,41 @@ const handleSubmit = async () => {
   // let invalids = validate(finalPayload, setInvalidFields)
   // if (invalids === 0) {
   const result = validate(payload, setInvalidFields);
- 
-  if ( result === 0) {
-
-  }
+  console.log('result', result)
+  if (result !== 1) {
+    Swal.fire('Thất bại', 'Vui lòng điền đầy đủ thông tin và thêm ảnh', 'warning');
+} else {
     try {
-      let response;
-      if (isUpdate) {
-        response = await apiUpdatePost(finalPayload);
-      } else {
-        response = await apiCreatePost(finalPayload);
-      }
+        let response;
 
-      if (response?.data.err === 0) {
-        Swal.fire(
-          'Thành công',
-          isUpdate ? 'Đã chỉnh sửa bài đăng' : 'Đã thêm bài đăng mới',
-          'success'
-        ).then(() => {
-          resetPayload(); // Reset toàn bộ payload
-          if (isUpdate) {
-            dispatch(resetData());
-          }
-        })
-          } else {
-            Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
-          }
-        } catch (error) {
-          if (error.response?.data?.message === 'Tài khoản không đủ số dư để đăng bài') {
+        // Gửi yêu cầu API
+        if (isUpdate) {
+            response = await apiUpdatePost(finalPayload);
+        } else {
+            response = await apiCreatePost(finalPayload);
+        }
+
+        if (response?.data?.err === 0) {
+            Swal.fire(
+                'Thành công',
+                isUpdate ? 'Đã chỉnh sửa bài đăng' : 'Đã thêm bài đăng mới',
+                'success'
+            ).then(() => {
+                resetPayload(); // Reset dữ liệu form
+                if (isUpdate) {
+                    dispatch(resetData());
+                }
+            });
+        } else if (response?.data?.err === 1 && response?.data?.msg === "Insufficient balance") {
             Swal.fire('Thất bại', 'Tài khoản không đủ số dư để đăng bài', 'error');
-          } else {
+        } else {
             Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
-          }
-    }
-  };
+        }
+    } catch (error) {
+        Swal.fire('Thất bại', 'Đã có lỗi xảy ra', 'error');
+      }
+  }
+}
   const resetPayload = () => {
     setPayload({
       title: '',
