@@ -18,7 +18,7 @@ const DetailPost = () => {
   const { posts } = useSelector(state => state.post)
   const formattedTime = moment(posts?.createdAt).fromNow();
   const images = posts?.images ? JSON.parse(posts.images) : [];
-  const address = `${posts?.street}, ${posts?.ward}, ${posts?.district}, ${posts?.city}`
+  const address = `${posts?.street ? (posts?.street + ', ') : ''}${posts?.ward}, ${posts?.district}, ${posts?.city}`
   const formattedAddress = encodeURIComponent(address)
   const { isLoggedIn } = useSelector(state => state.auth)
   const isBookmarked = posts?.isBookmarked
@@ -66,7 +66,7 @@ const DetailPost = () => {
             </div>
             <div className='flex items-center gap-2'>
               <HiLocationMarker color='#2563eb' />
-              <span>{`Địa chỉ: ${posts?.street}, ${posts?.ward}, ${posts?.district}, ${posts?.city}.`}</span>
+              <span>{`Địa chỉ: ${posts?.street ? (posts?.street + ', ') : ''}${posts?.ward}, ${posts?.district}, ${posts?.city}.`}</span>
             </div>
             <div className='flex items-center justify-between'>
               <span className='flex items-center gap-1'>
@@ -86,22 +86,22 @@ const DetailPost = () => {
           <div className='mt-8'>
             <h3 className='font-semibold text-xl my-[4px]'>Thông tin mô tả</h3>
             <div className='flex flex-col gap-3'>
-            <span>
-            {(() => {
-                let description;
-                try {
+              <span>
+                {(() => {
+                  let description;
+                  try {
                     description = JSON.parse(posts?.description);
-                } catch (error) {
-                    description = posts?.description; 
-                }
-                return description?.split('\n').map((line, index) => (
+                  } catch (error) {
+                    description = posts?.description;
+                  }
+                  return description?.split('\n').map((line, index) => (
                     <React.Fragment key={index}>
-                        {line}
-                        <br />
+                      {line}
+                      <br />
                     </React.Fragment>
-                ));
-            })()}
-        </span>
+                  ));
+                })()}
+              </span>
             </div>
           </div>
 
